@@ -1,0 +1,12 @@
+{
+    "name": "firephp-libs",
+    "dependencies": [
+        "narwhal"
+    ],
+    "using": {
+        "FirePHPCore": {
+            "catalog": "file://./catalog.json",
+            "name": "FirePHPCore"
+        }
+    }
+}
