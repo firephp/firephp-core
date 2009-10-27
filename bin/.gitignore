@@ -1,0 +1,7 @@
+# Ignore all
+/*
+# except for
+!/.gitignore
+!/activate
+!/activate.bash
+!/sea

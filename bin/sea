@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# this script is intended to work both in narwhal/bin and in
+# any project's bin dir; it's copied by tusk --init.
+
+# get the absolute path of the executable
+SELF_PATH=$(cd -P -- "$(dirname -- "$0")" && pwd -P) && SELF_PATH=$SELF_PATH/$(basename -- "$0")
+
+# resolve symlinks
+while [ -h "$SELF_PATH" ]; do
+	DIR=$(dirname -- "$SELF_PATH")
+	SYM=$(readlink -- "$SELF_PATH")
+	SELF_PATH=$(cd -- "$DIR" && cd -- $(dirname -- "$SYM") && pwd)/$(basename -- "$SYM")
+done
+
+export PACKAGE_HOME=$(dirname -- "$(dirname -- "$SELF_PATH")")
+
+source "$PACKAGE_HOME/bin/activate.bash"
+
+export OLDSEA="$SEA"
+export SEA="$PACKAGE_HOME"
+export SEALVL="$((SEALVL + 1))" 
+
+if [ "$#" -lt 1 ]; then
+    echo PATH="$PATH" >&2
+    echo SEA="$SEA" >&2
+    echo SEALVL="$SEALVL" >&2
+    export PS1="\e[00;35mTUSK[\e[00;33mfirephp-libs\e[00;35m]:\e[m "
+    cd $PACKAGE_HOME
+    "$SHELL"
+else
+    "$SHELL" -c "$*"
+fi
+if [ "$OLDSEA" != "" ]; then
+    echo SEA="$OLDSEA" >&2
+fi
+echo SEALVL="$((SEALVL - 1))" >&2
+

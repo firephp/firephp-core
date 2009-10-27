@@ -1,0 +1,9 @@
+{
+    "schema": "1.1",
+    "packages": {
+        "FirePHPCore": {
+            "location": "file://./",
+            "path": "packages/FirePHPCore"
+        }
+    }
+}
