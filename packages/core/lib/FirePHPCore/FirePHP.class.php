@@ -537,8 +537,8 @@ class FirePHP {
    * @return true
    * @throws Exception
    */
-  public function log($Object, $Label=null) {
-    return $this->fb($Object, $Label, FirePHP::LOG);
+  public function log($Object, $Label=null, $Options=array()) {
+    return $this->fb($Object, $Label, FirePHP::LOG, $Options);
   } 
 
   /**
@@ -550,8 +550,8 @@ class FirePHP {
    * @return true
    * @throws Exception
    */
-  public function info($Object, $Label=null) {
-    return $this->fb($Object, $Label, FirePHP::INFO);
+  public function info($Object, $Label=null, $Options=array()) {
+    return $this->fb($Object, $Label, FirePHP::INFO, $Options);
   } 
 
   /**
@@ -563,8 +563,8 @@ class FirePHP {
    * @return true
    * @throws Exception
    */
-  public function warn($Object, $Label=null) {
-    return $this->fb($Object, $Label, FirePHP::WARN);
+  public function warn($Object, $Label=null, $Options=array()) {
+    return $this->fb($Object, $Label, FirePHP::WARN, $Options);
   } 
 
   /**
@@ -576,8 +576,8 @@ class FirePHP {
    * @return true
    * @throws Exception
    */
-  public function error($Object, $Label=null) {
-    return $this->fb($Object, $Label, FirePHP::ERROR);
+  public function error($Object, $Label=null, $Options=array()) {
+    return $this->fb($Object, $Label, FirePHP::ERROR, $Options);
   } 
 
   /**
@@ -589,7 +589,7 @@ class FirePHP {
    * @return true
    * @throws Exception
    */
-  public function dump($Key, $Variable) {
+  public function dump($Key, $Variable, $Options=array()) {
     if(!is_string($Key)) {
       throw $this->newException('Key passed to dump() is not a string');
     }
@@ -599,7 +599,7 @@ class FirePHP {
     if(!preg_match_all('/^[a-zA-Z0-9-_\.:]*$/', $Key, $m)) {
       throw $this->newException('Key passed to dump() contains invalid characters [a-zA-Z0-9-_\.:]');
     }
-    return $this->fb($Variable, $Key, FirePHP::DUMP);
+    return $this->fb($Variable, $Key, FirePHP::DUMP, $Options);
   }
   
   /**
@@ -623,8 +623,8 @@ class FirePHP {
    * @return true
    * @throws Exception
    */
-  public function table($Label, $Table) {
-    return $this->fb($Table, $Label, FirePHP::TABLE);
+  public function table($Label, $Table, $Options=array()) {
+    return $this->fb($Table, $Label, FirePHP::TABLE, $Options);
   }
   
   /**

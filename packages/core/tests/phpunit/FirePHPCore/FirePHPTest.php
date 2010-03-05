@@ -81,6 +81,30 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
             $this->fail("json_objectStack member should not be logged");
         }
     }
+    
+    /**
+     * @issue http://code.google.com/p/firephp/issues/detail?id=114
+     */
+    public function testCustomFileLineOptions()
+    {
+        $firephp = new FirePHP_Test_Class();
+
+        $firephp->log("message", "label", array("File"=>"/file/path", "Line"=>"1"));
+        $firephp->info("message", "label", array("File"=>"/file/path", "Line"=>"1"));
+        $firephp->warn("message", "label", array("File"=>"/file/path", "Line"=>"1"));
+        $firephp->error("message", "label", array("File"=>"/file/path", "Line"=>"1"));
+        $firephp->dump("key", "value", array("File"=>"/file/path", "Line"=>"1"));
+        $firephp->table("label", array(array("header"),array("cell")), array("File"=>"/file/path", "Line"=>"1"));
+
+        $headers = $firephp->_getHeaders();
+
+        $this->assertEquals('75|[{"File":"\/file\/path","Line":"1","Type":"LOG","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-1']);
+        $this->assertEquals('76|[{"File":"\/file\/path","Line":"1","Type":"INFO","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-2']);
+        $this->assertEquals('76|[{"File":"\/file\/path","Line":"1","Type":"WARN","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-3']);
+        $this->assertEquals('77|[{"File":"\/file\/path","Line":"1","Type":"ERROR","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-4']);
+        $this->assertEquals('15|{"key":"value"}|', $headers['X-Wf-1-2-1-5']);
+        $this->assertEquals('89|[{"File":"\/file\/path","Line":"1","Type":"TABLE","Label":"label"},[["header"],["cell"]]]|', $headers['X-Wf-1-1-1-6']);
+    }
 
     public function testOptions()
     {
