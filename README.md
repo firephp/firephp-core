@@ -35,8 +35,10 @@ Feature Requests
 Please post to the [http://n2.nabble.com/New-Features-Improvements-f842712ef842658.html](New Features & Improvements) forum.
 
 
-Additional Server Libraries
----------------------------
+Libraries
+---------
+
+  * [FirePHPCore](http://github.com/cadorn/firephp-libs/tree/master/packages/core/)
 
 Additional libraries and framework integrations can be found [http://www.firephp.org/Wiki/Libraries/BuildYourOwn](here).
 
