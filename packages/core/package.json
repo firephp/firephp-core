@@ -8,5 +8,12 @@
             "url": "git://github.com/cadorn/firephp-libs.git",
             "path": "packages/core"
         }
-    ]
+    ],
+    "implements": {
+        "http://registry.pinf.org/cadorn.org/github/modular-php/packages/test/@meta/gateway/direct/0.1.0": {
+            "expose": [
+                "tests/client/"
+            ]
+        }
+    }
 }
