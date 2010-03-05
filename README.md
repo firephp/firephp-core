@@ -1,11 +1,45 @@
 
-FirePHP Server Library Toolchain
-================================
+FirePHP Server Libraries
+========================
 
-This project contains everything needed to work on server libraries for
-the [FirePHP Firefox Extension](http://www.firephp.org/).
+This project contains everything needed to work on server libraries for the [FirePHP Firefox Extension](http://www.firephp.org/).
 
-**STATUS: Under development. Not functional yet!**
+
+User Support
+------------
+
+FirePHP user support: [http://www.firephp.org/HQ/Support/Community.htm](http://www.firephp.org/HQ/Support/Community.htm)
+
+
+Mailing List
+------------
+
+FirePHP development: [http://groups.google.com/group/firephp-dev](http://groups.google.com/group/firephp-dev)
+
+
+Bug Reports
+-----------
+
+In the past FirePHP issues have been reported at: [http://code.google.com/p/firephp/issues/list](http://code.google.com/p/firephp/issues/list)
+
+The project has moved from GoogleCode to github. Please report new issues to:
+
+Extension Issues: [http://github.com/cadorn/firephp-extension/issues](http://github.com/cadorn/firephp-extension/issues)
+
+FirePHPCore Server Library Issues: [http://github.com/cadorn/firephp-libs/issues](http://github.com/cadorn/firephp-libs/issues)
+
+
+Feature Requests
+----------------
+
+Please post to the [http://n2.nabble.com/New-Features-Improvements-f842712ef842658.html](New Features & Improvements) forum.
+
+
+Additional Server Libraries
+---------------------------
+
+Additional libraries and framework integrations can be found [http://www.firephp.org/Wiki/Libraries/BuildYourOwn](here).
+
 
 
 License
