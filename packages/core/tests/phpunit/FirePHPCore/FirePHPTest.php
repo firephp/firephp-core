@@ -105,6 +105,18 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('15|{"key":"value"}|', $headers['X-Wf-1-2-1-5']);
         $this->assertEquals('89|[{"File":"\/file\/path","Line":"1","Type":"TABLE","Label":"label"},[["header"],["cell"]]]|', $headers['X-Wf-1-1-1-6']);
     }
+    
+    public function testRecursiveEncode()
+    {
+        $firephp = new FirePHP_Test_Class();
+
+        $obj = new FirePHPCore_FirePHPTest__TestObject();
+        $obj->child = $obj;
+
+        $firephp->log($obj, "label", array("File"=>"/file/path", "Line"=>"1"));
+        $headers = $firephp->_getHeaders();
+        $this->assertEquals('215|[{"File":"\/file\/path","Line":"1","Type":"LOG","Label":"label"},{"__className":"FirePHPCore_FirePHPTest__TestObject","public:var":"value","undeclared:child":"** Recursion (FirePHPCore_FirePHPTest__TestObject) **"}]|', $headers['X-Wf-1-1-1-1']);
+    }
 
     public function testOptions()
     {
@@ -163,4 +175,10 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         if(!$caught) $this->fail('No deprecation error thrown');
     }
       
+}
+
+
+class FirePHPCore_FirePHPTest__TestObject
+{
+    public $var = "value";
 }
