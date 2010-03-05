@@ -1,4 +1,10 @@
 
+    - (Issue 117) dump() method argument validation
+    - Started adding PHPUnit tests
+    - Some refactoring to support unit testing
+    - Deprecated setProcessorUrl() and setRendererUrl()
+    - Check User-Agent and X-FirePHP-Version header to detect FirePHP on client
+    - (Issue 135) FirePHP 0.4.3 with Firebug 1.5 changes user agent on the fly
     - (Issue 112) Error Predefined Constants Not available for PHP 5.x versions
 
 2008-06-14 - Release Version: 0.3.1

@@ -2,6 +2,7 @@
 
 /* NOTE: You must have the FirePHPCore library in your include path */
 set_include_path(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . "lib");
+
 require('FirePHPCore/fb.php');
 
 switch($_GET['action']) {

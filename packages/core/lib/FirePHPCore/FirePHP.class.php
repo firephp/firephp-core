@@ -454,26 +454,6 @@ class FirePHP {
       $this->fb($code, 'Assertion Failed', FirePHP::ERROR, array('File'=>$file,'Line'=>$line));
     
     }
-  }  
-  
-  /**
-   * Set custom processor url for FirePHP
-   *
-   * @param string $URL
-   */    
-  public function setProcessorUrl($URL)
-  {
-    $this->setHeader('X-FirePHP-ProcessorURL', $URL);
-  }
-
-  /**
-   * Set custom renderer url for FirePHP
-   *
-   * @param string $URL
-   */
-  public function setRendererUrl($URL)
-  {
-    $this->setHeader('X-FirePHP-RendererURL', $URL);
   }
   
   /**
@@ -612,12 +592,17 @@ class FirePHP {
    * @return boolean
    */
   public function detectClientExtension() {
-    /* Check if FirePHP is installed on client */
-    if(!@preg_match_all('/\sFirePHP\/([\.|\d]*)\s?/si',$this->getUserAgent(),$m) ||
-       !version_compare($m[1][0],'0.0.6','>=')) {
-      return false;
+    // Check if FirePHP is installed on client via User-Agent header
+    if(@preg_match_all('/\sFirePHP\/([\.\d]*)\s?/si',$this->getUserAgent(),$m) &&
+       version_compare($m[1][0],'0.0.6','>=')) {
+      return true;
+    } else
+    // Check if FirePHP is installed on client via X-FirePHP-Version header
+    if(@preg_match_all('/^([\.\d]*)$/si',$this->getRequestHeader("X-FirePHP-Version"),$m) &&
+       version_compare($m[1][0],'0.0.6','>=')) {
+      return true;
     }
-    return true;    
+    return false;
   }
  
   /**
@@ -634,7 +619,7 @@ class FirePHP {
       return false;
     }
   
-    if (headers_sent($filename, $linenum)) {
+    if ($this->headersSent($filename, $linenum)) {
       // If we are logging from within the exception handler we cannot throw another exception
       if($this->inExceptionHandler) {
         // Simply echo the error out to the page
@@ -939,10 +924,20 @@ class FirePHP {
   }
 
   /**
+   * Check if headers have already been sent
+   *
+   * @param string $Filename
+   * @param integer $Linenum
+   */
+  protected function headersSent(&$Filename, &$Linenum) {
+    return headers_sent($Filename, $Linenum);
+  }
+
+  /**
    * Send header
    *
    * @param string $Name
-   * @param string_type $Value
+   * @param string $Value
    */
   protected function setHeader($Name, $Value) {
     return header($Name.': '.$Value);
@@ -956,6 +951,23 @@ class FirePHP {
   protected function getUserAgent() {
     if(!isset($_SERVER['HTTP_USER_AGENT'])) return false;
     return $_SERVER['HTTP_USER_AGENT'];
+  }
+
+  /**
+   * Get a request header
+   *
+   * @return string|false
+   */
+  protected function getRequestHeader($Name) {
+    $headers = getallheaders();
+    if(isset($headers[$Name])) {
+        return $headers[$Name];
+    } else
+    // just in case headers got lower-cased in transport
+    if(isset($headers[strtolower($Name)])) {
+        return $headers[strtolower($Name)];
+    }
+    return false;
   }
 
   /**
@@ -1544,4 +1556,20 @@ class FirePHP {
 
       return $this->json_encode(strval($name)) . ':' . $encoded_value;
   }
+
+  /**
+   * @deprecated
+   */    
+  public function setProcessorUrl($URL)
+  {
+    trigger_error("The FirePHP::setProcessorUrl() method is no longer supported", E_USER_DEPRECATED);
+  }
+
+  /**
+   * @deprecated
+   */
+  public function setRendererUrl($URL)
+  {
+    trigger_error("The FirePHP::setRendererUrl() method is no longer supported", E_USER_DEPRECATED);
+  }  
 }

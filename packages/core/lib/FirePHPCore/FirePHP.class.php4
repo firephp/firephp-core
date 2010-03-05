@@ -488,12 +488,17 @@ class FirePHP {
    * @return boolean
    */
   function detectClientExtension() {
-    /* Check if FirePHP is installed on client */
-    if(!@preg_match_all('/\sFirePHP\/([\.|\d]*)\s?/si',$this->getUserAgent(),$m) ||
-       !version_compare($m[1][0],'0.0.6','>=')) {
-      return false;
+    // Check if FirePHP is installed on client via User-Agent header
+    if(@preg_match_all('/\sFirePHP\/([\.\d]*)\s?/si',$this->getUserAgent(),$m) &&
+       version_compare($m[1][0],'0.0.6','>=')) {
+      return true;
+    } else
+    // Check if FirePHP is installed on client via X-FirePHP-Version header
+    if(@preg_match_all('/^([\.\d]*)$/si',$this->getRequestHeader("X-FirePHP-Version"),$m) &&
+       version_compare($m[1][0],'0.0.6','>=')) {
+      return true;
     }
-    return true;    
+    return false;
   }
  
   /**
@@ -783,6 +788,23 @@ class FirePHP {
     return $_SERVER['HTTP_USER_AGENT'];
   }
 
+  /**
+   * Get a request header
+   *
+   * @return string|false
+   */
+  function getRequestHeader($Name) {
+    $headers = getallheaders();
+    if(isset($headers[$Name])) {
+        return $headers[$Name];
+    } else
+    // just in case headers got lower-cased in transport
+    if(isset($headers[strtolower($Name)])) {
+        return $headers[strtolower($Name)];
+    }
+    return false;
+  }
+  
   /**
    * Encode an object into a JSON string
    * 
