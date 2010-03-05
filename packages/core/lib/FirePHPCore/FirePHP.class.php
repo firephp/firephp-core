@@ -558,6 +558,15 @@ class FirePHP {
    * @throws Exception
    */
   public function dump($Key, $Variable) {
+    if(!is_string($Key)) {
+      throw $this->newException('Key passed to dump() is not a string');
+    }
+    if(strlen($Key)>100) {
+      throw $this->newException('Key passed to dump() is longer than 100 characters');
+    }
+    if(!preg_match_all('/^[a-zA-Z0-9-_\.:]*$/i', $Key, $m)) {
+      throw $this->newException('Key passed to dump() contains invalid characters [a-zA-Z0-9-_\.:]');
+    }
     return $this->fb($Variable, $Key, FirePHP::DUMP);
   }
   
