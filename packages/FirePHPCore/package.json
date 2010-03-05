@@ -1,3 +1,11 @@
 {
-    "name": "FirePHPCore"
+    "name": "FirePHPCore",
+    "author": "Christoph Dorn (http://www.christophdorn.com/)",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git://github.com/cadorn/firephp-libs.git",
+            "path": "packages/FirePHPCore"
+        }
+    ]
 }

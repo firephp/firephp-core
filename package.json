@@ -1,12 +1,10 @@
 {
     "name": "firephp-libs",
-    "dependencies": [
-        "narwhal"
-    ],
-    "using": {
-        "FirePHPCore": {
-            "catalog": "file://./catalog.json",
-            "name": "FirePHPCore"
+    "author": "Christoph Dorn (http://www.christophdorn.com/)",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git://github.com/cadorn/firephp-libs.git"
         }
-    }
+    ]
 }
