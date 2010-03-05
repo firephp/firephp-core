@@ -316,7 +316,7 @@ class FirePHP {
   public function setOptions($Options) {
     $this->options = array_merge($this->options,$Options);
   }
-  
+
   /**
    * Get options from the library
    *
@@ -325,7 +325,36 @@ class FirePHP {
   public function getOptions() {
     return $this->options;
   }
-  
+
+  /**
+   * Set an option for the library
+   * 
+   * @param string $Name
+   * @param mixed $Value
+   * @throws Exception
+   * @return void
+   */  
+  public function setOption($Name, $Value) {
+    if(!isset($this->options[$Name])) {
+      throw $this->newException('Unknown option: ' . $Name);
+    }
+    $this->options[$Name] = $Value;
+  }
+
+  /**
+   * Get an option from the library
+   *
+   * @param string $Name
+   * @throws Exception
+   * @return mixed
+   */
+  public function getOption($Name) {
+    if(!isset($this->options[$Name])) {
+      throw $this->newException('Unknown option: ' . $Name);
+    }
+    return $this->options[$Name];
+  }
+
   /**
    * Register FirePHP as your error handler
    * 
@@ -333,7 +362,7 @@ class FirePHP {
    * 
    * @return mixed Returns a string containing the previously defined error handler (if any)
    */
-  public function registerErrorHandler($throwErrorExceptions=true)
+  public function registerErrorHandler($throwErrorExceptions=false)
   {
     //NOTE: The following errors will not be caught by this error handler:
     //      E_ERROR, E_PARSE, E_CORE_ERROR,

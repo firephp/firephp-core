@@ -1,4 +1,6 @@
 
+    - (Issue 123) registerErrorHandler(false) by default
+    - Added setOption() and getOption() methods
     - (Issue 117) dump() method argument validation
     - Started adding PHPUnit tests
     - Some refactoring to support unit testing

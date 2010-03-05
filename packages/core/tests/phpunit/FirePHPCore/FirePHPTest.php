@@ -5,9 +5,6 @@ require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'TestHelper.php'
 
 class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
 {
-
-
-
     /**
      * @issue http://code.google.com/p/firephp/issues/detail?id=117
      */
@@ -48,7 +45,55 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         if(!$caught) $this->fail('No exception thrown');
     }
     
+    /**
+     * @issue http://code.google.com/p/firephp/issues/detail?id=123
+     */
+    public function testRegisterErrorHandler()
+    {
+        $firephp = new FirePHP_Test_Class();
+        $firephp->setOption("maxObjectDepth", 1);
+        $firephp->setOption("maxArrayDepth", 1);
 
+        $firephp->registerErrorHandler();
+        trigger_error("Hello World");
+        $headers = $firephp->_getHeaders();
+        if(!isset($headers["X-Wf-1-1-1-1"])) {
+            $this->fail("Error not in headers");
+        }
+    }
+
+    public function testOptions()
+    {
+        $firephp = new FirePHP_Test_Class();
+        
+        // defaults
+        $this->assertEquals(10, $firephp->getOption("maxObjectDepth"));
+        $this->assertEquals(20, $firephp->getOption("maxArrayDepth"));
+        $this->assertEquals(true, $firephp->getOption("useNativeJsonEncode"));
+        $this->assertEquals(true, $firephp->getOption("includeLineNumbers"));
+        
+        // modify
+        $firephp->setOption("maxObjectDepth", 1);
+        $this->assertEquals(1, $firephp->getOption("maxObjectDepth"));
+        
+        // invalid
+        $caught = false;
+        try {
+            $firephp->setOption("invalidName", 1);
+        } catch(Exception $e) {
+            $caught = true;
+        }
+        if(!$caught) $this->fail('No exception thrown');
+
+        $caught = false;
+        try {
+            $firephp->getOption("invalidName");
+        } catch(Exception $e) {
+            $caught = true;
+        }
+        if(!$caught) $this->fail('No exception thrown');
+    }
+    
     public function testDeprecatedMethods()
     {
         $firephp = new FirePHP_Test_Class();
