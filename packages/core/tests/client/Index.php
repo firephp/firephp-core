@@ -1,12 +1,12 @@
 <?php
 
 /* NOTE: You must have the FirePHPCore library in your include path */
-set_include_path('./../../lib/'.PATH_SEPARATOR.get_include_path());
+set_include_path(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . "lib");
 require('FirePHPCore/fb.php');
 
 switch($_GET['action']) {
     case 'test':
-        $file = dirname(__FILE__).DIRECTORY_SEPARATOR.'client'.DIRECTORY_SEPARATOR.$_GET['file'];
+        $file = dirname(__FILE__).DIRECTORY_SEPARATOR.'tests'.DIRECTORY_SEPARATOR.$_GET['file'];
 
         // Start output buffering
       
@@ -101,7 +101,7 @@ function renderFrameset() {
             <tr>
                 <td width="30%" nowrap valign="top" style="padding: 10px;">
                     <?php
-                    foreach( new DirectoryIterator(dirname(__FILE__).DIRECTORY_SEPARATOR."client") as $dir ) {
+                    foreach( new DirectoryIterator(dirname(__FILE__).DIRECTORY_SEPARATOR."tests") as $dir ) {
                         if($dir->isFile() && substr($dir->getBasename(),0,5)!=".tmp_") {
                             print '<p><a target="content" href="?action=test&file='.$dir->getBasename().'">'.$dir->getBasename().'</a></p>';
                         }
