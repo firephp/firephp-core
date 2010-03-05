@@ -8,6 +8,15 @@ set_include_path('./../lib/'.PATH_SEPARATOR.get_include_path());
 require('FirePHPCore/fb.php');
 
 
+
+
+FB::log('Value', 'Label');
+FB::log(array('k1'=>'v1', 'k2'=>'v2', 'k3'=>array('k1l1'=>'v2l2'), 'k4'=>array('v1l1', 'v2l1')));
+FB::log(true);
+FB::log(false);
+FB::log(20.3);
+
+
 FB::log('Hello Log');
 FB::info('Hello Info');
 FB::warn('Hello Warn');
