@@ -62,6 +62,26 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @issue http://code.google.com/p/firephp/issues/detail?id=122
+     */
+    public function testFirePHPClassInstanceLogging()
+    {
+        $firephp = new FirePHP_Test_Class();
+
+        $firephp->log($firephp);
+        $headers = $firephp->_getHeaders();
+        if(!preg_match_all('/"protected:objectStack":"\\*\\* Excluded by Filter \\*\\*"/', $headers['X-Wf-1-1-1-1'], $m)) {
+            $this->fail("objectStack member contains value");
+        }
+        if(!preg_match_all('/"protected:static:instance":"\\*\\* Excluded by Filter \\*\\*"/', $headers['X-Wf-1-1-1-1'], $m)) {
+            $this->fail("instance member should not be logged");
+        }
+        if(!preg_match_all('/"undeclared:json_objectStack":"\\*\\* Excluded by Filter \\*\\*"/', $headers['X-Wf-1-1-1-1'], $m)) {
+            $this->fail("json_objectStack member should not be logged");
+        }
+    }
+
     public function testOptions()
     {
         $firephp = new FirePHP_Test_Class();

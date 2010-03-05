@@ -216,8 +216,11 @@ class FirePHP {
    * 
    * @var array
    */
-  protected $objectFilters = array();
-  
+  protected $objectFilters = array(
+    'firephp' => array('objectStack', 'instance', 'json_objectStack'),
+    'firephp_test_class' => array('objectStack', 'instance', 'json_objectStack')
+  );
+
   /**
    * A stack of objects used to detect recursion during object encoding
    * 
@@ -1108,10 +1111,10 @@ class FirePHP {
         }
             
         $members = (array)$Object;
-            
-        foreach( $properties as $raw_name => $property ) {
-          
-          $name = $raw_name;
+
+        foreach( $properties as $plain_name => $property ) {
+
+          $name = $raw_name = $plain_name;
           if($property->isStatic()) {
             $name = 'static:'.$name;
           }
@@ -1126,10 +1129,10 @@ class FirePHP {
             $name = 'protected:'.$name;
             $raw_name = "\0".'*'."\0".$raw_name;
           }
-          
+
           if(!(isset($this->objectFilters[$class_lower])
                && is_array($this->objectFilters[$class_lower])
-               && in_array($raw_name,$this->objectFilters[$class_lower]))) {
+               && in_array($plain_name,$this->objectFilters[$class_lower]))) {
 
             if(array_key_exists($raw_name,$members)
                && !$property->isStatic()) {
@@ -1155,7 +1158,7 @@ class FirePHP {
         // Include all members that are not defined in the class
         // but exist in the object
         foreach( $members as $raw_name => $value ) {
-          
+
           $name = $raw_name;
           
           if ($name{0} == "\0") {
@@ -1163,13 +1166,15 @@ class FirePHP {
             $name = $parts[2];
           }
           
+          $plain_name = $name;
+
           if(!isset($properties[$name])) {
             $name = 'undeclared:'.$name;
-              
+
             if(!(isset($this->objectFilters[$class_lower])
                  && is_array($this->objectFilters[$class_lower])
-                 && in_array($raw_name,$this->objectFilters[$class_lower]))) {
-              
+                 && in_array($plain_name,$this->objectFilters[$class_lower]))) {
+
               $return[$name] = $this->encodeObject($value, $ObjectDepth + 1, 1);
             } else {
               $return[$name] = '** Excluded by Filter **';

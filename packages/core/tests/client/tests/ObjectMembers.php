@@ -55,3 +55,8 @@ $obj2->p = $obj1;
 
 FB::log($obj1,'$obj1');
 
+
+FB::setObjectFilter('TestObject', array('publicVar', 'protectedVar', 'privateStaticVar', 'publicStaticVar2'));
+FB::setObjectFilter('TestObject2', array('privateVar'));
+
+FB::log($obj, 'The object and all its members');

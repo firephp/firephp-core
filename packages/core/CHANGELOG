@@ -1,4 +1,5 @@
 
+    - (Issue 122) Filter objectStack property of FirePHP class
     - (Issue 123) registerErrorHandler(false) by default
     - Added setOption() and getOption() methods
     - (Issue 117) dump() method argument validation
