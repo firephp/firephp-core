@@ -1,0 +1,27 @@
+{
+    "uid": "http://registry.pinf.org/cadorn.org/github/firephp-libs/programs/insight/",
+    "name": "insight",
+    "dependencies": {
+        "insight": {
+            "catalog": "http://registry.pinf.org/cadorn.org/github/firephp-libs/packages/catalog.json",
+            "name": "insight",
+            "revision": "master"
+        }
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git://github.com/cadorn/firephp-libs.git",
+            "path": "programs/insight-standalone"
+        }
+    ],
+    "implements": {
+        "http://registry.pinf.org/cadorn.org/github/pinf/@meta/program/package/0.1.0": {
+            "builders": {
+                "insight-standalone": {
+                    "module": "builder"
+                }
+            }
+        }
+    }
+}
