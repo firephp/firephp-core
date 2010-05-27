@@ -1,0 +1,12 @@
+{
+    "uid": "http://registry.pinf.org/cadorn.org/github/firephp-libs/programs/standalone/",
+    "name": "standalone",
+    "author": "Christoph Dorn (http://www.christophdorn.com/)",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git://github.com/cadorn/firephp-libs.git",
+            "path": "programs/standalone"
+        }
+    ]
+}
