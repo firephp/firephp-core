@@ -39,10 +39,12 @@
  * @copyright   Copyright (C) 2007-2009 Christoph Dorn
  * @author      Christoph Dorn <christoph@christophdorn.com>
  * @license     http://www.opensource.org/licenses/bsd-license.php
- * @package     FirePHP
+ * @package     FirePHPCore
  */
 
-require_once dirname(__FILE__).'/FirePHP.class.php';
+if(!include_once("FirePHP/Init.php")) {
+    require_once dirname(__FILE__).'/FirePHP.class.php';
+}
 
 /**
  * Sends the given data to the FirePHP Firefox Extension.

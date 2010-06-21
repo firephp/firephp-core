@@ -39,7 +39,7 @@
  * @copyright   Copyright (C) 2007-2009 Christoph Dorn
  * @author      Christoph Dorn <christoph@christophdorn.com>
  * @license     http://www.opensource.org/licenses/bsd-license.php
- * @package     FirePHP
+ * @package     FirePHPCore
  */
 
 /**
@@ -68,7 +68,7 @@ if(!defined('E_USER_DEPRECATED')) {
  * @copyright   Copyright (C) 2007-2009 Christoph Dorn
  * @author      Christoph Dorn <christoph@christophdorn.com>
  * @license     http://www.opensource.org/licenses/bsd-license.php
- * @package     FirePHP
+ * @package     FirePHPCore
  */
 class FirePHP {
   
@@ -269,7 +269,17 @@ class FirePHP {
    * @return FirePHP
    */
   public static function init() {
-    return self::$instance = new self();
+    return self::setInstance(new self());
+  }
+  
+  /**
+   * Set the instance of the FirePHP singleton
+   * 
+   * @param FirePHP $instance The FirePHP object instance
+   * @return FirePHP
+   */
+  public static function setInstance($instance) {
+      return self::$instance = $instance;
   }
   
   /**
@@ -290,7 +300,7 @@ class FirePHP {
   public function getEnabled() {
     return $this->enabled;
   }
-  
+
   /**
    * Specify a filter to be used when encoding an object
    * 
@@ -626,7 +636,35 @@ class FirePHP {
   public function table($Label, $Table, $Options=array()) {
     return $this->fb($Table, $Label, FirePHP::TABLE, $Options);
   }
-  
+
+  /**
+   * Insight API wrapper
+   * 
+   * @see Insight_Helper::to()
+   */
+  public static function to() {
+      $instance = self::getInstance();
+      if(!method_exists($instance, "_to")) {
+          throw new Exception("FirePHP::to() implementation not loaded");
+      }
+      $args = func_get_args();
+      return call_user_func_array(array($instance, '_to'), $args);
+  }
+
+  /**
+   * Insight API wrapper
+   * 
+   * @see Insight_Helper::plugin()
+   */
+  public static function plugin() {
+      $instance = self::getInstance();
+      if(!method_exists($instance, "_plugin")) {
+          throw new Exception("FirePHP::plugin() implementation not loaded");
+      }
+      $args = func_get_args();
+      return call_user_func_array(array($instance, '_plugin'), $args);
+  }
+
   /**
    * Check if FirePHP is installed on client
    *

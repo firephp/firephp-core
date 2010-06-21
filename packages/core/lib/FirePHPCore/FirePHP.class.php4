@@ -43,7 +43,7 @@
  * @author      Christoph Dorn <christoph@christophdorn.com>
  * @author      Michael Day <manveru.alma@gmail.com>
  * @license     http://www.opensource.org/licenses/bsd-license.php
- * @package     FirePHP
+ * @package     FirePHPCore
  */
  
 /**
@@ -135,7 +135,7 @@ define('FirePHP_GROUP_END', 'GROUP_END');
  * @author      Christoph Dorn <christoph@christophdorn.com>
  * @author      Michael Day <manveru.alma@gmail.com>
  * @license     http://www.opensource.org/licenses/bsd-license.php
- * @package     FirePHP
+ * @package     FirePHPCore
  */
 class FirePHP {
   /**

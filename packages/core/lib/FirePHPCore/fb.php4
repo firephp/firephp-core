@@ -40,7 +40,7 @@
  * @author      Christoph Dorn <christoph@christophdorn.com>
  * @author      Michael Day <manveru.alma@gmail.com>
  * @license     http://www.opensource.org/licenses/bsd-license.php
- * @package     FirePHP
+ * @package     FirePHPCore
  */
 
 require_once dirname(__FILE__).'/FirePHP.class.php4';
