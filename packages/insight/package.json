@@ -8,5 +8,12 @@
             "url": "git://github.com/cadorn/firephp-libs.git",
             "path": "packages/insight"
         }
-    ]
+    ],
+    "dependencies": {
+        "insight-lib-php": {
+            "catalog": "http://registry.pinf.org/cadorn.org/github/insight/packages/catalog.json",
+            "name": "lib-php",
+            "revision": "master"
+        }
+    }
 }
