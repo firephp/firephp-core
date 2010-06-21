@@ -99,13 +99,6 @@
                   
     </target>    
     
-    <target name="tag">
-
-        <exec command="svn copy --username christoph@christophdorn.com -m 'Tag ${version}${release} for FirePHPCore' 'https://firephp.googlecode.com/svn/branches/Library-FirePHPCore-${version}' 'https://firephp.googlecode.com/svn/tags/Library-FirePHPCore-${version}${release}'" passthru="true"/>
-
-    </target>
-    
-    
     <target name="upload">
       
         <exec command="scp ./build/FirePHPLibrary-FirePHPCore-${version}${release}.zip ${upload.user}@${upload.server}:${upload.path}" passthru="true"/>
