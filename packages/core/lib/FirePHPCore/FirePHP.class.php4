@@ -51,7 +51,7 @@
  * 
  * @var string
  */
-define('FirePHP_VERSION', '0.3');
+define('FirePHP_VERSION', '0.3');   // @pinf replace '0.3' with '%%package.version%%'
 
 /**
  * Firebug LOG level

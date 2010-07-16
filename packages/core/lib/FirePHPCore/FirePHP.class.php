@@ -71,14 +71,14 @@ if(!defined('E_USER_DEPRECATED')) {
  * @package     FirePHPCore
  */
 class FirePHP {
-  
+
   /**
    * FirePHP version
    *
    * @var string
    */
-  const VERSION = '0.3';
-  
+  const VERSION = '0.3';    // @pinf replace '0.3' with '%%package.version%%'
+
   /**
    * Firebug LOG level
    *
