@@ -348,7 +348,8 @@ function renderFrameset() {
                     <ul>
                         <?php
                         foreach( new DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'classic-firebug') as $dir ) {
-                            if($dir->isFile() && $dir->getBasename()!='_init_.php' && substr($dir->getBasename(),0,5)!=".tmp_") {
+                            if($dir->isFile() && $dir->getBasename()!='_init_.php' && substr($dir->getBasename(),0,5)!=".tmp_"
+                               && $dir->getBasename()!='RedirectTarget.php') {
                                 print '<li><a target="content" href="?action=run&set=classic-firebug&file='.$dir->getBasename().'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
                             }
                         }
