@@ -4,6 +4,10 @@ TODO:
     - Fix code indenting in PHP 4 code
     - Port maxDepth option to PHP 4 code
 
+2010-07-19 - Release Version: 0.3.2rc3
+
+    - Fixed FirePHP/Init.php inclusion logic
+
 2010-07-19 - Release Version: 0.3.2rc2
 
     - (Issue 145) maxDepth option

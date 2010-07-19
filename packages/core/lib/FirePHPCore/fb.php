@@ -42,8 +42,16 @@
  * @package     FirePHPCore
  */
 
-if (!include_once("FirePHP/Init.php")) {
-    require_once dirname(__FILE__).'/FirePHP.class.php';
+$found = false;
+foreach( explode(PATH_SEPARATOR, get_include_path()) as $path ) {
+    if($path!='.' && file_exists( $path . DIRECTORY_SEPARATOR .  'FirePHP/Init.php')) {
+        $found = true;
+    }
+}
+if($found) {
+    require_once 'FirePHP/Init.php';
+} else {
+    require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'FirePHP.class.php';
 }
 
 /**
