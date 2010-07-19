@@ -1,4 +1,6 @@
 
+    - Fixed code indentation
+
 2010-03-05 - Release Version: 0.3.2rc1
 
     - (Issue 114) Allow options to be passed on to basic logging wrappers
