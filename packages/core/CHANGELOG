@@ -1,4 +1,13 @@
 
+TODO:
+
+    - Fix code indenting in PHP 4 code
+    - Port maxDepth option to PHP 4 code
+
+DONE:
+
+    - (Issue 145) maxDepth option
+    - Changed maxObjectDepth and maxArrayDepth option defaults to 5
     - Fixed code indentation
 
 2010-03-05 - Release Version: 0.3.2rc1

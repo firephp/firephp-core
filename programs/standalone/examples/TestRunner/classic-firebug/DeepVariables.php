@@ -2,9 +2,9 @@
 
 $firephp = FirePHP::getInstance(true);
 
-$firephp->setOptions(array('maxObjectDepth'=>2));
+$firephp->setOptions(array('maxObjectDepth' => 2));
 
-FB::setOptions(array('maxArrayDepth'=>3));
+FB::setOptions(array('maxDepth' => 8, 'maxArrayDepth' => 3));
 
 
 class TestObject {
@@ -41,6 +41,27 @@ $obj->childArray = $array;
 FB::setObjectFilter('TestObject2',array('name2','name3'));
 
 $firephp->fb($array);
+
+
+$deep = array();
+$obj1 = new TestObject();
+$deep['key'] = $obj1;
+$obj1->child = array();
+$obj2 = new TestObject();
+$obj1->child['key'] = $obj2;
+$obj2->child = array();
+$obj3 = new TestObject();
+$obj2->child['key'] = $obj3;
+$obj3->child = array();
+$obj4 = new TestObject();
+$obj3->child['key'] = $obj4;
+$obj4->child = array();
+$obj5 = new TestObject();
+$obj4->child['key'] = $obj5;
+$obj5->child = array();
+$obj5->child['key'] = 'Value';
+
+$firephp->fb($deep);
 
 
 $table = array();

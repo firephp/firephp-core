@@ -150,8 +150,8 @@ class FirePHP {
    * 
    * @var array
    */
-  var $options = array('maxObjectDepth' => 10,
-                       'maxArrayDepth' => 20,
+  var $options = array('maxObjectDepth' => 5,
+                       'maxArrayDepth' => 5,
                        'useNativeJsonEncode' => true,
                        'includeLineNumbers' => true);
 
@@ -244,8 +244,8 @@ class FirePHP {
    * Set some options for the library
    * 
    * Options:
-   *  - maxObjectDepth: The maximum depth to traverse objects (default: 10)
-   *  - maxArrayDepth: The maximum depth to traverse arrays (default: 20)
+   *  - maxObjectDepth: The maximum depth to traverse objects (default: 5)
+   *  - maxArrayDepth: The maximum depth to traverse arrays (default: 5)
    *  - useNativeJsonEncode: If true will use json_encode() (default: true)
    *  - includeLineNumbers: If true will include line numbers and filenames (default: true)
    * 

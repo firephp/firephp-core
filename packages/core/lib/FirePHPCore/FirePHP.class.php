@@ -206,8 +206,9 @@ class FirePHP {
      * 
      * @var array
      */
-    protected $options = array('maxObjectDepth' => 10,
-                               'maxArrayDepth' => 20,
+    protected $options = array('maxDepth' => 10,
+                               'maxObjectDepth' => 5,
+                               'maxArrayDepth' => 5,
                                'useNativeJsonEncode' => true,
                                'includeLineNumbers' => true);
 
@@ -319,8 +320,9 @@ class FirePHP {
      * Set some options for the library
      * 
      * Options:
-     *  - maxObjectDepth: The maximum depth to traverse objects (default: 10)
-     *  - maxArrayDepth: The maximum depth to traverse arrays (default: 20)
+     *  - maxDepth: The maximum depth to traverse (default: 10)
+     *  - maxObjectDepth: The maximum depth to traverse objects (default: 5)
+     *  - maxArrayDepth: The maximum depth to traverse arrays (default: 5)
      *  - useNativeJsonEncode: If true will use json_encode() (default: true)
      *  - includeLineNumbers: If true will include line numbers and filenames (default: true)
      * 
@@ -1141,8 +1143,12 @@ class FirePHP {
      * @param int $Depth The current traversal depth
      * @return array All members of the object
      */
-    protected function encodeObject($Object, $ObjectDepth = 1, $ArrayDepth = 1)
+    protected function encodeObject($Object, $ObjectDepth = 1, $ArrayDepth = 1, $MaxDepth = 1)
     {
+        if ($MaxDepth > $this->options['maxDepth']) {
+            return '** Max Depth ('.$this->options['maxDepth'].') **';
+        }
+
         $return = array();
     
         if (is_resource($Object)) {
@@ -1199,15 +1205,15 @@ class FirePHP {
                     if (array_key_exists($raw_name,$members)
                        && !$property->isStatic()) {
                   
-                        $return[$name] = $this->encodeObject($members[$raw_name], $ObjectDepth + 1, 1);      
+                        $return[$name] = $this->encodeObject($members[$raw_name], $ObjectDepth + 1, 1, $MaxDepth + 1);      
                 
                     } else {
                         if (method_exists($property,'setAccessible')) {
                             $property->setAccessible(true);
-                            $return[$name] = $this->encodeObject($property->getValue($Object), $ObjectDepth + 1, 1);
+                            $return[$name] = $this->encodeObject($property->getValue($Object), $ObjectDepth + 1, 1, $MaxDepth + 1);
                         } else
                         if ($property->isPublic()) {
-                            $return[$name] = $this->encodeObject($property->getValue($Object), $ObjectDepth + 1, 1);
+                            $return[$name] = $this->encodeObject($property->getValue($Object), $ObjectDepth + 1, 1, $MaxDepth + 1);
                         } else {
                             $return[$name] = '** Need PHP 5.3 to get value **';
                         }
@@ -1237,7 +1243,7 @@ class FirePHP {
                          && is_array($this->objectFilters[$class_lower])
                          && in_array($plain_name,$this->objectFilters[$class_lower]))) {
     
-                        $return[$name] = $this->encodeObject($value, $ObjectDepth + 1, 1);
+                        $return[$name] = $this->encodeObject($value, $ObjectDepth + 1, 1, $MaxDepth + 1);
                     } else {
                         $return[$name] = '** Excluded by Filter **';
                     }
@@ -1264,7 +1270,7 @@ class FirePHP {
                     $val['GLOBALS'] = '** Recursion (GLOBALS) **';
                 }
               
-                $return[$key] = $this->encodeObject($val, 1, $ArrayDepth + 1);
+                $return[$key] = $this->encodeObject($val, 1, $ArrayDepth + 1, $MaxDepth + 1);
             }
         } else {
             if (self::is_utf8($Object)) {
