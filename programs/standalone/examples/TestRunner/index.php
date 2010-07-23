@@ -301,11 +301,11 @@ function renderHeader() {
                 } else {
                     $("#time-example").html("?");
                 }
-                if(window.parent && window.parent.$("#option-show-headers").is(":checked")) {
+                if(window.parent && window.parent.$ && window.parent.$("#option-show-headers").is(":checked")) {
                     $("#request-headers-body").show();
                     $("#response-headers-body").show();
                 }
-                if(window.parent && window.parent.$("#option-show-included-files").is(":checked")) {
+                if(window.parent && window.parent.$ && window.parent.$("#option-show-included-files").is(":checked")) {
                     $("#included-files-init").show();
                     $("#included-files-example").show();
                 }
@@ -362,7 +362,8 @@ function renderFrameset() {
                     <ul>
                         <?php
                         foreach( new DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'insight-devcomp') as $dir ) {
-                            if($dir->isFile() && $dir->getBasename()!='_init_.php' && $dir->getBasename()!='package.json' && substr($dir->getBasename(),0,5)!=".tmp_") {
+                            if($dir->isFile() && $dir->getBasename()!='_init_.php' && $dir->getBasename()!='package.json' && substr($dir->getBasename(),0,5)!=".tmp_"
+                               && $dir->getBasename()!='RequestConsole-RedirectTarget.php') {
                                 $inspect = "x-insight=inspect&";
                                 if($dir->getBasename()=="RequestConsole-AutoInspect.php" ||
                                    $dir->getBasename()=="RequestConsole-ManualInspect.php") {

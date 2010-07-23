@@ -1,4 +1,9 @@
 
+DONE:
+
+  * Bugfix: Enable output buffering if ob_get_level()<=1
+  * Added redirect test for traditional and insight API
+
 2010-07-17 - Release Version: 0.0.0master1007171039
 
   * Bugfix: Append libs to include path when calling FirePHP/Init.php
