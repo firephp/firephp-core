@@ -1,5 +1,8 @@
 
-DONE:
+  * Enhancement: Initial implementation for $console->on()
+  * Bugfix: Compensate for magic_quotes_gpc when applicable
+
+2010-07-22 - Release Version: 0.0.0master1007221829
 
   * Bugfix: Enable output buffering if ob_get_level()<=1
   * Added redirect test for traditional and insight API
