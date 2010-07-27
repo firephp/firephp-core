@@ -2,8 +2,6 @@
 
 $firephp = FirePHP::getInstance(true);
 
-//$firephp->setOptions(array('useNativeJsonEncode'=>false));
-
 
 $firephp->fb('string');
 $firephp->fb('string','Label');

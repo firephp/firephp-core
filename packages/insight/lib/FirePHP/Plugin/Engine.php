@@ -110,13 +110,16 @@ class FirePHP_Plugin_Engine {
         $this->inExceptionHandler = false;
     }
 
-    public function handleException($exception) {
-        if(!$this->exceptionConsole) {
+    public function handleException($exception, $console=null) {
+        if(!$console) {
+            $console = $this->exceptionConsole;
+        }
+        if(!$console) {
             trigger_error('No exception console set for engine. See onException().');
             return;
         }
-        $this->exceptionConsole->setTemporaryTraceOffset(-1);
-        $this->exceptionConsole->meta(array(
+        $console->setTemporaryTraceOffset(-1);
+        $console->meta(array(
             'encoder.depthExtend' => 5,
             'encoder.exception.traceOffset' => -1
         ))->error($exception);

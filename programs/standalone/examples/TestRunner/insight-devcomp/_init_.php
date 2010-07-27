@@ -4,5 +4,5 @@
 
 // See FirePHP Companion for result
 
+define('INSIGHT_CONFIG_PATH', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'package.json');
 require_once('FirePHP/Init.php');
-FirePHP::getInstance()->setConfig(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'package.json');

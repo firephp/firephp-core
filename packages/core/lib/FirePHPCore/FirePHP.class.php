@@ -193,7 +193,7 @@ class FirePHP {
      * @var boolean
      */
     protected $throwAssertionExceptions = false;
-    
+
     /**
      * Wildfire protocol message index
      *
@@ -228,13 +228,20 @@ class FirePHP {
      * @var object
      */
     protected $objectStack = array();
-    
+
     /**
      * Flag to enable/disable logging
      * 
      * @var boolean
      */
     protected $enabled = true;
+
+    /**
+     * The insight console to log to if applicable
+     * 
+     * @var object
+     */
+    protected $logToInsightConsole = null;
 
     /**
      * When the object gets serialized only include specific object members.
@@ -269,7 +276,7 @@ class FirePHP {
     {
         return self::setInstance(new self());
     }
-    
+
     /**
      * Set the instance of the FirePHP singleton
      * 
@@ -280,7 +287,25 @@ class FirePHP {
     {
         return self::$instance = $instance;
     }
-    
+
+    /**
+     * Set an Insight console to direct all logging calls to
+     * 
+     * @param object $console The console object to log to
+     * @return void
+     */
+    public function setLogToInsightConsole($console)
+    {
+        if(is_string($console)) {
+            if(get_class($this)!='FirePHP_Insight' && !is_subclass_of($this, 'FirePHP_Insight')) {
+                throw new Exception('FirePHP instance not an instance or subclass of FirePHP_Insight!');
+            }
+            $this->logToInsightConsole = $this->to('request')->console($console);
+        } else {
+            $this->logToInsightConsole = $console;
+        }
+    }
+
     /**
      * Enable and disable logging to Firebug
      * 
@@ -711,6 +736,7 @@ class FirePHP {
      */
     public function fb($Object)
     {
+        static $insightGroupStack = array();
   
         if (!$this->enabled) {
             return false;
@@ -762,7 +788,48 @@ class FirePHP {
         } else {
             throw $this->newException('Wrong number of arguments to fb() function!');
         }
-      
+
+        if($this->logToInsightConsole!==null && (get_class($this)=='FirePHP_Insight' || is_subclass_of($this, 'FirePHP_Insight'))) {
+            $msg = $this->logToInsightConsole;
+            if ($Object instanceof Exception) {
+                $Type = self::EXCEPTION;
+            }
+            if($Label && $Type!=self::TABLE && $Type!=self::GROUP_START) {
+                $msg = $msg->label($Label);
+            }
+            switch($Type) {
+                case self::DUMP:
+                case self::LOG:
+                    return $msg->log($Object);
+                case self::INFO:
+                    return $msg->info($Object);
+                case self::WARN:
+                    return $msg->warn($Object);
+                case self::ERROR:
+                    return $msg->error($Object);
+                case self::TRACE:
+                    return $msg->trace($Object);
+                case self::EXCEPTION:
+                	return $this->plugin('engine')->handleException($Object, $msg);
+                case self::TABLE:
+                    if (isset($Object[0]) && !is_string($Object[0]) && $Label) {
+                        $Object = array($Label, $Object);
+                    }
+                    return $msg->table($Object[0], array_slice($Object[1],1), $Object[1][0]);
+                case self::GROUP_START:
+                	$insightGroupStack[] = $msg->group(md5($Label))->open();
+                    return $msg->log($Label);
+                case self::GROUP_END:
+                	if(count($insightGroupStack)==0) {
+                	    throw new Error('Too many groupEnd() as opposed to group() calls!');
+                	}
+                	$group = array_pop($insightGroupStack);
+                    return $group->close();
+	            default:
+                    return $msg->log($Object);
+            }
+        }
+
         if (!$this->detectClientExtension()) {
             return false;
         }
@@ -912,7 +979,7 @@ class FirePHP {
             unset($meta['file']);
             unset($meta['line']);
         }
-    
+
         $this->setHeader('X-Wf-Protocol-1','http://meta.wildfirehq.org/Protocol/JsonStream/0.2');
         $this->setHeader('X-Wf-1-Plugin-1','http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/'.self::VERSION);
      
