@@ -4,7 +4,7 @@
 
 // See FirePHP Companion for result
 
-putenv('INSIGHT_CONFIG_PATH=' . dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'package.json');
+define('INSIGHT_CONFIG_PATH', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'package.json');
 require_once('FirePHP/Init.php');
 FirePHP::to('controller')->triggerInspect();
 

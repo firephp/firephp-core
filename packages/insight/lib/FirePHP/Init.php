@@ -1,6 +1,6 @@
 <?php
 
-set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__DIR__));
+set_include_path(get_include_path() . PATH_SEPARATOR . dirname(dirname(__FILE__)));
 
 require_once('FirePHP/Insight.php');
 

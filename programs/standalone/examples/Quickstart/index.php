@@ -26,7 +26,7 @@
 
                     <ul>
                         <?php
-                        foreach( new DirectoryIterator(__DIR__) as $dir ) {
+                        foreach( new DirectoryIterator(dirname(__FILE__)) as $dir ) {
                             if($dir->isFile()
                                && substr($dir->getBasename(), -4, 4)==".php"
                                && $dir->getBasename()!="_init_.php"

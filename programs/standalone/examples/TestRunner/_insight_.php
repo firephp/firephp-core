@@ -9,4 +9,4 @@ if(!in_array($libPath, $includePath)) {
     set_include_path(implode(PATH_SEPARATOR, $includePath));
 }
 
-require_once(__DIR__ . DIRECTORY_SEPARATOR . 'insight-devcomp' . DIRECTORY_SEPARATOR . '_init_.php');
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'insight-devcomp' . DIRECTORY_SEPARATOR . '_init_.php');
