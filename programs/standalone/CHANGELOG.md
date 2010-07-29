@@ -2,6 +2,10 @@
 DONE:
 
   * Enhancement: Implemented selective logging API via $console->on()
+  * Change: Some internal refactoring and various changes
+  * Bugfix: Don't die if json_last_error() is missing (applicable in some environments)
+  * Bugfix: If getallheaders() is missing (applicable in some environments) get request headers from $_SERVER
+  * Bugfix: Don't use __DIR__ as it is missing in some environments
 
 2010-07-27 - Release Version: 0.0.0master1007271007
 
