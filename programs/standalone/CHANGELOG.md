@@ -1,6 +1,10 @@
 
 DONE:
 
+  * Enhancement: Implemented selective logging API via $console->on()
+
+2010-07-27 - Release Version: 0.0.0master1007271007
+
   * Bugfix: Cache path creation
 
 2010-07-26 - Release Version: 0.0.0master1007261803
