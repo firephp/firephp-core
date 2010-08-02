@@ -1,6 +1,10 @@
 
 DONE:
 
+
+
+2010-07-28 - Release Version: 0.0.0master1007282031
+
   * Enhancement: Implemented selective logging API via $console->on()
   * Change: Some internal refactoring and various changes
   * Bugfix: Don't die if json_last_error() is missing (applicable in some environments)

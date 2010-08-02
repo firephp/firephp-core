@@ -10,7 +10,7 @@ FirePHP::to('controller')->triggerInspect();
 
 
 $inspector = FirePHP::to('request');
-$console = $inspector->console('Selective Logging');
+$console = $inspector->console('Conditional');
 
 
 $on = $console->on('Condition 1')->open();

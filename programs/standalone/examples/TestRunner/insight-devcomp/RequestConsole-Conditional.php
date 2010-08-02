@@ -2,7 +2,7 @@
 
 $inspector = FirePHP::to("request"); 
  
-$console = $inspector->console('Selective');
+$console = $inspector->console('Conditional');
 
 $console->log('Message 1');
 
