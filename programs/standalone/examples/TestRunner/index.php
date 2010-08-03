@@ -171,6 +171,26 @@ switch($action) {
         $html[] = '</div>';
         echo implode("\n",$html);
 
+        // Print payload to be fetched by client if applicable
+        if(class_exists('Insight_Helper')) {
+            $insight = Insight_Helper::getInstance();
+            if($insight->getEnabled()) {
+                $html = array();
+                $html[] = '<div class="box">';
+                $html[] = '<div class="header">';
+                $html[] = 'Payload';
+                $html[] = '</div>';
+                $html[] = '<div id="payload-body" class="body">';
+                $transport = $insight->getChannel()->getTransport();
+                $contents = $transport->getData($transport->getLastKey());
+                $contents = str_replace("\n", '<br/>', $contents);
+                $html[] = $contents;
+                $html[] = '</div>';
+                $html[] = '</div>';
+                echo implode("\n",$html);
+            }
+        }
+
         if(isset($profilingInfo['init-start']) && isset($profilingInfo['init-end'])) {
             $profilingInfo['init'] = round($profilingInfo['init-end'] - $profilingInfo['init-start'], 5);
         }
@@ -309,6 +329,9 @@ function renderHeader() {
                     $("#included-files-init").show();
                     $("#included-files-example").show();
                 }
+                if(window.parent && window.parent.$ && window.parent.$("#option-show-payload").is(":checked")) {
+                    $("#payload-body").show();
+                }
                 $("DIV.box DIV.body").each(function() {
                     var obj = $(this);
                     if(!obj.is(":visible")) {
@@ -340,6 +363,10 @@ function renderFrameset() {
                         <tr>
                             <td><input type="checkbox" id="option-show-included-files"/></td>
                             <td>Show Included Files</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="option-show-payload"/></td>
+                            <td>Show Payload</td>
                         </tr>
                     </table>
                         

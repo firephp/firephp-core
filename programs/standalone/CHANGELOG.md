@@ -1,7 +1,10 @@
 
 DONE:
 
-
+  * Enhancement: Show payload in tests
+  * Bugfix: Header case when matching
+  * Optimization: Minimal bootstrap with additional loading of files only if needed
+  * Bugfix: Use client key when persisting conditional logging state for request
 
 2010-07-28 - Release Version: 0.0.0master1007282031
 
