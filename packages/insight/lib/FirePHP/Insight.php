@@ -49,6 +49,9 @@ $GLOBALS['INSIGHT_ADDITIONAL_CONFIG'] = array(
             'plugins' => array(
                 'engine' => array(
                     'api' => 'FirePHP/Plugin/Engine'
+                ),
+                'firephp' => array(
+                    'api' => 'FirePHP/Plugin/FirePHP'
                 )
             )
         )

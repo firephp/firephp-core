@@ -1,5 +1,11 @@
 
-DONE:
+2010-08-19 - Release Version: 0.0.0master1008191622
+
+  * Enhancement: Minimal install method
+  * Enhancement: Added FirePHP engine
+  * Enhancement: Added trapProblems() to FirePHP engine
+
+2010-08-03 - Release Version: 0.0.0master1008031622
 
   * Enhancement: Show payload in tests
   * Bugfix: Header case when matching
