@@ -6,6 +6,7 @@
 
 define('INSIGHT_IPS', '*');
 define('INSIGHT_AUTHKEYS', '*');
+define('INSIGHT_PATHS', __DIR__);
 define('INSIGHT_SERVER_PATH', './_insight_.php');
 require_once('FirePHP/Init.php');
 FirePHP::to('controller')->triggerInspect();

@@ -1,4 +1,11 @@
 
+DONE:
+
+  * Enhancement: Added recordEnvironment() to FirePHP engine
+  * Bugfix: Added INSIGHT_PATHS constant for minimal install method
+  * Enhancement: Added is() to console API
+  * Enhancement: Added FeedCache example
+
 2010-08-19 - Release Version: 0.0.0master1008191622
 
   * Enhancement: Minimal install method

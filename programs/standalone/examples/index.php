@@ -36,9 +36,11 @@
             <tr>
                 <td class="menu" nowrap valign="top" style="padding: 10px;">
                     <span class="label">FirePHP Examples:</span>
-                    <a href="Quickstart/" target="examples">Quickstart</a>
+                    <a href="FeedCache/index.php" target="examples">FeedCache</a>
                     |
-                    <a href="TestRunner/" target="examples">TestRunner</a>
+                    <a href="Quickstart/index.php" target="examples">Quickstart</a>
+                    |
+                    <a href="TestRunner/index.php" target="examples">TestRunner</a>
                 </td>
             </tr>
             <tr>
