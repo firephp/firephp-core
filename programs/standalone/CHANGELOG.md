@@ -1,5 +1,5 @@
 
-DONE:
+2010-08-20 - Release Version: 0.0.0master1008201514
 
   * Enhancement: Added recordEnvironment() to FirePHP engine
   * Bugfix: Added INSIGHT_PATHS constant for minimal install method
