@@ -29,7 +29,7 @@ class Feed {
         /*i*/ $this->console->label('Cache File Exists')->log(file_exists($file));
 
         if(file_exists($file)) {
-            $fileTime = @filemtime($file);
+            $fileTime = filemtime($file);
             $fileTtl = time()-$fileTime;
             /*i*/ $this->console->label('Cache Time Remaining')->log($this->ttl-$fileTtl);
         } else {
@@ -41,7 +41,9 @@ class Feed {
            /*i*/ || FirePHP::to('request')->console('Feed')->on('Force Reload Cache')->is(true)
           ) {
             /*i*/ $this->console->info('Deleting Cache File');
-            @unlink($file);
+            if(file_exists($file)) {
+                unlink($file);
+            }
         }
 
         if(!file_exists($file)) {
@@ -51,7 +53,7 @@ class Feed {
             /*i*/ $group->close();
         /*i*/ } else {
         /*i*/     $this->console->info('Skip load as feed is cached');
-        /*i*/ }
+        }
 
         $json = json_decode(file_get_contents($file), true);
 

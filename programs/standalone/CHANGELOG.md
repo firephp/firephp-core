@@ -1,4 +1,17 @@
 
+DONE:
+
+  * Bugfix: Throw error (instead of silently failing) if no authekey or IP set
+  * Bugfix: Throw error if "*" is used and not the only authekey or IP
+  * Enhancement: Re-use FirePHP object when calling class when not enabled
+  * Bugfix: Replaced $_SERVER['SERVER_NAME'] with $_SERVER['HTTP_HOST']
+  * Bugfix: Always enable output buffering with ob_start() to disable flush() calls in code
+  * Bugfix: Handle ports properly for installation ID
+  * Enhancement: Added nolimit() to console API and support in default encoder
+  * Enhancement: More comprehensive recordEnvironment() for FirePHP plugin
+  * Bugfix: Suppress error logging for FirePHP engine plugin if @ used
+  * Bugfix: Avoid globals pollution during initialization
+
 2010-08-20 - Release Version: 0.0.0master1008201514
 
   * Enhancement: Added recordEnvironment() to FirePHP engine
