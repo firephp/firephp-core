@@ -32,6 +32,12 @@ class FirePHP_Plugin_Engine {
         if(!$this->errorConsole) {
             return;
         }
+
+        // if error has been suppressed with @
+        if (error_reporting() == 0) {
+            return;
+        }
+
         // ignore assertion errors if being caught separately
         if(substr($errstr, 0, 8)=='assert()' && preg_match_all('/^assert\(\) \[<a href=\'function.assert\'>function.assert<\/a>\]: Assertion (.*) failed$/si', $errstr, $m)) {
             if($this->assertionErrorConsole) {
