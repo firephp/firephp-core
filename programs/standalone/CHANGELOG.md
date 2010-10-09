@@ -1,7 +1,41 @@
 
+TODO:
+
+  * Bugfix: Write exceptions to error log (when trapping via engine plugin)
+
+// HIGH
+
+  * Bugfix: Throw error if first message logged to a group is not a simple log message
+  * Enhancement: Redirect all $firephp->* calls to FirePHP::to('page') if insight page context detected
+  * Bugfix: Do not send page context messages if receiver is not announced
+  * Enhancement: Deprecation notice if traditional inclusion method used
+  * Enhancement: Support workaround for PHP < 5.3 where __callstatic magic class method not supported
+  * Change: Send headers at beginning of script to avoid need for output buffering
+
 DONE:
 
-  * Bugfix: Throw error (instead of silently failing) if no authekey or IP set
+  * Enhancement: Discard duplicate errors and trim backtraces for certain errors in FirePHP Engine plugin
+  * Enhancement: Upgrade message when using FirePHP Extension
+  * Bugfix: Do not initialize insight when using FirePHPCore/fb.php [10m]
+  * Enhancement: Provide procedural API via FirePHP/fb.php [5m]
+  * Docs: New upgrade page at http://upgrade.firephp.org/ [8h, +misc changes]
+  * Bugfix: FirePHP constants when deactivated
+
+2010-10-01 - Release Version: 0.0.0master1010012104
+
+  * Enhancement: More detailed json parsing error messages [20m]
+  * Enhancement: Direct user to validate json files at http://www.jsonlint.com/ if parsing fails [8m]
+
+2010-09-29 - Release Version: 0.0.0master1009291749
+
+  * Enhancement: Implement FIREPHP_ACTIVATED constant to force-deactivate FirePHP or indicate if activated based on Init.php [10m]
+  * Enhancement: FirePHPCore compatibility test pages
+  * Enhancement: Log to firebug console for ::to('page') target
+  * Bugfix: Some of these tests don't work properly: http://pastebin.com/ZbYt0pwK [1h]
+
+2010-08-29 - Release Version: 0.0.0master1008291629
+
+  * Bugfix: Throw error (instead of silently failing) if no IP set
   * Bugfix: Throw error if "*" is used and not the only authekey or IP
   * Enhancement: Re-use FirePHP object when calling class when not enabled
   * Bugfix: Replaced $_SERVER['SERVER_NAME'] with $_SERVER['HTTP_HOST']
