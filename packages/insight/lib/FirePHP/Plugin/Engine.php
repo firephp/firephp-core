@@ -10,6 +10,7 @@ class FirePHP_Plugin_Engine {
     protected $exceptionConsole = null;
     protected $inExceptionHandler = false;
 
+    protected $errorHistory = array();
 
     /**
      * Capture all errors and send to provided console
@@ -38,6 +39,12 @@ class FirePHP_Plugin_Engine {
             return;
         }
 
+        if($this->errorHistory[$errno . ':' . $errstr . ':' . $errfile . ':' . $errline]) {
+            // a repeated error
+            return;
+        }
+        $this->errorHistory[$errno . ':' . $errstr . ':' . $errfile . ':' . $errline] = true;
+
         // ignore assertion errors if being caught separately
         if(substr($errstr, 0, 8)=='assert()' && preg_match_all('/^assert\(\) \[<a href=\'function.assert\'>function.assert<\/a>\]: Assertion (.*) failed$/si', $errstr, $m)) {
             if($this->assertionErrorConsole) {
@@ -47,10 +54,27 @@ class FirePHP_Plugin_Engine {
         // Only log errors we are asking for
         if ($this->errorTypes & $errno) {
             $this->errorConsole->setTemporaryTraceOffset($this->traceOffset);
-            $this->errorConsole->meta(array(
+            
+            $meta = array(
                 'encoder.depthExtend' => 5,
-                'encoder.exception.traceOffset' => 1
-            ))->error(new ErrorException($errstr, 0, $errno, $errfile, $errline));
+                'encoder.exception.traceOffset' => 0
+            );
+
+            // TODO: Custom renderers for specific errors
+            if(substr($errstr, 0, 16) == 'Undefined index:' ||
+               substr($errstr, 0, 17) == 'Undefined offset:' ||
+               substr($errstr, 0, 19) == 'Undefined variable:' ||
+               substr($errstr, 0, 25) == 'Use of undefined constant' ||
+               $errstr == 'Trying to get property of non-object' ||
+               $errstr == 'Only variable references should be returned by reference'
+            ) {
+                $meta['encoder.exception.traceDepth'] = 1;
+            } else
+            if(substr($errstr, 0, 8) == 'Function' && substr($errstr, -13, 13) == 'is deprecated') {
+                $meta['encoder.exception.traceDepth'] = 2;
+            }
+
+            $this->errorConsole->meta($meta)->error(new ErrorException($errstr, 0, $errno, $errfile, $errline));
         }
     }
 
@@ -71,7 +95,7 @@ class FirePHP_Plugin_Engine {
         $this->assertionErrorConsole->setTemporaryTraceOffset($this->traceOffset);
         $this->assertionErrorConsole->meta(array(
             'encoder.depthExtend' => 5,
-            'encoder.exception.traceOffset' => 1
+            'encoder.exception.traceOffset' => 0
         ))->error(new ErrorException('Assertion Failed - Code[ '.$code.' ]', 0, null, $file, $line));
     }
    
