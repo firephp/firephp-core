@@ -1,11 +1,11 @@
 <?php
 
-// NOTE: You must have the FirePHP Extension installed (http://www.firephp.org/)
-// NOTE: You must have the Firebug Console and Net panels enabled (http://www.getfirebug.org/)
+// NOTE: You must have FirePHP Companion installed (http://www.christophdorn.com/Tools/)
 
 // See the Firebug Console for result
 
-require_once('FirePHPCore/fb.php');
+define('INSIGHT_CONFIG_PATH', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'package.json');
+require_once('FirePHP/fb.php');
 
 FB::log('Hello World');  // or
 fb('Hello World');

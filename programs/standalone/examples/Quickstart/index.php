@@ -21,8 +21,12 @@
         <table width="100%" height="100%">
             <tr>
                 <td width="20%" nowrap valign="top" style="padding: 10px;">
+
+                    <p><a target="_blank" href="http://reference.developercompanion.com/#/Tools/FirePHPCompanion/Quickstart/">Download &amp Install</a> Quickstart Examples</p>
                         
-                    <p>Requires <a href="http://companion.firephp.org/" target="_blank">FirePHP Companion</a></p>
+                    <p>Requires <a href="http://www.christophdorn.com/Tools/#FirePHP Companion" target="_blank">FirePHP Companion</a></p>
+
+                    <p><b>NOTE:</b> If you have <a target="_blank" href="http://getfirebug.com/">Firebug</a> installed make<br/>sure you have the <i>Insight</i> panel enabled.</p>
 
                     <ul>
                         <?php

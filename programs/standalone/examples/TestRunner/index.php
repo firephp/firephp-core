@@ -15,6 +15,8 @@ $action = (isset($_GET['action']))?$_GET['action']:false;
 switch($action) {
     case 'run':
 
+        ob_start();
+
         $profilingInfo = array();
         $initFile = false;
         $file = false;
@@ -32,9 +34,6 @@ switch($action) {
             $profilingInfo['init-start'] = microtime(true);
             require_once($initFile);
             $profilingInfo['init-end'] = microtime(true);
-        } else
-        if($snippet) {
-            ob_start();
         }
         
         renderHeader();
@@ -278,8 +277,13 @@ function renderHeader() {
                 font-weight: bold;
                 padding-right: 10px;
             }
+            DIV.ui-layout-west {
+                padding: 10px;
+                overflow-y: scroll;
+            }
         </style>
         <script src="jquery-1.4.2.min.js"></script>
+        <script src="jquery.layout-1.3.0.js"></script>
         <script>
             var profilingInfo;
             $(document).ready(function() {
@@ -352,65 +356,99 @@ function renderHeader() {
 }
 function renderFrameset() {
 ?>
-        <table width="100%" height="100%">
+    <script>
+        $(document).ready(function() {
+            $('body').layout({
+                "west": {
+                    "size": "300",
+                    "resizable": false,
+                    "slidable": false,
+                    "closable": false,
+                    "spacing_open": 0
+                },
+                "center": {
+                },
+            });
+        });
+    </script>
+    <div class="ui-layout-west">
+        <table border="0" cellpadding="0" cellspacing="0">
             <tr>
-                <td width="20%" nowrap valign="top" style="padding: 10px;">
-                    <table border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td><input type="checkbox" id="option-show-headers"/></td>
-                            <td>Show Headers</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="option-show-included-files"/></td>
-                            <td>Show Included Files</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="option-show-payload"/></td>
-                            <td>Show Payload</td>
-                        </tr>
-                    </table>
-                        
-                    <h1>Classic FirePHP to Firebug Console</h1>
-                    <p>Requires <a href="http://www.firephp.org/" target="_blank">FirePHP Extension</a></p>
-                    <ul>
-                        <?php
-                        foreach( new DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'classic-firebug') as $dir ) {
-                            if($dir->isFile() && $dir->getBasename()!='_init_.php' && substr($dir->getBasename(),0,5)!=".tmp_"
-                               && $dir->getBasename()!='RedirectTarget.php') {
-                                print '<li><a target="content" href="?action=run&set=classic-firebug&file='.$dir->getBasename().'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
-                            }
-                        }
-                        ?>
-                        <li><a class="ajax" href="#classic-firebug/AllVariableTypes.php">AJAX Test</a></li>
-                    </ul>
-
-                    <h1>Insight FirePHP to FirePHP Companion</h1>
-                    <p>Requires <a href="http://companion.firephp.org/" target="_blank">FirePHP Companion</a></p>
-                    <ul>
-                        <?php
-                        foreach( new DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'insight-devcomp') as $dir ) {
-                            if($dir->isFile() && $dir->getBasename()!='_init_.php' && $dir->getBasename()!='package.json' && substr($dir->getBasename(),0,5)!=".tmp_"
-                               && $dir->getBasename()!='RequestConsole-RedirectTarget.php') {
-                                $inspect = "x-insight=inspect&";
-                                if($dir->getBasename()=="RequestConsole-AutoInspect.php" ||
-                                   $dir->getBasename()=="RequestConsole-ManualInspect.php") {
-                                    $inspect = "";
-                                }
-                                if($dir->getBasename()=="RequestConsole-PostTest.php") {
-                                    print '<li><a class="ajax" href="#insight-devcomp/RequestConsole-PostTest.php">RequestConsole-PostTest</a></li>';
-                                } else {
-                                    print '<li><a target="content" href="?' . $inspect . 'action=run&set=insight-devcomp&file='.$dir->getBasename().'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
-                                }
-                            }
-                        }
-                        ?>
-                    </ul>
-                </td>
-                <td width="80%" valign="top">
-                    <iframe id="content-frame" name="content" width="100%" height="100%" src=""></iframe> 
-                </td>
+                <td><input type="checkbox" id="option-show-headers"/></td>
+                <td>Show Headers</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" id="option-show-included-files"/></td>
+                <td>Show Included Files</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" id="option-show-payload"/></td>
+                <td>Show Payload</td>
             </tr>
         </table>
+            
+        <h1>Classic FirePHP to Firebug Console</h1>
+        <p>Requires <a href="http://www.firephp.org/" target="_blank">FirePHP Extension</a> or <a href="http://www.christophdorn.com/Tools/#FirePHP Companion LITE" target="_blank">FirePHP Companion LITE</a></p>
+        <ul>
+            <?php
+            foreach( new DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'classic-firebug') as $dir ) {
+                if($dir->isFile() && $dir->getBasename()!='_init_.php' && substr($dir->getBasename(),0,5)!=".tmp_"
+                   && $dir->getBasename()!='RedirectTarget.php') {
+                    print '<li><a target="content" href="?x-insight=activate&action=run&set=classic-firebug&file='.$dir->getBasename().'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
+                }
+            }
+            ?>
+            <li><a class="ajax" href="#classic-firebug/AllVariableTypes.php">AJAX Test</a></li>
+        </ul>
+        <p>Snippets:</p>
+        <ul>
+            <?php
+            foreach( new DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'classic-firebug/snippets') as $dir ) {
+                if($dir->isFile() && substr($dir->getBasename(),0,5)!=".tmp_") {
+                    print '<li><a target="content" href="?x-insight=activate&action=run&snippet=classic-firebug/snippets/'.substr($dir->getBasename(), 0, -4).'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
+                }
+            }
+            ?>
+        </ul>
+
+        <h1>Insight FirePHP to FirePHP Companion</h1>
+        <p>Requires <a href="http://www.christophdorn.com/Tools/#FirePHP Companion" target="_blank">FirePHP Companion</a></p>
+        <ul>
+            <?php
+            foreach( new DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'insight-devcomp') as $dir ) {
+                if($dir->isFile() && $dir->getBasename()!='_init_.php' && substr($dir->getBasename(),0,5)!=".tmp_"
+                   && $dir->getBasename()!='RequestConsole-RedirectTarget.php') {
+                    $inspect = "x-insight=inspect&";
+                    if($dir->getBasename()=="RequestConsole-AutoInspect.php" ||
+                       $dir->getBasename()=="RequestConsole-ManualInspect.php" ||
+                       $dir->getBasename()=="RequestConsole-InspectHeader.php" ||
+                       $dir->getBasename()=="PageConsole.php" ||
+                       $dir->getBasename()=="PageConsole-BackCompat.php") {
+                        $inspect = "x-insight=activate&";
+                    }
+                    if($dir->getBasename()=="RequestConsole-PostTest.php") {
+                        print '<li><a class="ajax" href="#insight-devcomp/RequestConsole-PostTest.php">RequestConsole-PostTest</a></li>';
+                    } else {
+                        print '<li><a target="content" href="?' . $inspect . 'action=run&set=insight-devcomp&file='.$dir->getBasename().'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
+                    }
+                }
+            }
+            ?>
+        </ul>
+        <p>Snippets:</p>
+        <ul>
+            <?php
+            foreach( new DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'insight-devcomp/snippets') as $dir ) {
+                if($dir->isFile() && substr($dir->getBasename(),0,5)!=".tmp_") {
+                    print '<li><a target="content" href="?x-insight=activate&action=run&snippet=insight-devcomp/snippets/'.substr($dir->getBasename(), 0, -4).'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
+                }
+            }
+            ?>
+        </ul>
+    </div>
+    <div class="ui-layout-center">
+        <iframe id="content-frame" name="content" width="100%" height="100%" src=""></iframe> 
+    </div>
 <?php
 }
 function renderFooter() {

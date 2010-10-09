@@ -34,6 +34,8 @@ $feed = new Feed('http://www.phpdeveloper.org/feed');
 
 $items = $feed->getItems();
 
+echo '<p><b>See:</b> <a target="_blank" href="http://www.christophdorn.com/Blog/2010/08/24/gain-insight-into-your-cache-interaction-with-firephp-companion/">http://www.christophdorn.com/Blog/2010/08/24/gain-insight-into-your-cache-interaction-with-firephp-companion/</a></p>'."\n";
+
 if($feed->didLoad()) {
     echo '<p><b>Loading feed from: '.$feed->getUrl().'</b></p>'."\n";
 }

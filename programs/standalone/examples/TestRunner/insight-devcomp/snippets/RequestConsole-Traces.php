@@ -1,6 +1,6 @@
 <?php
 
-// NOTE: You must have FirePHP Companion installed (http://companion.firephp.org/)
+// NOTE: You must have FirePHP Companion installed (http://www.christophdorn.com/Tools/)
 
 // See FirePHP Companion for result
 
