@@ -51,8 +51,19 @@ function FirePHP__main() {
         Insight_Helper__main();
     
     } else {
-    
+
         class FirePHP {
+            const VERSION = '0.3';    // @pinf replace '0.3' with '%%package.version%%'
+            const LOG = 'LOG';
+            const INFO = 'INFO';
+            const WARN = 'WARN';
+            const ERROR = 'ERROR';
+            const DUMP = 'DUMP';
+            const TRACE = 'TRACE';
+            const EXCEPTION = 'EXCEPTION';
+            const TABLE = 'TABLE';
+            const GROUP_START = 'GROUP_START';
+            const GROUP_END = 'GROUP_END';
             protected static $instance = null;
             public static function getInstance() {
                 if(!self::$instance) {
