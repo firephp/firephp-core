@@ -66,6 +66,13 @@ Insight_Helper::setSenderLibrary('cadorn.org/github/firephp-libs/packages/core@'
 class FirePHP_Insight extends FirePHP {
 
     /**
+     * Flag to indicate if upgrade message for client extension was logged
+     * 
+     * @var boolean
+     */
+    protected static $upgradeClientMessageLogged = false;
+
+    /**
      * Set the configuration file path
      * 
      * @param string $file The config file path
@@ -82,11 +89,33 @@ class FirePHP_Insight extends FirePHP {
     }
 
     /**
+     * Enable and disable logging to Firebug
+     * 
+     * @param boolean $Enabled TRUE to enable, FALSE to disable
+     * @return void
+     */
+    public function setEnabled($enabled)
+    {
+        Insight_Helper::getInstance()->setEnabled($enabled);
+    }
+
+    /**
+     * Check if logging is enabled
+     * 
+     * @return boolean TRUE if enabled
+     */
+    public function getEnabled()
+    {
+        return Insight_Helper::getInstance()->getEnabled();
+    }
+
+    /**
      * Insight API wrapper
      * 
      * @see Insight_Helper::to()
      */
     public function _to() {
+        self::_logUpgradeClientMessage();
         $args = func_get_args();
         $to = call_user_func_array(array('Insight_Helper', 'to'), $args);
         // TODO: set traceOffset?
@@ -99,8 +128,25 @@ class FirePHP_Insight extends FirePHP {
      * @see Insight_Helper::plugin()
      */
     public function _plugin() {
+        self::_logUpgradeClientMessage();
         $args = func_get_args();
         $plugin = call_user_func_array(array('Insight_Helper', 'plugin'), $args);
         return $plugin;
+    }
+
+    protected static function _logUpgradeClientMessage() {
+        if(self::$upgradeClientMessageLogged) {
+            return;
+        }
+        // x-insight: activate request header is sent and FirePHP Extension detected, but not wildfire/insight client
+        $info = Insight_Helper::getInstance()->getClientInfo();
+        if($info['client']=='firephp' && Insight_Util::getRequestHeader('x-insight')=='activate') {
+            self::$upgradeClientMessageLogged = true;
+            $firephp = self::getInstance();
+            $enabled = $firephp->getEnabled();
+            $firephp->setEnabled(true);
+            $firephp->info('Your client only supports some features of the FirePHP library being used on the server. See http://upgrade.firephp.org/ for information on how to upgrade your client.');
+            $firephp->setEnabled($enabled);
+        }
     }
 }
