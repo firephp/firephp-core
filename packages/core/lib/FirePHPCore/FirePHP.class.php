@@ -736,12 +736,18 @@ class FirePHP {
      */
     public function fb($Object)
     {
+        if(is_a($this, 'FirePHP_Insight') && method_exists($this, '_logUpgradeClientMessage')) {
+            if(!FirePHP_Insight::$upgradeClientMessageLogged) {    // avoid infinite recursion as _logUpgradeClientMessage() logs a message
+                $this->_logUpgradeClientMessage();
+            }
+        }
+
         static $insightGroupStack = array();
-  
-        if (!$this->enabled) {
+
+        if (!$this->getEnabled()) {
             return false;
         }
-      
+
         if ($this->headersSent($filename, $linenum)) {
             // If we are logging from within the exception handler we cannot throw another exception
             if ($this->inExceptionHandler) {
