@@ -1,0 +1,6 @@
+
+RewriteEngine on
+
+RewriteBase /Tools/FirePHPCompanion/Run/Examples/ZendFramework
+
+RewriteRule ^.*  index.php

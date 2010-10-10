@@ -29,3 +29,5 @@ $firephp->fb(array('characters'=>"Отладочный"), 'var2', FirePHP::DUMP)
 
 $firephp->fb("mon numéro est le 0");
 
+// See: http://code.google.com/p/firephp/issues/detail?id=153
+$firephp->fb('アサヒ スーパードライ');

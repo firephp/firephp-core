@@ -41,6 +41,17 @@
                     <a href="Quickstart/index.php" target="examples">Quickstart</a>
                     |
                     <a href="TestRunner/index.php" target="examples">TestRunner</a>
+                    <?php
+                        // If Zend Framework is available
+                        $PINF_HOME = isset($_SERVER['PINF_HOME']) ? $_SERVER['PINF_HOME'] : '/pinf';
+                        if(is_dir($PINF_HOME)) {
+                            $path = $PINF_HOME . '/workspaces/framework.zend.com/svn/framework/standard/trunk';
+                            if(is_dir($path . '/demos/Zend/Wildfire/public') &&
+                               is_dir($path . '/library/Zend/Wildfire')) {
+                                echo '| <a href="ZendFramework/index.php" target="examples">Zend Framework</a>';
+                            }
+                        }
+                    ?>
                 </td>
             </tr>
             <tr>
