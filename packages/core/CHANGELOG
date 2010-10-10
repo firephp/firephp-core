@@ -4,6 +4,10 @@ TODO:
     - Fix code indenting in PHP 4 code
     - Port maxDepth option to PHP 4 code
 
+DONE:
+
+    - (Issue 153) FirePHP incorrectly double-encodes UTF8 when mbstring.func_overload is enabled
+
 2010-10-08 - Release Version: 0.3.2rc4
 
     - Trigger upgrade message if part of FirePHP 1.0
