@@ -4,9 +4,9 @@ TODO:
     - Fix code indenting in PHP 4 code
     - Port maxDepth option to PHP 4 code
 
-DONE:
+2010-10-12 - Release Version: 0.3.2rc6
 
-    - (Issue 154) getRequestHeader uses "getallheaders" even though it doesn't always exist.
+    - (Issue 154) getRequestHeader uses "getallheaders" even though it doesn't always exist. [25m]
 
 2010-10-09 - Release Version: 0.3.2rc5
 
