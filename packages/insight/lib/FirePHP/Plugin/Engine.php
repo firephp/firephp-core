@@ -1,5 +1,15 @@
 <?php
 
+if(!defined('E_RECOVERABLE_ERROR')) {
+    define('E_RECOVERABLE_ERROR', 4096);
+}
+if(!defined('E_DEPRECATED')) {
+    define('E_DEPRECATED', 8192);
+}
+if(!defined('E_USER_DEPRECATED ')) {
+    define('E_USER_DEPRECATED ', 16384);
+}
+
 class FirePHP_Plugin_Engine {
     
     protected $traceOffset = 6;
@@ -153,5 +163,40 @@ class FirePHP_Plugin_Engine {
             'encoder.depthExtend' => 5,
             'encoder.exception.traceOffset' => -1
         ))->error($exception);
+    }
+
+    /**
+     * @see http://www.php.net/manual/en/errorfunc.constants.php
+     */
+    public static function parseErrorReportingBitmask($bitmask) {
+        $info = array(
+            'bitmask' => $bitmask,
+            'present' => array(),
+            'absent' => array()
+        );
+        $constants = array('E_ERROR',
+                           'E_WARNING',
+                           'E_PARSE',
+                           'E_NOTICE',
+                           'E_CORE_ERROR',
+                           'E_CORE_WARNING',
+                           'E_COMPILE_ERROR',
+                           'E_COMPILE_WARNING',
+                           'E_USER_ERROR',
+                           'E_USER_WARNING',
+                           'E_USER_NOTICE',
+                           'E_STRICT',
+                           'E_RECOVERABLE_ERROR',
+                           'E_DEPRECATED',
+                           'E_USER_DEPRECATED',
+                           'E_ALL');
+        foreach( $constants as $constant ) {
+            if( ($bitmask & constant($constant)) > 0 ) {
+                $info['present'][] = $constant;
+            } else {
+                $info['absent'][] = $constant;
+            }
+        }
+        return $info;
     }
 }

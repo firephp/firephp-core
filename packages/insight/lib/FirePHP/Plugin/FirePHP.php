@@ -1,5 +1,7 @@
 <?php
 
+require_once('FirePHP/Plugin/Engine.php');
+
 class FirePHP_Plugin_FirePHP {
     
     public function trapProblems($console=false) {
@@ -85,6 +87,8 @@ class FirePHP_Plugin_FirePHP {
             $table[] = $row;
         }
         $console->table('Configuration Options', $table, array('Name', 'Global', 'Local', 'Access'));
+
+        $console->label('Error Reporting')->log(FirePHP_Plugin_Engine::parseErrorReportingBitmask(error_reporting()));
 
         $console->label('get_include_path()')->log(get_include_path());
         $console->label('sys_get_temp_dir()')->log(sys_get_temp_dir());

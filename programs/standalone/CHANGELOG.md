@@ -22,6 +22,7 @@ DONE:
   * Bugfix: FirePHP constants when deactivated
   * Enhancement: Added Zend Framework example (shows if ZF is found)
   * Bugfix: Use mb_detect_encoding() if available to check encoding of string objects
+  * Enhancement: Added Error Reporting levels to FirePHP_Plugin_FirePHP::recordEnvironment [37m]
 
 2010-10-01 - Release Version: 0.0.0master1010012104
 
