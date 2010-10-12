@@ -788,22 +788,40 @@ class FirePHP {
     return $_SERVER['HTTP_USER_AGENT'];
   }
 
-  /**
-   * Get a request header
-   *
-   * @return string|false
-   */
-  function getRequestHeader($Name) {
-    $headers = getallheaders();
-    if(isset($headers[$Name])) {
-        return $headers[$Name];
-    } else
-    // just in case headers got lower-cased in transport
-    if(isset($headers[strtolower($Name)])) {
-        return $headers[strtolower($Name)];
+    /**
+     * Get all request headers
+     * 
+     * @return array
+     */
+    function getAllRequestHeaders() {
+        $headers = array();
+        if(function_exists('getallheaders')) {
+            foreach( getallheaders() as $name => $value ) {
+                $headers[strtolower($name)] = $value;
+            }
+        } else {
+            foreach($_SERVER as $name => $value) {
+                if(substr($name, 0, 5) == 'HTTP_') {
+                    $headers[strtolower(str_replace(' ', '-', str_replace('_', ' ', substr($name, 5))))] = $value;
+                }
+            }
+        }
+        return $headers;
     }
-    return false;
-  }
+
+    /**
+     * Get a request header
+     *
+     * @return string|false
+     */
+    function getRequestHeader($Name)
+    {
+        $headers = $this->getAllRequestHeaders();
+        if (isset($headers[strtolower($Name)])) {
+            return $headers[strtolower($Name)];
+        }
+        return false;
+    }
   
   /**
    * Encode an object into a JSON string
