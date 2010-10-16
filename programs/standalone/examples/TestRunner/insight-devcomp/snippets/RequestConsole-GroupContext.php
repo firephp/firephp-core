@@ -14,14 +14,19 @@ $console = $inspector->console('Groups');
 
 
 $group = $console->group('Group1')->open();
-$console->log('Group 1 Title');
-$console->log('Message 1');
 
-$console->group('Group2')->open();
-$console->log('Group 2 Title');
-$console->log('Message 2');
-$console->group('Group2')->close();
-
-$console->log('Message 3');
+    $console->log('Group 1 Title');
+    $console->log('Message 1');
+    
+    $console->group('Group2')->open();
+        $console->log('Group 2 Title');
+        $console->log('Message 2');
+    $console->group('Group2')->close();
+    
+    $console->log('Message 3');
+    
+    $console->group('Group3', 'Group 3 Title')->open();
+        $console->log('Message 4');
+    $console->group('Group3')->close();
 
 $group->close();

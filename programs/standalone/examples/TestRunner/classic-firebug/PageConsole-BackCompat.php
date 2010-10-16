@@ -28,20 +28,25 @@ $firephp->fb(1000, 'integer');
 
 $firephp->fb(tmpfile(), 'resource'); 
 
+$firephp->dump('Key', 'Value');
 
-// TODO
+
 $firephp->trace('Trace to here');
 
 
+try {
+    throw new Exception("Test Exception");
+} catch(Exception $e) {
+    $firephp->error($e);
+}
 
-// TODO
+
 $table = array(
     array('Column 1 Heading', 'Column 2 Heading'),
     array('Row 1 Column 1 Value', 'Row 1 Column 2 Value'),
     array(10, true)
 );
 $firephp->table('Table with header', $table);
-
 
 
 $obj = new TestObject();
@@ -58,7 +63,6 @@ class TestObject {
 }
 
 
-
 $firephp->setObjectFilter('TestClass', array('var1'));
 $obj = new TestClass();
 $firephp->fb($obj, 'filtered object');
@@ -67,4 +71,11 @@ class TestClass {
     public $var2 = 'Variable 2';
 }
 
+
+$firephp->group('Test Group 1');
+$firephp->log('Hello World 1');
+    $firephp->group('Test Group 2');
+    $firephp->log('Hello World 2');
+    $firephp->groupEnd();
+$firephp->groupEnd();
 

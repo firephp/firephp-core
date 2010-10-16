@@ -29,10 +29,17 @@ $console->label('integer')->log(1000);
 
 $console->label('resource')->log(tmpfile());
 
+$console->dump('Key', 'Value');
 
 
 $console->trace('Trace to here');
 
+
+try {
+    throw new Exception("Test Exception");
+} catch(Exception $e) {
+    $console->error($e);
+}
 
 
 $header = array('Column 1 Heading', 'Column 2 Heading');
@@ -41,7 +48,6 @@ $table = array(
     array(10, true)
 );
 $console->table('Table with header', $table, $header);
-
 
 
 $obj = new TestObject();
@@ -58,7 +64,6 @@ class TestObject {
 }
 
 
-
 $filter = array(
     'classes' => array(
         'TestClass' => array('var1')
@@ -72,4 +77,13 @@ class TestClass {
     public $var2 = 'Variable 2';
 }
 
+
+$group = $console->group()->open();
+$console->log('Test Group 1');
+$console->log('Hello World 1');
+    $group1 = $console->group()->open();
+    $console->log('Test Group 2');
+    $console->log('Hello World 2');
+    $group1->close();
+$group->close();
 

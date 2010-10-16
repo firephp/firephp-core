@@ -24,6 +24,9 @@ DONE:
   * Bugfix: Use mb_detect_encoding() if available to check encoding of string objects
   * Enhancement: Added Error Reporting levels to FirePHP_Plugin_FirePHP::recordEnvironment [37m]
   * Bugfix: Use 'instanceof' instead of is_a() [4m]
+  * Bugfix: Use mb_detect_encoding() if available for is_utf8() [3m]
+  * Enhancement: Backwards compatibility for dump()
+  * Enhancement: Added support for $console->group('<Name>', '<Title>')->open();
 
 2010-10-01 - Release Version: 0.0.0master1010012104
 

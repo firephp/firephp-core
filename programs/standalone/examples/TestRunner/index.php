@@ -422,8 +422,7 @@ function renderFrameset() {
                     if($dir->getBasename()=="RequestConsole-AutoInspect.php" ||
                        $dir->getBasename()=="RequestConsole-ManualInspect.php" ||
                        $dir->getBasename()=="RequestConsole-InspectHeader.php" ||
-                       $dir->getBasename()=="PageConsole.php" ||
-                       $dir->getBasename()=="PageConsole-BackCompat.php") {
+                       substr($dir->getBasename(), 0, 11)=="PageConsole") {
                         $inspect = "x-insight=activate&";
                     }
                     if($dir->getBasename()=="RequestConsole-PostTest.php") {
