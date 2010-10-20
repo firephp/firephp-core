@@ -1,59 +1,59 @@
 <?php
 
-$inspector = FirePHP::to("page"); 
- 
-$console = $inspector->console();
 
-$console->log("Hello World");
-$console->info("Hello World"); 
-$console->warn("Hello World"); 
-$console->error("Hello World"); 
-
-$console->label("string")->log("Hello World"); 
-
-$console->label('array')->log(array('Hello', 'World')); 
-
-$console->label('array')->log(array('Hello' => 'World')); 
-
-$console->label('array')->log(array('Hello' => 'World', 'Wide')); 
-
-$console->label('boolean')->log(true); 
-
-$console->label('boolean')->log(false); 
-
-$console->label('null')->log(null); 
-
-$console->label('float')->log(10.5); 
-
-$console->label('integer')->log(1000);
-
-$console->label('resource')->log(tmpfile());
-
-$console->dump('Key', 'Value');
+$firephp = FirePHP::getInstance(true);
 
 
-$console->trace('Trace to here');
+$firephp->log("Hello World");
+$firephp->info("Hello World");
+$firephp->warn("Hello World");
+$firephp->error("Hello World");
+
+$firephp->fb("Hello World", "string");
+
+$firephp->fb(array('Hello', 'World'), 'array'); 
+
+$firephp->fb(array('Hello' => 'World'), 'array'); 
+
+$firephp->fb(array('Hello' => 'World', 'Wide'), 'array'); 
+
+$firephp->fb(true, 'boolean'); 
+
+$firephp->fb(false, 'boolean'); 
+
+$firephp->fb(null, 'null'); 
+
+$firephp->fb(10.5, 'float'); 
+
+$firephp->fb(1000, 'integer'); 
+
+$firephp->fb(tmpfile(), 'resource'); 
+
+$firephp->dump('Key', 'Value');
+
+
+$firephp->trace('Trace to here');
 
 
 try {
     throw new Exception("Test Exception");
 } catch(Exception $e) {
-    $console->error($e);
+    $firephp->error($e);
 }
 
 
-$header = array('Column 1 Heading', 'Column 2 Heading');
 $table = array(
+    array('Column 1 Heading', 'Column 2 Heading'),
     array('Row 1 Column 1 Value', 'Row 1 Column 2 Value'),
     array(10, true)
 );
-$console->table('Table with header', $table, $header);
+$firephp->table('Table with header', $table);
 
 
 $obj = new TestObject();
 $obj->undeclared = 'undeclared';
 $obj->children = array('sss', $obj);
-$console->label('object')->log($obj);
+$firephp->fb($obj, 'object');
 class TestObject {
     public $public = 'public';
     public static $publicStatic = 'publicStatic';
@@ -64,26 +64,18 @@ class TestObject {
 }
 
 
-$filter = array(
-    'classes' => array(
-        'TestClass' => array('var1')
-    )
-);
-$console = $console->filter($filter);
+$firephp->setObjectFilter('TestClass', array('var1'));
 $obj = new TestClass();
-$console->label('filtered object')->log($obj);
+$firephp->fb($obj, 'filtered object');
 class TestClass {
     public $var1 = 'Variable 1';
     public $var2 = 'Variable 2';
 }
 
 
-$group = $console->group()->open();
-$console->log('Test Group 1');
-$console->log('Hello World 1');
-    $group1 = $console->group()->open();
-    $console->log('Test Group 2');
-    $console->log('Hello World 2');
-    $group1->close();
-$group->close();
-
+$firephp->group('Test Group 1');
+$firephp->log('Hello World 1');
+    $firephp->group('Test Group 2');
+    $firephp->log('Hello World 2');
+    $firephp->groupEnd();
+$firephp->groupEnd();

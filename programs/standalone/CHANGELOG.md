@@ -8,11 +8,20 @@ TODO:
   * Bugfix: Throw error if first message logged to a group is not a simple log message
   * Enhancement: Redirect all $firephp->* calls to FirePHP::to('page') if insight page context detected
   * Bugfix: Do not send page context messages if receiver is not announced
-  * Enhancement: Deprecation notice if traditional inclusion method used
   * Enhancement: Support workaround for PHP < 5.3 where __callstatic magic class method not supported
   * Change: Send headers at beginning of script to avoid need for output buffering
+  * Enhancement: Update quickstart examples
 
 DONE:
+
+  * Bugfix: Split depthNoLimit into depthNoLimit and lengthNoLimit [10m]
+  * Enhancement: Set options via insight API (->options()-> & ->options()->) and tests [42m]
+  * Enhancement: Added encoder.trace.maxLength option [23m]
+  * Enhancement: Exposed encoder.exception.traceMaxLength option [12m]
+  * Enhancement: Support -1 for encoder.max*Length options [9m]
+  * Enhancement: Support -1 for encoder.max*Depth options [3m]
+
+2010-10-16 - Release Version: 0.0.0master1010160926
 
   * Enhancement: Discard duplicate errors and trim backtraces for certain errors in FirePHP Engine plugin
   * Enhancement: Upgrade message when using FirePHP Extension
