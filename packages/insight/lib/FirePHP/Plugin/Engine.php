@@ -64,10 +64,10 @@ class FirePHP_Plugin_Engine {
         // Only log errors we are asking for
         if ($this->errorTypes & $errno) {
             $this->errorConsole->setTemporaryTraceOffset($this->traceOffset);
-            
+
             $meta = array(
                 'encoder.depthExtend' => 5,
-                'encoder.exception.traceOffset' => 0
+                'encoder.exception.traceOffset' => 1
             );
 
             // TODO: Custom renderers for specific errors
@@ -78,10 +78,10 @@ class FirePHP_Plugin_Engine {
                $errstr == 'Trying to get property of non-object' ||
                $errstr == 'Only variable references should be returned by reference'
             ) {
-                $meta['encoder.exception.traceDepth'] = 1;
+                $meta['encoder.exception.traceMaxLength'] = 1;
             } else
             if(substr($errstr, 0, 8) == 'Function' && substr($errstr, -13, 13) == 'is deprecated') {
-                $meta['encoder.exception.traceDepth'] = 2;
+                $meta['encoder.exception.traceMaxLength'] = 2;
             }
 
             $this->errorConsole->meta($meta)->error(new ErrorException($errstr, 0, $errno, $errfile, $errline));
@@ -105,7 +105,7 @@ class FirePHP_Plugin_Engine {
         $this->assertionErrorConsole->setTemporaryTraceOffset($this->traceOffset);
         $this->assertionErrorConsole->meta(array(
             'encoder.depthExtend' => 5,
-            'encoder.exception.traceOffset' => 0
+            'encoder.exception.traceOffset' => 1
         ))->error(new ErrorException('Assertion Failed - Code[ '.$code.' ]', 0, null, $file, $line));
     }
    
