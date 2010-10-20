@@ -61,7 +61,7 @@ $GLOBALS['INSIGHT_ADDITIONAL_CONFIG'] = array(
 require_once('FirePHPCore/FirePHP.class.php');
 require_once('Insight/Helper.php');
 
-Insight_Helper::setSenderLibrary('cadorn.org/github/firephp-libs/packages/core@' . FirePHP::VERSION);
+Insight_Helper::setSenderLibrary('cadorn.org/github/firephp-libs/packages/insight@' . FirePHP::VERSION);
 
 class FirePHP_Insight extends FirePHP {
 
