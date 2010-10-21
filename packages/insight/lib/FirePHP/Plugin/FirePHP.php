@@ -6,7 +6,7 @@ class FirePHP_Plugin_FirePHP {
     
     public function trapProblems($console=false) {
         if(!$console) {
-            $console = FirePHP::to('request')->console('Problems');
+            $console = FirePHP::to('page')->console('Problems');
         }
         $engine = FirePHP::plugin('engine');
         $engine->onError($console);
@@ -16,7 +16,7 @@ class FirePHP_Plugin_FirePHP {
 
     public function recordEnvironment($console=false) {
         if(!$console) {
-            $console = FirePHP::to('request')->console('Environment');
+            $console = FirePHP::to('page')->console('Environment');
         }
         if(!$console->is(true)) {
             return false;
