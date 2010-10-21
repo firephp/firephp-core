@@ -16,11 +16,7 @@ if(isset($_GET['target'])) {    // set by the drop-down in the reference
 }
 
 
-FirePHP::plugin("firephp")->trapProblems($console);
+$engine = FirePHP::plugin('engine');
+$engine->onException($console);
 
-$var = false;
-assert('$var===true');
- 
-trigger_error('Test Error');
-
-throw new Exception("Test Exception");
+throw new Exception('Test Exception');

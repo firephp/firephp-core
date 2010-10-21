@@ -14,12 +14,17 @@ TODO:
 
 DONE:
 
+  * Docs: Log to page or request context based on drop-down
+
+2010-10-20 - Release Version: 0.0.0master1010201329
+
   * Bugfix: Split depthNoLimit into depthNoLimit and lengthNoLimit [10m]
   * Enhancement: Set options via insight API (->options()-> & ->options()->) and tests [42m]
   * Enhancement: Added encoder.trace.maxLength option [23m]
   * Enhancement: Exposed encoder.exception.traceMaxLength option [12m]
   * Enhancement: Support -1 for encoder.max*Length options [9m]
   * Enhancement: Support -1 for encoder.max*Depth options [3m]
+  * Bugfix: Fatal error if there is an initialization error [5m]
 
 2010-10-16 - Release Version: 0.0.0master1010160926
 

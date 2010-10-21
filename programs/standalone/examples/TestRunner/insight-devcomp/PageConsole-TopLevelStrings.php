@@ -1,11 +1,13 @@
 <?php
 
-$firephp = FirePHP::getInstance(true);
+$inspector = FirePHP::to("page"); 
+ 
+$console = $inspector->console();
 
-$firephp->log("This is a long informational string that should not be trimmed");
-$firephp->info("This is a long informational string that should not be trimmed");
-$firephp->warn("This is a long informational string that should not be trimmed");
-$firephp->error("This is a long informational string that should not be trimmed");
+$console->log("This is a long informational string that should not be trimmed");
+$console->info("This is a long informational string that should not be trimmed");
+$console->warn("This is a long informational string that should not be trimmed");
+$console->error("This is a long informational string that should not be trimmed");
 
 
-$firephp->log(array("This is a long string that should be trimmed as it is not at the top level."));
+$console->log(array("This is a long string that should be trimmed as it is not at the top level."));

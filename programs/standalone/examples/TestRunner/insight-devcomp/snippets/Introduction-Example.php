@@ -10,6 +10,7 @@ define('INSIGHT_PATHS', __DIR__);
 define('INSIGHT_SERVER_PATH', './_insight_.php');
 require_once('FirePHP/Init.php');
 
+
 $inspector = FirePHP::to('page');
 $console = $inspector->console();
 
