@@ -14,7 +14,7 @@
 
 /*i*/ define('INSIGHT_IPS', '*');
 /*i*/ define('INSIGHT_AUTHKEYS', '*');
-/*i*/ define('INSIGHT_PATHS', __DIR__);
+/*i*/ define('INSIGHT_PATHS', dirname(__FILE__));
 /*i*/ define('INSIGHT_SERVER_PATH', './index.php');
 
 /*i*/ require_once('FirePHP/Init.php');
@@ -28,7 +28,7 @@
 
 // Application Code
 
-require_once(__DIR__ . '/feed.php');
+require_once(dirname(__FILE__) . '/feed.php');
 
 $feed = new Feed('http://www.phpdeveloper.org/feed');
 

@@ -10,11 +10,17 @@ TODO:
   * Bugfix: Do not send page context messages if receiver is not announced
   * Enhancement: Support workaround for PHP < 5.3 where __callstatic magic class method not supported
   * Change: Send headers at beginning of script to avoid need for output buffering
-  * Enhancement: Update quickstart examples
+  * Enhancement: Add more quickstart examples
 
 DONE:
 
   * Docs: Log to page or request context based on drop-down
+  * Enhancement: Default request console to 'Console' tab if not specified [5m]
+  * Bugfix: Wildfire protocol parsing if protocol header is last
+  * Testing: PHP 5.1, 5.2 & 5.3 on siteground.com [2h10m]
+  * Bugfix: File sorting in TestRunner [9m]
+  * Enhancement: Update quickstart examples to log to Firebug Console [17m]
+  * Bugfix: Use Zend_Json when json_* not available [30m]
 
 2010-10-20 - Release Version: 0.0.0master1010201329
 

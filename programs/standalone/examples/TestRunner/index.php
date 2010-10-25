@@ -9,6 +9,21 @@ if(!in_array($libPath, $includePath)) {
     set_include_path(implode(PATH_SEPARATOR, $includePath));
 }
 
+function _getallheaders() {
+    $headers = array();
+    if(function_exists('getallheaders')) {
+        foreach( getallheaders() as $name => $value ) {
+            $headers[strtolower($name)] = $value;
+        }
+    } else {
+        foreach($_SERVER as $name => $value) {
+            if(substr($name, 0, 5) == 'HTTP_') {
+                $headers[strtolower(str_replace(' ', '-', str_replace('_', ' ', substr($name, 5))))] = $value;
+            }
+        }
+    }
+    return $headers;
+}
 
 // handle actions
 $action = (isset($_GET['action']))?$_GET['action']:false;
@@ -23,10 +38,10 @@ switch($action) {
     	
         $snippet = (isset($_GET['snippet']))?$_GET['snippet']:false;
         if($snippet) {
-            $file = __DIR__ . DIRECTORY_SEPARATOR . $snippet . ".php";
+            $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . $snippet . ".php";
         } else {
-            $initFile = __DIR__ . DIRECTORY_SEPARATOR . $_GET['set'] . DIRECTORY_SEPARATOR . '_init_.php';
-            $file = __DIR__ . DIRECTORY_SEPARATOR . $_GET['set'] . DIRECTORY_SEPARATOR . $_GET['file'];
+            $initFile = dirname(__FILE__) . DIRECTORY_SEPARATOR . $_GET['set'] . DIRECTORY_SEPARATOR . '_init_.php';
+            $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . $_GET['set'] . DIRECTORY_SEPARATOR . $_GET['file'];
         }
 
         // Include init file
@@ -59,7 +74,7 @@ switch($action) {
         $html[] = 'getallheaders()';
         $html[] = '</div>';
         $html[] = '<div id="request-headers-body" class="body">';
-        foreach( getallheaders() as $name => $value ) {
+        foreach( _getallheaders() as $name => $value ) {
             $html[] = $name . ': ' . $value . '<br/>';
         }
         $html[] = '</div>';
@@ -197,7 +212,7 @@ switch($action) {
 
         $html = array();
         $html[] = '<script>';
-        $html[] = 'profilingInfo = ' . json_encode($profilingInfo) . ';';
+        $html[] = 'profilingInfo = ' . ((function_exists('json_encode'))?json_encode($profilingInfo):'{}') . ';';
         $html[] = '</script>';
         echo implode("\n",$html);
 
@@ -391,23 +406,31 @@ function renderFrameset() {
         <p>Requires <a href="http://www.firephp.org/" target="_blank">FirePHP Extension</a> or <a href="http://www.christophdorn.com/Tools/#FirePHP Companion LITE" target="_blank">FirePHP Companion LITE</a></p>
         <ul>
             <?php
-            foreach( new DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'classic-firebug') as $dir ) {
-                if($dir->isFile() && $dir->getBasename()!='_init_.php' && substr($dir->getBasename(),0,5)!=".tmp_"
-                   && $dir->getBasename()!='RedirectTarget.php') {
-                    print '<li><a target="content" href="?x-insight=activate&action=run&set=classic-firebug&file='.$dir->getBasename().'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
+            $items = array();
+            foreach( scandir(dirname(__FILE__).DIRECTORY_SEPARATOR.'classic-firebug') as $dir ) {
+                if(is_file(dirname(__FILE__).DIRECTORY_SEPARATOR.'classic-firebug'.DIRECTORY_SEPARATOR.$dir)
+                   && $dir!='_init_.php' && substr($dir,0,5)!=".tmp_"
+                   && $dir!='RedirectTarget.php') {
+                    $items[$dir] = '<li><a target="content" href="?x-insight=activate&action=run&set=classic-firebug&file='.$dir.'">'.substr($dir, 0, -4).'</a></li>';
                 }
             }
+            ksort($items);
+            echo implode("\n", $items);
             ?>
             <li><a class="ajax" href="#classic-firebug/AllVariableTypes.php">AJAX Test</a></li>
         </ul>
         <p>Snippets:</p>
         <ul>
             <?php
-            foreach( new DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'classic-firebug/snippets') as $dir ) {
-                if($dir->isFile() && substr($dir->getBasename(),0,5)!=".tmp_") {
-                    print '<li><a target="content" href="?x-insight=activate&action=run&snippet=classic-firebug/snippets/'.substr($dir->getBasename(), 0, -4).'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
+            $items = array();
+            foreach( scandir(dirname(__FILE__).DIRECTORY_SEPARATOR.'classic-firebug/snippets') as $dir ) {
+                if(is_file(dirname(__FILE__).DIRECTORY_SEPARATOR.'classic-firebug/snippets'.DIRECTORY_SEPARATOR.$dir)
+                   && substr($dir,0,5)!=".tmp_") {
+                    $items[$dir] = '<li><a target="content" href="?x-insight=activate&action=run&snippet=classic-firebug/snippets/'.substr($dir, 0, -4).'">'.substr($dir, 0, -4).'</a></li>';
                 }
             }
+            ksort($items);
+            echo implode("\n", $items);
             ?>
         </ul>
 
@@ -415,33 +438,41 @@ function renderFrameset() {
         <p>Requires <a href="http://www.christophdorn.com/Tools/#FirePHP Companion" target="_blank">FirePHP Companion</a></p>
         <ul>
             <?php
-            foreach( new DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'insight-devcomp') as $dir ) {
-                if($dir->isFile() && $dir->getBasename()!='_init_.php' && substr($dir->getBasename(),0,5)!=".tmp_"
-                   && $dir->getBasename()!='RequestConsole-RedirectTarget.php') {
+            $items = array();
+            foreach( scandir(dirname(__FILE__).DIRECTORY_SEPARATOR.'insight-devcomp') as $dir ) {
+                if(is_file(dirname(__FILE__).DIRECTORY_SEPARATOR.'insight-devcomp'.DIRECTORY_SEPARATOR.$dir)
+                   && $dir!='_init_.php' && substr($dir,0,5)!=".tmp_"
+                   && $dir!='RequestConsole-RedirectTarget.php') {
                     $inspect = "x-insight=inspect&";
-                    if($dir->getBasename()=="RequestConsole-AutoInspect.php" ||
-                       $dir->getBasename()=="RequestConsole-ManualInspect.php" ||
-                       $dir->getBasename()=="RequestConsole-InspectHeader.php" ||
-                       substr($dir->getBasename(), 0, 11)=="PageConsole") {
+                    if($dir=="RequestConsole-AutoInspect.php" ||
+                       $dir=="RequestConsole-ManualInspect.php" ||
+                       $dir=="RequestConsole-InspectHeader.php" ||
+                       substr($dir, 0, 11)=="PageConsole") {
                         $inspect = "x-insight=activate&";
                     }
-                    if($dir->getBasename()=="RequestConsole-PostTest.php") {
-                        print '<li><a class="ajax" href="#insight-devcomp/RequestConsole-PostTest.php">RequestConsole-PostTest</a></li>';
+                    if($dir=="RequestConsole-PostTest.php") {
+                        $items[$dir] = '<li><a class="ajax" href="#insight-devcomp/RequestConsole-PostTest.php">RequestConsole-PostTest</a></li>';
                     } else {
-                        print '<li><a target="content" href="?' . $inspect . 'action=run&set=insight-devcomp&file='.$dir->getBasename().'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
+                        $items[$dir] = '<li><a target="content" href="?' . $inspect . 'action=run&set=insight-devcomp&file='.$dir.'">'.substr($dir, 0, -4).'</a></li>';
                     }
                 }
             }
+            ksort($items);
+            echo implode("\n", $items);
             ?>
         </ul>
         <p>Snippets:</p>
         <ul>
             <?php
-            foreach( new DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'insight-devcomp/snippets') as $dir ) {
-                if($dir->isFile() && substr($dir->getBasename(),0,5)!=".tmp_") {
-                    print '<li><a target="content" href="?x-insight=activate&action=run&snippet=insight-devcomp/snippets/'.substr($dir->getBasename(), 0, -4).'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
+            $items = array();
+            foreach( scandir(dirname(__FILE__).DIRECTORY_SEPARATOR.'insight-devcomp/snippets') as $dir ) {
+                if(is_file(dirname(__FILE__).DIRECTORY_SEPARATOR.'insight-devcomp/snippets'.DIRECTORY_SEPARATOR.$dir)
+                   && substr($dir,0,5)!=".tmp_") {
+                    $items[$dir] = '<li><a target="content" href="?x-insight=activate&action=run&snippet=insight-devcomp/snippets/'.substr($dir, 0, -4).'">'.substr($dir, 0, -4).'</a></li>';
                 }
             }
+            ksort($items);
+            echo implode("\n", $items);
             ?>
         </ul>
     </div>
@@ -458,8 +489,8 @@ function renderFooter() {
 }
 
 function trimFilePath($path) {
-    if(substr($path, 0, strlen(__DIR__))==__DIR__) {
-        return "..." . substr($path, strlen(__DIR__));
+    if(substr($path, 0, strlen(dirname(__FILE__)))==dirname(__FILE__)) {
+        return "..." . substr($path, strlen(dirname(__FILE__)));
     }
     return $path;
 }

@@ -102,6 +102,6 @@ class Feed {
     }
 
     private function getCachePath() {
-        return __DIR__ . '/cache.txt';
+        return dirname(__FILE__) . '/cache.txt';
     }    
 }

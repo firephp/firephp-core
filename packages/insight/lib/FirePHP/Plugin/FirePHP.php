@@ -91,8 +91,12 @@ class FirePHP_Plugin_FirePHP {
         $console->label('Error Reporting')->log(FirePHP_Plugin_Engine::parseErrorReportingBitmask(error_reporting()));
 
         $console->label('get_include_path()')->log(get_include_path());
-        $console->label('sys_get_temp_dir()')->log(sys_get_temp_dir());
-        $console->label('php_ini_loaded_file()')->log(php_ini_loaded_file());
+        if(function_exists('sys_get_temp_dir')) {
+            $console->label('sys_get_temp_dir()')->log(sys_get_temp_dir());
+        }
+        if(function_exists('php_ini_loaded_file')) {
+            $console->label('php_ini_loaded_file()')->log(php_ini_loaded_file());
+        }
         $console->label('php_ini_scanned_files()')->log(php_ini_scanned_files());
         $console->label('php_sapi_name()')->log(php_sapi_name());
         $console->label('php_uname()')->log(php_uname());

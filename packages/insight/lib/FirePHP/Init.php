@@ -77,6 +77,9 @@ function FirePHP__main() {
             public function detectClientExtension() {
                 return false;
             }
+            public static function to() {
+                return self::getInstance();
+            }
             public function __call($name, $arguments) {
                 return self::getInstance();
             }

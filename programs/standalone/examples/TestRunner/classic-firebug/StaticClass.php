@@ -25,6 +25,4 @@ FB::table('2 SQL queries took 0.06 seconds',
    array('SELECT * FROM Bar','0.04',array('row1','row2'))
   ));
 
-
-FB::dump('RequestHeaders', apache_request_headers());
-
+FB::dump('PHP Version', phpversion());
