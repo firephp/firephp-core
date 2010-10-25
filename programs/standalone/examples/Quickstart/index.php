@@ -26,10 +26,11 @@
                         
                     <p>Requires <a href="http://www.christophdorn.com/Tools/#FirePHP Companion" target="_blank">FirePHP Companion</a></p>
 
-                    <p><b>NOTE:</b> If you have <a target="_blank" href="http://getfirebug.com/">Firebug</a> installed make<br/>sure you have the <i>Insight</i> panel enabled.</p>
+                    <p><b>NOTE:</b> If you have <a target="_blank" href="http://getfirebug.com/">Firebug</a> installed make<br/>sure you have the <i>Net</i> and <i>Insight</i> panel enabled.</p>
 
                     <ul>
                         <?php
+                        $items = array();
                         foreach( new DirectoryIterator(dirname(__FILE__)) as $dir ) {
                             if($dir->isFile()
                                && substr($dir->getBasename(), -4, 4)==".php"
@@ -37,9 +38,10 @@
                                && $dir->getBasename()!="index.php"
                                && $dir->getBasename()!="ServerScript.php") {
 
-                                print '<li><a target="content" href="'.$dir->getBasename().'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
+                                $items[$dir->getBasename()] = '<li><a target="content" href="'.$dir->getBasename().'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
                             }
                         }
+                        echo implode("\n", $items);
                         ?>
                     </ul>
                 </td>

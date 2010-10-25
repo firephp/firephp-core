@@ -1,12 +1,11 @@
 <?php
 
+// See Firebug Console for result
+
 require_once('_init_.php');
 
-FirePHP::to('controller')->triggerInspect();
-
-$inspector = FirePHP::to('request');
-
-$console = $inspector->console('Tables');
+$inspector = FirePHP::to('page');
+$console = $inspector->console();
 
 $table = array();
 $table[] = array('Row 1  Column 1', 'Row 1 Column 2');
@@ -17,8 +16,6 @@ $obj = new stdClass();
 $obj->key1 = 'Value 1';
 $obj->key2 = 'Value 2';
 $console->table('Object', $obj, array('Name', 'Value'));
-
-$console->table('Request Headers', getallheaders(), array('Header', 'Value'));
 
 $console->table('INI Options', getOptions(), array('Extension', 'Name', 'Global', 'Local'));
 
