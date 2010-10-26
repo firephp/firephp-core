@@ -31,14 +31,14 @@
                     <ul>
                         <?php
                         $items = array();
-                        foreach( new DirectoryIterator(dirname(__FILE__)) as $dir ) {
-                            if($dir->isFile()
-                               && substr($dir->getBasename(), -4, 4)==".php"
-                               && $dir->getBasename()!="_init_.php"
-                               && $dir->getBasename()!="index.php"
-                               && $dir->getBasename()!="ServerScript.php") {
+                        foreach( scandir(dirname(__FILE__)) as $dir ) {
+                            if(is_file(dirname(__FILE__).DIRECTORY_SEPARATOR.$dir)
+                               && substr($dir, -4, 4)==".php"
+                               && $dir!="_init_.php"
+                               && $dir!="index.php"
+                               && $dir!="ServerScript.php") {
 
-                                $items[$dir->getBasename()] = '<li><a target="content" href="'.$dir->getBasename().'">'.substr($dir->getBasename(), 0, -4).'</a></li>';
+                                $items[$dir] = '<li><a target="content" href="'.$dir.'">'.substr($dir, 0, -4).'</a></li>';
                             }
                         }
                         echo implode("\n", $items);

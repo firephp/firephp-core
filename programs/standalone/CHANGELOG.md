@@ -3,6 +3,12 @@ TODO:
 
   * Bugfix: Write exceptions to error log (when trapping via engine plugin)
 
+// MEDIUM
+
+  * Enhancement: Update www.firephp.org to include FirePHP 1.0
+  * Enhancement: FirePHP 1.0 via pear.firephp.org
+  * Enhancement: Get FirePHP for Zend Server up to speed
+
 // HIGH
 
   * Bugfix: Throw error if first message logged to a group is not a simple log message
@@ -12,7 +18,7 @@ TODO:
   * Change: Send headers at beginning of script to avoid need for output buffering
   * Enhancement: Add more quickstart examples
 
-DONE:
+2010-10-25 - Release Version: 0.0.0master1010251614
 
   * Docs: Log to page or request context based on drop-down
   * Enhancement: Default request console to 'Console' tab if not specified [5m]
