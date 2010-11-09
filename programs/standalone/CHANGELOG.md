@@ -1,22 +1,30 @@
 
 TODO:
 
-  * Bugfix: Write exceptions to error log (when trapping via engine plugin)
-
 // MEDIUM
 
-  * Enhancement: Update www.firephp.org to include FirePHP 1.0
+  * Enhancement: Port unit tests
   * Enhancement: FirePHP 1.0 via pear.firephp.org
   * Enhancement: Get FirePHP for Zend Server up to speed
+  * Enhancement: Support Firebug LITE
 
 // HIGH
 
-  * Bugfix: Throw error if first message logged to a group is not a simple log message
-  * Enhancement: Redirect all $firephp->* calls to FirePHP::to('page') if insight page context detected
   * Bugfix: Do not send page context messages if receiver is not announced
-  * Enhancement: Support workaround for PHP < 5.3 where __callstatic magic class method not supported
   * Change: Send headers at beginning of script to avoid need for output buffering
   * Enhancement: Add more quickstart examples
+
+DONE:
+
+  * Enhancement: $console->options(array('file' => <str>, 'line' => <int>))->... [20m]
+  * Enhancement: $console->option('encoder.trace.offsetAdjustment', <int>)->... [15m]
+  * Enhancement: $console->option('<name>') and $console->options() to get current options [10m]
+  * Bugfix: Remove 'new server library' message in console when using FirePHP/fb.php [24m]
+  * Enhancement: Use insight encoder and direct messages to page context if detected [20m]
+  * Enhancement: Throw exception when old FirePHP class is loaded from include path [5m]
+  * Bugfix: Mixed named and context based groups [20m]
+  * Bugfix: Write errors to error log (when trapping via engine plugin) if applicable [40m]
+  * Enhancement: Write exceptions to error log (when trapping via engine plugin) if applicable [6m]
 
 2010-10-25 - Release Version: 0.0.0master1010251614
 

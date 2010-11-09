@@ -23,10 +23,9 @@
                 <td width="20%" nowrap valign="top" style="padding: 10px;">
 
                     <p><a target="_blank" href="http://reference.developercompanion.com/#/Tools/FirePHPCompanion/Quickstart/">Download &amp Install</a> Quickstart Examples</p>
-                        
-                    <p>Requires <a href="http://www.christophdorn.com/Tools/#FirePHP Companion" target="_blank">FirePHP Companion</a></p>
 
-                    <p><b>NOTE:</b> If you have <a target="_blank" href="http://getfirebug.com/">Firebug</a> installed make<br/>sure you have the <i>Net</i> and <i>Insight</i> panel enabled.</p>
+                    <p>Requires <a target="_blank" href="http://getfirebug.com/">Firebug</a> and <a target="_blank" href="http://www.christophdorn.com/Tools/#FirePHP Companion LITE">FirePHP Companion LITE</a>.<br/>
+                    Make sure you have the <i>Firebug Console</i> and <i>Insight</i><br/>panels enabled!</p>
 
                     <ul>
                         <?php

@@ -79,3 +79,8 @@ $firephp->log('Hello World 1');
     $firephp->log('Hello World 2');
     $firephp->groupEnd();
 $firephp->groupEnd();
+
+
+for($i=0;$i<3;$i++){
+   $firephp->fb('hello',$i);
+}

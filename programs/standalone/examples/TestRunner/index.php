@@ -25,6 +25,13 @@ function _getallheaders() {
     return $headers;
 }
 
+$returnRaw = false;
+
+function RETURN_RAW() {
+    global $returnRaw;
+    $returnRaw = true;    
+}
+
 // handle actions
 $action = (isset($_GET['action']))?$_GET['action']:false;
 switch($action) {
@@ -125,6 +132,10 @@ switch($action) {
         }
         echo '</div>';
         echo '</div>';
+        
+        $headerHarness = ob_get_clean();
+        
+        ob_start();
       
         // Include test file
         $profilingInfo['example-start'] = microtime(true);
@@ -132,6 +143,10 @@ switch($action) {
             require_once($file);
         }
         $profilingInfo['example-end'] = microtime(true);
+        
+        $bodyData = ob_get_clean();
+        
+        ob_start();
 
         // Show all included files
         if($initFile) {
@@ -217,6 +232,16 @@ switch($action) {
         echo implode("\n",$html);
 
         renderFooter();
+        
+        $footerHarness = ob_get_clean();
+
+        if($returnRaw) {
+            echo $bodyData;
+        } else {
+            echo $headerHarness;
+            echo $bodyData;
+            echo $footerHarness;
+        }
     	break;
     default:
         renderHeader();

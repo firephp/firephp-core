@@ -66,3 +66,11 @@ $console->filter(array('classes'=>array(
     'TestObject2' => array('privateVar')
 )))->log($obj);
 
+
+
+$obj1 = new stdClass;
+$obj1->x0 = array( 0 => 1);
+$obj1->y0 = array( 0 => 2);
+$obj1->x1 = array( 1 => 1);
+$obj1->y1 = array( 1 => 2);
+$console->log($obj1);

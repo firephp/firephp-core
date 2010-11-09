@@ -4,6 +4,8 @@ $inspector = FirePHP::to("page");
  
 $console = $inspector->console();
 
+$console->label('Option: encoder.maxArrayDepth')->log($console->option('encoder.maxArrayDepth'));
+
 $obj = new TestObject();
 $obj1 = new TestObject1();
 $obj1->child = new TestObject2();
@@ -37,6 +39,8 @@ $console->label('object 2')->log($obj);
 
 $console->nolimit()->label('object 3')->log($obj);
 
+$console->label('Option: encoder.maxArrayDepth')->log($console->option('encoder.maxArrayDepth'));
+
 
 $console = $console->options(array(
     'encoder.maxArrayDepth' => -1,
@@ -45,6 +49,7 @@ $console = $console->options(array(
 ));
 $console->label('object 4')->log($obj);
 
+$console->label('Options')->log($console->options());
 
 
 function trace1($console) {

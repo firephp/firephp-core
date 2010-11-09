@@ -87,3 +87,7 @@ $console->log('Hello World 1');
     $group1->close();
 $group->close();
 
+
+for($i=0;$i<3;$i++){
+    $console->label($i)->log('hello');
+}
