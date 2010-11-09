@@ -118,7 +118,6 @@ class FirePHP_Insight extends FirePHP {
         self::_logUpgradeClientMessage();
         $args = func_get_args();
         $to = call_user_func_array(array('Insight_Helper', 'to'), $args);
-        // TODO: set traceOffset?
         return $to;
     }
 

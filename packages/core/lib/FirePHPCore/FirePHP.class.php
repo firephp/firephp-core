@@ -796,7 +796,33 @@ class FirePHP {
         }
 
         if($this->logToInsightConsole!==null && (get_class($this)=='FirePHP_Insight' || is_subclass_of($this, 'FirePHP_Insight'))) {
-            $msg = $this->logToInsightConsole;
+            $trace = debug_backtrace();
+            if (!$trace) return false;
+            for( $i=0 ; $i<sizeof($trace) ; $i++ ) {
+                if(isset($trace[$i]['class'])) {
+                    if($trace[$i]['class']=='FirePHP' || $trace[$i]['class']=='FB') {
+                        continue;
+                    }
+                }
+                if(isset($trace[$i]['file'])) {
+                    $path = $this->_standardizePath($trace[$i]['file']);
+                    if( substr($path,-18,18)=='FirePHPCore/fb.php' || substr($path,-29,29)=='FirePHPCore/FirePHP.class.php') {
+                        continue;
+                    }
+                }
+                if(isset($trace[$i]['function']) && $trace[$i]['function']=='fb' &&
+                   isset($trace[$i-1]['file']) && substr($this->_standardizePath($trace[$i-1]['file']),-18,18)=='FirePHPCore/fb.php') {
+                    continue;
+                }
+                if(isset($trace[$i]['class']) && $trace[$i]['class']=='FB' &&
+                   isset($trace[$i-1]['file']) && substr($this->_standardizePath($trace[$i-1]['file']),-18,18)=='FirePHPCore/fb.php') {
+                    continue;
+                }
+                break;
+            }
+            // adjust trace offset
+            $msg = $this->logToInsightConsole->option('encoder.trace.offsetAdjustment', $i);
+
             if ($Object instanceof Exception) {
                 $Type = self::EXCEPTION;
             }

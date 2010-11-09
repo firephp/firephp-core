@@ -43,13 +43,21 @@ function FirePHP__main() {
         }
 
         set_include_path(get_include_path() . PATH_SEPARATOR . dirname(dirname(__FILE__)));
-        
+
         require_once('FirePHP/Insight.php');
-        
+
+        // ensure the FirePHP class included has the correct version
+        $version = '0.3';    // @pinf replace '0.3' with '%%package.version%%'
+        if(FirePHP::VERSION!=$version) {
+            throw new Exception("The included FirePHP class has the wrong version! This is likely due to an old version of FirePHP still being on the include path. The old version must be removed or the FirePHP 1.0 classes must have precedence on the include path!");
+        }
+
         FirePHP::setInstance(new FirePHP_Insight());
         
         Insight_Helper__main();
-    
+
+        FirePHP::getInstance(true)->setLogToInsightConsole(FirePHP::to('page')->console());
+
     } else {
 
         class FirePHP {
