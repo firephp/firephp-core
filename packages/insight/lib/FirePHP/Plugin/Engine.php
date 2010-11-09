@@ -22,6 +22,23 @@ class FirePHP_Plugin_Engine {
 
     protected $errorHistory = array();
 
+    protected static $ERROR_CONSTANTS = array('E_ERROR',
+                                              'E_WARNING',
+                                              'E_PARSE',
+                                              'E_NOTICE',
+                                              'E_CORE_ERROR',
+                                              'E_CORE_WARNING',
+                                              'E_COMPILE_ERROR',
+                                              'E_COMPILE_WARNING',
+                                              'E_USER_ERROR',
+                                              'E_USER_WARNING',
+                                              'E_USER_NOTICE',
+                                              'E_STRICT',
+                                              'E_RECOVERABLE_ERROR',
+                                              'E_DEPRECATED',
+                                              'E_USER_DEPRECATED',
+                                              'E_ALL');
+
     /**
      * Capture all errors and send to provided console
      * 
@@ -49,6 +66,25 @@ class FirePHP_Plugin_Engine {
             return;
         }
 
+        // log error if applicable
+        if(ini_get('log_errors') && ini_get('error_log')) {
+            $file = ini_get('error_log');
+            if(file_exists($file)) {
+                if($handle = fopen($file, 'a')) {
+                    $line = array();
+                    $line[] = '[' . date('Y-m-d H:i:s') . ']';
+                    $line[] = 'PHP ' . $this->errorLabelForNumber($errno) . ':';
+                    $line[] = $errstr;
+                    $line[] = 'in';
+                    $line[] = $errfile;
+                    $line[] = 'on line';
+                    $line[] = $errline;
+                    fwrite($handle, implode(' ', $line) . "\n");
+                    fclose($handle);
+                }
+            }
+        }
+
         if($this->errorHistory[$errno . ':' . $errstr . ':' . $errfile . ':' . $errline]) {
             // a repeated error
             return;
@@ -61,6 +97,7 @@ class FirePHP_Plugin_Engine {
                 return;
             }
         }
+
         // Only log errors we are asking for
         if ($this->errorTypes & $errno) {
             $this->errorConsole->setTemporaryTraceOffset($this->traceOffset);
@@ -134,6 +171,8 @@ class FirePHP_Plugin_Engine {
         
         $this->inExceptionHandler = true;
 
+        $this->logException($exception);
+
         // NOTE: This produces some junk in the output. Looks like a bug in PHP?
         header('HTTP/1.1 500 Internal Server Error');
         header('Status: 500');
@@ -158,11 +197,35 @@ class FirePHP_Plugin_Engine {
             trigger_error('No exception console set for engine. See onException().');
             return;
         }
+
+        $this->logException($exception);
+
         $console->setTemporaryTraceOffset(-1);
         $console->meta(array(
             'encoder.depthExtend' => 5,
             'encoder.exception.traceOffset' => -1
         ))->error($exception);
+    }
+    
+    public function logException($exception) {
+        // log exception if applicable
+        if(ini_get('log_errors') && ini_get('error_log')) {
+            $file = ini_get('error_log');
+            if(file_exists($file)) {
+                if($handle = fopen($file, 'a')) {
+                    $line = array();
+                    $line[] = '[' . date('Y-m-d H:i:s') . ']';
+                    $line[] = 'PHP Exception(' . get_class($exception) . '):';
+                    $line[] = $exception->getMessage();
+                    $line[] = 'in';
+                    $line[] = $exception->getFile();
+                    $line[] = 'on line';
+                    $line[] = $exception->getLine();
+                    fwrite($handle, implode(' ', $line) . "\n");
+                    fclose($handle);
+                }
+            }
+        }
     }
 
     /**
@@ -174,23 +237,7 @@ class FirePHP_Plugin_Engine {
             'present' => array(),
             'absent' => array()
         );
-        $constants = array('E_ERROR',
-                           'E_WARNING',
-                           'E_PARSE',
-                           'E_NOTICE',
-                           'E_CORE_ERROR',
-                           'E_CORE_WARNING',
-                           'E_COMPILE_ERROR',
-                           'E_COMPILE_WARNING',
-                           'E_USER_ERROR',
-                           'E_USER_WARNING',
-                           'E_USER_NOTICE',
-                           'E_STRICT',
-                           'E_RECOVERABLE_ERROR',
-                           'E_DEPRECATED',
-                           'E_USER_DEPRECATED',
-                           'E_ALL');
-        foreach( $constants as $constant ) {
+        foreach( self::$ERROR_CONSTANTS as $constant ) {
             if( ($bitmask & constant($constant)) > 0 ) {
                 $info['present'][] = $constant;
             } else {
@@ -199,4 +246,25 @@ class FirePHP_Plugin_Engine {
         }
         return $info;
     }
+
+    public function errorLabelForNumber($number) {
+        switch($number){
+            case E_ERROR:               return "Error";
+            case E_WARNING:             return "Warning";
+            case E_PARSE:               return "Parse Error";
+            case E_NOTICE:              return "Notice";
+            case E_CORE_ERROR:          return "Core Error";
+            case E_CORE_WARNING:        return "Core Warning";
+            case E_COMPILE_ERROR:       return "Compile Error";
+            case E_COMPILE_WARNING:     return "Compile Warning";
+            case E_USER_ERROR:          return "User Error";
+            case E_USER_WARNING:        return "User Warning";
+            case E_USER_NOTICE:         return "User Notice";
+            case E_STRICT:              return "Strict Notice";
+            case E_RECOVERABLE_ERROR:   return "Recoverable Error";
+            case E_DEPRECATED:          return "Deprecated";
+            case E_USER_DEPRECATED:     return "User Deprecated";
+            default:                    return "Unknown error ($number)";
+        }
+    }    
 }
