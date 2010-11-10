@@ -3,7 +3,14 @@
 require_once('FirePHP/Plugin/Engine.php');
 
 class FirePHP_Plugin_FirePHP {
-    
+
+    public function logVersion($console=false) {
+        if(!$console) {
+            $console = FirePHP::to('page')->console('FirePHP');
+        }
+        $console->log(FirePHP::VERSION);
+    }
+
     public function trapProblems($console=false) {
         if(!$console) {
             $console = FirePHP::to('page')->console('Problems');
