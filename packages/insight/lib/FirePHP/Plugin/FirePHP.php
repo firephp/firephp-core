@@ -16,6 +16,9 @@ class FirePHP_Plugin_FirePHP {
         if(is_string($this->pConsole)) {
             $this->pConsole = FirePHP::to('request')->console($this->pConsole);
         }
+        $this->pConsole = $this->pConsole->options(array(
+            'encoder.trace.offsetAdjustment' => 2
+        ));
         require_once('FirePHP/p.php');
     }
 
