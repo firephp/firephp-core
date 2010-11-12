@@ -14,6 +14,7 @@ TODO:
   * Bugfix: Do not send page context messages if receiver is not announced
   * Change: Send headers at beginning of script to avoid need for output buffering
   * Enhancement: Add more quickstart examples
+  * Enhancement: Ignore comments after // in authkeys in credentials.json
 
 
 DONE:
