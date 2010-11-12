@@ -16,7 +16,7 @@ $firephp->declareP();
 p('Hey there Firebug Console', 'Variable Label');
 
 
-$firephp->declareP('Ad-hock');
+$firephp->declareP('Ad-hock', true);
 
 p('Hey there Ad-hock Console', 'Variable Label');
 

@@ -25,7 +25,7 @@ class FirePHP_Plugin_FirePHP {
         } else {
             $this->pConsole->log($data);
         }
-        if($this->pAutoTriggerInspect) {
+        if($this->pAutoTriggerInspect && $this->pConsole->option('context')!='page') {
             $controller = FirePHP::to('controller')->triggerInspect();
         }
     }
