@@ -7,6 +7,7 @@ TODO:
   * Enhancement: FirePHP 1.0 via pear.firephp.org
   * Enhancement: Get FirePHP for Zend Server up to speed
   * Enhancement: Support Firebug LITE
+  * Enhancement: Option to log an expanded group
 
 // HIGH
 
@@ -14,7 +15,19 @@ TODO:
   * Change: Send headers at beginning of script to avoid need for output buffering
   * Enhancement: Add more quickstart examples
 
+
 DONE:
+
+  * Enhancement: Support $console->group('<name>', '<title>')->log('within group') [15m]
+  * Bugfix: Fix $console->label('<label>')->group('<name>', '<title>') and other fixes [8m]
+  * Enhancement: Config option to set path of credentials.json file [30m]
+  * Bugfix: Inclusive merging of credentials.json files [20m]
+  * Enhancement: Added FirePHP::plugin("firephp")->logVersion() [4m]
+  * Enhancement: Added FB::setLogToInsightConsole() [10m]
+  * Enhancement: FirePHP::plugin("firephp")->declareP() & p() [17m]
+  * Bugfix: Only send one triggerInspect message if multiple triggered [2m]
+
+2010-11-09 - Release Version: 0.0.0master1011090942
 
   * Enhancement: $console->options(array('file' => <str>, 'line' => <int>))->... [20m]
   * Enhancement: $console->option('encoder.trace.offsetAdjustment', <int>)->... [15m]
