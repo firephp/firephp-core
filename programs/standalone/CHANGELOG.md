@@ -8,6 +8,8 @@ TODO:
   * Enhancement: Get FirePHP for Zend Server up to speed
   * Enhancement: Support Firebug LITE
   * Enhancement: Option to log an expanded group
+  * Bugfix: Trimmed headers - http://framework.zend.com/issues/browse/ZF-7664
+  * Incorporate: http://till.klampaeckel.de/blog/archives/120-Tracking-PHP-errors.html
 
 // HIGH
 
@@ -18,6 +20,13 @@ TODO:
 
 
 DONE:
+
+  * Bugfix: Missing $ for variable causing E_NOTICE [2m]
+  * Bugfix: Notice: Undefined index: Wildfire/Channel.php on line 224 [2m]
+  * Bugfix: Fatal error when using FirePHP::plugin() with no client on PHP < 5.3 [2m]
+  * Enhancement: Insight-based page-top plugins
+
+2010-11-12 - Release Version: 0.0.0master1011120949
 
   * Enhancement: Support $console->group('<name>', '<title>')->log('within group') [15m]
   * Bugfix: Fix $console->label('<label>')->group('<name>', '<title>') and other fixes [8m]
