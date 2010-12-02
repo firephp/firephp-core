@@ -88,6 +88,9 @@ function FirePHP__main() {
             public static function to() {
                 return self::getInstance();
             }
+            public static function plugin() {
+                return self::getInstance();
+            }
             public function __call($name, $arguments) {
                 return self::getInstance();
             }
