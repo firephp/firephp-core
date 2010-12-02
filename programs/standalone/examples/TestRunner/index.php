@@ -472,7 +472,8 @@ function renderFrameset() {
                     if($dir=="RequestConsole-AutoInspect.php" ||
                        $dir=="RequestConsole-ManualInspect.php" ||
                        $dir=="RequestConsole-InspectHeader.php" ||
-                       substr($dir, 0, 11)=="PageConsole") {
+                       substr($dir, 0, 11)=="PageConsole" ||
+                       substr($dir, 0, 12)=="PageControls") {
                         $inspect = "x-insight=activate&";
                     }
                     if($dir=="RequestConsole-PostTest.php") {

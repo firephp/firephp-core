@@ -1,0 +1,21 @@
+{
+    "uid": "http://registry.pinf.org/cadorn.org/github/firephp-libs/programs/standalone/examples/UIPlugins/",
+    "description": "FirePHP UI Plugins",
+    "homepage": "https://github.com/firephp/ui-plugins",
+    "bugs": "https://github.com/firephp/ui-plugins/issues",
+    "implements": {
+        "cadorn.org/insight/@meta/package/0": {
+            "links": {
+                "quick": {
+                    "Discuss": "http://groups.google.com/group/firephp-dev",
+                    "Follow": "http://twitter.com/firephplib"
+                }
+            }
+        },
+        "cadorn.org/insight/@meta/config/0": {
+            "server": {
+                "path": "./_insight_.php"
+            }
+        }
+    }
+}

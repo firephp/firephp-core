@@ -1,0 +1,11 @@
+
+HTML, BODY {
+    padding: 0px;
+    margin: 0px;
+    background-color: #ECECEC;
+}
+
+HTML, BODY, INPUT, TEXTAREA, TD, P {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
