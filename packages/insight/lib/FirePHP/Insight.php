@@ -42,16 +42,24 @@
  * @package     FirePHP
  */
 
+require_once('Insight/Util.php');
+
 $GLOBALS['INSIGHT_AUTOLOAD'] = false;
-$GLOBALS['INSIGHT_ADDITIONAL_CONFIG'] = array(
-    'implements' => array(
-        'cadorn.org/insight/@meta/config/0' => array(
-            'plugins' => array(
-                'engine' => array(
-                    'api' => 'FirePHP/Plugin/Engine'
-                ),
-                'firephp' => array(
-                    'api' => 'FirePHP/Plugin/FirePHP'
+if(!isset($GLOBALS['INSIGHT_ADDITIONAL_CONFIG'])) {
+    $GLOBALS['INSIGHT_ADDITIONAL_CONFIG'] = array();
+}
+$GLOBALS['INSIGHT_ADDITIONAL_CONFIG'] = Insight_Util::array_merge(
+    $GLOBALS['INSIGHT_ADDITIONAL_CONFIG'],
+    array(
+        'implements' => array(
+            'cadorn.org/insight/@meta/config/0' => array(
+                'plugins' => array(
+                    'engine' => array(
+                        'api' => 'FirePHP/Plugin/Engine'
+                    ),
+                    'firephp' => array(
+                        'api' => 'FirePHP/Plugin/FirePHP'
+                    )
                 )
             )
         )
