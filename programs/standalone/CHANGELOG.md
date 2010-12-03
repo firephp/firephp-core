@@ -1,6 +1,10 @@
 
 TODO:
 
+// LOW
+
+  * Bugfix: Trimmed headers - http://framework.zend.com/issues/browse/ZF-7664
+
 // MEDIUM
 
   * Enhancement: Port unit tests
@@ -8,7 +12,6 @@ TODO:
   * Enhancement: Get FirePHP for Zend Server up to speed
   * Enhancement: Support Firebug LITE
   * Enhancement: Option to log an expanded group
-  * Bugfix: Trimmed headers - http://framework.zend.com/issues/browse/ZF-7664
   * Incorporate: http://till.klampaeckel.de/blog/archives/120-Tracking-PHP-errors.html
 
 // HIGH
@@ -16,10 +19,15 @@ TODO:
   * Bugfix: Do not send page context messages if receiver is not announced
   * Change: Send headers at beginning of script to avoid need for output buffering
   * Enhancement: Add more quickstart examples
-  * Enhancement: Ignore comments after // in authkeys in credentials.json
-
 
 DONE:
+
+  * Enhancement: Ignore comments after // in authkeys in credentials.json [10m]
+  * Enhancement: Listener registration for payload [1h30m]
+  * Enhancement: Relaying of payloads [1h40m]
+
+
+2010-12-02 - Release Version: 0.0.0master1012021019
 
   * Bugfix: Missing $ for variable causing E_NOTICE [2m]
   * Bugfix: Notice: Undefined index: Wildfire/Channel.php on line 224 [2m]

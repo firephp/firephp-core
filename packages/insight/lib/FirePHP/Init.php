@@ -4,12 +4,19 @@
 function FirePHP__main() {
 
     $activate = true;
+    $force = false;
 
-    if(defined('FIREPHP_ACTIVATED') && constant('FIREPHP_ACTIVATED')===false) {
-        $activate = false;
+    if(defined('FIREPHP_ACTIVATED')) {
+        if(constant('FIREPHP_ACTIVATED')===false) {
+            $activate = false;
+        } else
+        if(constant('FIREPHP_ACTIVATED')===true) {
+            $activate = true;
+            $force = true;
+        }
     }
 
-    if($activate) {
+    if($activate && $force===false) {
 
         // Only activate FirePHP if certain header prefixes are found:
         //  * x-wf-
@@ -53,7 +60,11 @@ function FirePHP__main() {
         }
 
         FirePHP::setInstance(new FirePHP_Insight());
-        
+
+        if($force===true) {
+            $GLOBALS['INSIGHT_FORCE_ENABLE'] = true;
+        }
+
         Insight_Helper__main();
 
         FirePHP::getInstance(true)->setLogToInsightConsole(FirePHP::to('page')->console());
