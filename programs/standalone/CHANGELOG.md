@@ -25,7 +25,7 @@ DONE:
   * Enhancement: Ignore comments after // in authkeys in credentials.json [10m]
   * Enhancement: Listener registration for payload [1h30m]
   * Enhancement: Relaying of payloads [1h40m]
-
+  * Bugfix: Set FIREPHP_ACTIVATED constant to FALSE if not enabled [5m]
 
 2010-12-02 - Release Version: 0.0.0master1012021019
 

@@ -71,6 +71,10 @@ function FirePHP__main() {
 
     } else {
 
+        if(!defined('FIREPHP_ACTIVATED')) {
+            define('FIREPHP_ACTIVATED', false);
+        }
+
         class FirePHP {
             const VERSION = '0.3';    // @pinf replace '0.3' with '%%package.version%%'
             const LOG = 'LOG';
