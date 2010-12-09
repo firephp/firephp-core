@@ -7,8 +7,15 @@
         "cadorn.org/insight/@meta/package/0": {
             "links": {
                 "quick": {
-                    "Discuss": "http://groups.google.com/group/firephp-dev",
-                    "Follow": "http://twitter.com/firephplib"
+                    "Learn": "http://reference.developercompanion.com/#/Tools/FirePHPCompanion/Introduction/",
+                    "Discuss": {
+                        "target": "tab",
+                        "url": "http://groups.google.com/group/firephp-dev"
+                    },
+                    "Follow": {
+                        "target": "window",
+                        "url": "http://twitter.com/firephplib"
+                    }
                 }
             }
         },

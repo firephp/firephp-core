@@ -23,3 +23,5 @@ $table = array(
 );
 $console->table('Table without header', $table);
 $console->table('Table with header', $table, $header);
+
+$console->expand()->table('Expanded table with header', $table, $header);

@@ -25,7 +25,7 @@ $console->log('Test Value 3');
 $group3->close();
 
 
-$group5 = $console->group('test-group-3');
+$group5 = $console->expand()->group('test-group-3');
 $group5->log('Test Group 3');
 $group5->log('Test Value 5');
 
@@ -33,11 +33,11 @@ $group5->log('Test Value 5');
     $group6->log('Sub-group 1 for Test Group 3');
     $group6->log('Test Value 6');
 
-    $group7 = $group5->group('sub-group-2-for-test-group-3')->open();
+    $group7 = $group5->expand()->group('sub-group-2-for-test-group-3')->open();
     $group5->log('Sub-group 2 for Test Group 3');
     $group5->log('Test Value 7');
 
-        $group6 = $group5->group('sub-group-1-for-sub-group-2-for-test-group-3');
+        $group6 = $group5->expand()->group('sub-group-1-for-sub-group-2-for-test-group-3');
         $group6->log('Sub-group 1 for Sub-group 2 for Test Group 3');
         $group6->log('Test Value 8');
 
@@ -57,7 +57,7 @@ $group5->log('Test Value 5');
 $group10 = $console->label('Group Label 1')->group('test-group-4', 'Test Group 4');
 $group10->log('Test Value 11');
 
-$group11 = $console->label('Group Label 2')->group('test-group-5', 'Test Group 5')->open();
+$group11 = $console->expand()->label('Group Label 2')->group('test-group-5', 'Test Group 5')->open();
 $console->log('Test Value 12');
 $group11->close();
 
@@ -65,7 +65,7 @@ $group11 = $console->group('test-group-5', 'Test Group 5')->open();
 $console->log('Test Value 13');
 $group11->close();
 
-$console->group('test-group-5', 'Test Group 5')->log('Test Value 14');
+$console->group('test-group-5', 'Test Group 5')->expand()->log('Test Value 14');
 $console->group('test-group-5')->log('Test Value 15');
 
 

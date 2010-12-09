@@ -3,6 +3,7 @@
         "cadorn.org/insight/@meta/plugin/0": {
             "main": "main",
             "options": {
+                "label": "Page Controls 2",
                 "height": 180
             }
         }

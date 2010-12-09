@@ -16,6 +16,8 @@ if(isset($_GET['target'])) {    // set by the drop-down in the reference
 }
 
 
+$console = $console->expand();
+
 $engine = FirePHP::plugin('engine');
 $engine->onException($console);
 

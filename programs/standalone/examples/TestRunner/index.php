@@ -467,6 +467,7 @@ function renderFrameset() {
             foreach( scandir(dirname(__FILE__).DIRECTORY_SEPARATOR.'insight-devcomp') as $dir ) {
                 if(is_file(dirname(__FILE__).DIRECTORY_SEPARATOR.'insight-devcomp'.DIRECTORY_SEPARATOR.$dir)
                    && $dir!='_init_.php' && substr($dir,0,5)!=".tmp_"
+                   && $dir!='PageConsole-RedirectTarget.php'
                    && $dir!='RequestConsole-RedirectTarget.php') {
                     $inspect = "x-insight=inspect&";
                     if($dir=="RequestConsole-AutoInspect.php" ||

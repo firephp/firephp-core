@@ -1,6 +1,5 @@
 
 var EVENTS = require('insight-plugin-api/events');
-var INSIGHT = require('insight-plugin-api/insight');
 var CONSOLE = require('insight-plugin-api/console');
 var PLUGIN = require('insight-plugin-api/plugin');
 var DOMPLATE = require("domplate/domplate");
@@ -34,35 +33,37 @@ exports.main = function() {
         CONSOLE.log(["send", {
             "Second": "Message"
         }]);
-        INSIGHT.to("plugin").plugin().sendSimpleMessage("First Message");
-        INSIGHT.to("plugin").plugin().sendSimpleMessage({
+        PLUGIN.sendSimpleMessage("First Message");
+        PLUGIN.sendSimpleMessage({
             "Second": "Message"
         });
     }, false);
     document.getElementById("show-plugin-link").addEventListener("click", function() {
-        INSIGHT.to("plugin").plugin().sendSimpleMessage({
+        PLUGIN.sendSimpleMessage({
             "action": "showPlugin",
             "name": "PageControls2"
         });
     }, false);
     document.getElementById("remove-all-link").addEventListener("click", function() {
-        INSIGHT.to("plugin").plugin().sendSimpleMessage({
+        PLUGIN.sendSimpleMessage({
             "action": "removeAll"
         });
     }, false);
     document.getElementById("toggle-height-link").addEventListener("click", function() {
-        if(PLUGIN.getHeight()==50) {
-            PLUGIN.setHeight(100);
-        } else {
-            PLUGIN.setHeight(50);
-        }
+        PLUGIN.getHeight(function(height) {
+            if(height==50) {
+                PLUGIN.setHeight(100);
+            } else {
+                PLUGIN.setHeight(50);
+            }
+        });
     }, false);
 
     // listen for insight events
     EVENTS.addListener("pong", function(arg1, arg2) {
         CONSOLE.log(["pong", arg1, arg2]);
     });
-    EVENTS.addListener("message", function(message) {
+    PLUGIN.addListener("message", function(message) {
         CONSOLE.log(["message", message]);
     });
 

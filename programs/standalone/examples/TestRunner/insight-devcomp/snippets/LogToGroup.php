@@ -17,7 +17,7 @@ if(isset($_GET['target'])) {    // set by the drop-down in the reference
 
 
 $console->group('Group1')->log('Group 1 Title');
-$console->group('Group2')->log('Group 2 Title');
+$console->expand()->group('Group2')->log('Group 2 Title');
 $console->group('Group1')->log('Message 1');
 $console->group('Group2')->log('Message 2');
 $console->group('Group1')->log('Message 3');

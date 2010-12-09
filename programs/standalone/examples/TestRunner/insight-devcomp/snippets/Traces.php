@@ -16,4 +16,4 @@ if(isset($_GET['target'])) {    // set by the drop-down in the reference
 }
 
 
-$console->trace('Trace to here');
+$console->expand()->trace('Trace to here');

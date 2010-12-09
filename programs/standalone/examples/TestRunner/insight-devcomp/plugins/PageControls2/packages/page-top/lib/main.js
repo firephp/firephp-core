@@ -11,17 +11,15 @@ exports.main = function() {
     CONSOLE.log("Hello World from PageControls2: " + new Date());
 
     // "content" is the root HTML element (body) to put markup into
-    JQUERY("#content").html(
-        [
-            '<div class="links"><a href="#" id="more-data-link">Load Data</a></div>',
-            '<div id="infovis"></div>'
-        ].join("\n")
-    );
+    PLUGIN.getRootElement().innerHTML = [
+        '<div class="links"><a href="#" id="more-data-link">Load Data</a></div>',
+        '<div id="infovis"></div>'
+    ].join("\n")
 
     var barChart;
 
     // wait for the DOM to draw
-    JQUERY(function($) {
+    PLUGIN.ready(function() {
     
         //init BarChart
         barChart = new JIT.BarChart({
@@ -68,7 +66,7 @@ exports.main = function() {
         barChart.loadJSON(getInitialData());
     });    
 
-    JQUERY("#more-data-link").bind("click", function() {
+    JQUERY("#more-data-link").click(function() {
     
       var json2 = {
           'values': [

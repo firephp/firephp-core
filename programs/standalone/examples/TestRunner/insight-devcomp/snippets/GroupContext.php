@@ -16,12 +16,12 @@ if(isset($_GET['target'])) {    // set by the drop-down in the reference
 }
 
 
-$group = $console->group('Group1')->open();
+$group = $console->expand()->group('Group1')->open();
 
     $console->log('Group 1 Title');
     $console->log('Message 1');
     
-    $console->group('Group2')->open();
+    $console->expand()->group('Group2')->open();
         $console->log('Group 2 Title');
         $console->log('Message 2');
     $console->group('Group2')->close();
