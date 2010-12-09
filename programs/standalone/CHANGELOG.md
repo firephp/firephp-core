@@ -11,7 +11,7 @@ TODO:
   * Enhancement: FirePHP 1.0 via pear.firephp.org
   * Enhancement: Get FirePHP for Zend Server up to speed
   * Enhancement: Support Firebug LITE
-  * Enhancement: Option to log an expanded group
+  * Enhancement: pear package for easy install of FirePHP 1.0 on ZendServer
   * Incorporate: http://till.klampaeckel.de/blog/archives/120-Tracking-PHP-errors.html
 
 // HIGH
@@ -21,6 +21,19 @@ TODO:
   * Enhancement: Add more quickstart examples
 
 DONE:
+
+  * Enhancement: Validate characters for plugin aliases [6m]
+  * Enhancement: Validate characters for group names [3m]
+  * Refactor: Wildfire string payload parsing [5m]
+  * Enhancement: getInstance() for FirePHP::to("plugin") [37m]
+  * Change: Remove 'container' when registering plugins [48m]
+  * Enhancement: Throw error when registering a plugin more than once during a request [15m]
+  * Enhancement: Added ->notrim()-> and string.trim.length & string.trim.newlines options
+  * Enhancement: Added ->expand()-> for all messages
+  * Enhancement: New encoder.maxStringLength option [30m]
+  * Bugfix: Set FirePHP version dynamically for payload relay test (so upgrade message does not show) [2m]
+
+2010-12-03 - Release Version: 0.0.0master1012031707
 
   * Enhancement: Ignore comments after // in authkeys in credentials.json [10m]
   * Enhancement: Listener registration for payload [1h30m]
