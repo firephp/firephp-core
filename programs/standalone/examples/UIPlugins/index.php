@@ -6,6 +6,10 @@ $available = false;
 $PINF_HOME = isset($_SERVER['PINF_HOME']) ? $_SERVER['PINF_HOME'] : '/pinf';
 if(is_dir($PINF_HOME)) {
     $path = $PINF_HOME . '/workspaces/github.com/firephp/ui-plugins';
+    if(!is_dir($path)) {
+        // HACK
+        $path = '/pinf/programs/com.developercompanion.reference/packages/firephp-ui-plugins';
+    }
     if(is_dir($path)) {
         $available = true;
     }
