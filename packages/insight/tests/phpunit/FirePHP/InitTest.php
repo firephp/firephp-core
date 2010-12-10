@@ -12,6 +12,6 @@ class FirePHP_InitTest extends PHPUnit_Framework_TestCase
         $console->label('Label 1')->log('Hello World 1');
         $console->expand()->label('Label 2')->log('Hello World 2');
 
-        FirePHP::to('controller')->triggerInspect();
+        $console->show();
     }
 }
