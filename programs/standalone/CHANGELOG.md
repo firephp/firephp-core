@@ -4,10 +4,13 @@ TODO:
 // LOW
 
   * Bugfix: Trimmed headers - http://framework.zend.com/issues/browse/ZF-7664
+  * Enhancement: (cli) phpunit wrapper
+  * Enhancement: (cli) nice variable printing to terminal via ::to('terminal')
+  * Bugfix: Tests directories in zip distribution
 
 // MEDIUM
 
-  * Enhancement: Port unit tests
+  * Enhancement: Port unit tests & get working properly via phpunit and logging to devcomp
   * Enhancement: FirePHP 1.0 via pear.firephp.org
   * Enhancement: Get FirePHP for Zend Server up to speed
   * Enhancement: Support Firebug LITE
@@ -22,6 +25,10 @@ TODO:
 
 DONE:
 
+  * Enhancement: API to add quicklinks [27m]
+
+2010-12-09 - Release Version: 0.0.0master1012091510
+
   * Enhancement: Validate characters for plugin aliases [6m]
   * Enhancement: Validate characters for group names [3m]
   * Refactor: Wildfire string payload parsing [5m]
@@ -32,6 +39,7 @@ DONE:
   * Enhancement: Added ->expand()-> for all messages
   * Enhancement: New encoder.maxStringLength option [30m]
   * Bugfix: Set FirePHP version dynamically for payload relay test (so upgrade message does not show) [2m]
+  * Enhancement: CLI cupport
 
 2010-12-03 - Release Version: 0.0.0master1012031707
 
