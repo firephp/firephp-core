@@ -26,6 +26,8 @@ TODO:
 DONE:
 
   * Enhancement: API to add quicklinks [27m]
+  * Enhancement: Pass custom trace to trace($title, $trace=null) [5m]
+  * Enhancement: Lazy loading of plugin files
 
 2010-12-09 - Release Version: 0.0.0master1012091510
 
