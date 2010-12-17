@@ -22,8 +22,15 @@ TODO:
   * Bugfix: Do not send page context messages if receiver is not announced
   * Change: Send headers at beginning of script to avoid need for output buffering
   * Enhancement: Add more quickstart examples
+  * Bugfix: Recognize ../ paths as relative (not just ./)
+  * Enhancement: Set color and background color of messages
+  * Enhancement: Add new ->ok()-> message priority
 
 DONE:
+
+  * Bugfix: Use $_SERVER['HTTP_X_FORWARDED_FOR'] over $_SERVER['REMOTE_ADDR'] if set [5m]
+
+2010-12-14 - Release Version: 0.0.0master1012142034
 
   * Enhancement: API to add quicklinks [27m]
   * Enhancement: Pass custom trace to trace($title, $trace=null) [5m]
