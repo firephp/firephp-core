@@ -179,7 +179,7 @@ switch($action) {
         }
         
         // flush headers now if applicable
-        if(class_exists('Insight_Helper')) {
+        if(class_exists('Insight_Helper', false)) {
             $insight = Insight_Helper::getInstance();
             if($insight->getEnabled()) {
                 $insight->getDispatcher()->getChannel()->flush();
@@ -201,7 +201,7 @@ switch($action) {
         echo implode("\n",$html);
 
         // Print payload to be fetched by client if applicable
-        if(class_exists('Insight_Helper')) {
+        if(class_exists('Insight_Helper', false)) {
             $insight = Insight_Helper::getInstance();
             if($insight->getEnabled()) {
                 $html = array();

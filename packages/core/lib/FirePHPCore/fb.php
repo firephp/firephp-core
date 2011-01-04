@@ -42,7 +42,7 @@
  * @package     FirePHPCore
  */
 
-if(!class_exists('FirePHP')) {
+if(!class_exists('FirePHP', false)) {
     require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'FirePHP.class.php';
 }
 

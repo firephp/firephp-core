@@ -28,6 +28,10 @@ TODO:
 
 DONE:
 
+  * Bugfix: Set second arg FALSE for class_exists() to bypass autoloaders
+
+2010-12-16 - Release Version: 0.0.0master1012161631
+
   * Bugfix: Use $_SERVER['HTTP_X_FORWARDED_FOR'] over $_SERVER['REMOTE_ADDR'] if set [5m]
 
 2010-12-14 - Release Version: 0.0.0master1012142034
