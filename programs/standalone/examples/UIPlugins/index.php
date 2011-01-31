@@ -18,14 +18,40 @@ if(is_dir($PINF_HOME)) {
 if($available) {
     
     if(isset($_GET['action']) && $_GET['action']=='run') {
-        $file = realpath($path.DIRECTORY_SEPARATOR.'packages'.DIRECTORY_SEPARATOR.$_GET['plugin'].DIRECTORY_SEPARATOR.'tests'.DIRECTORY_SEPARATOR.'php'.DIRECTORY_SEPARATOR.'FirePHPTest.inc.php');
-        if(!$file || !is_file($file)) {
-            echo 'Plugin "' . $_GET['plugin'] . '" not found!';
-            return;
+        
+        if(isset($_GET['test'])) {
+            $file = realpath($path.DIRECTORY_SEPARATOR.'packages'.DIRECTORY_SEPARATOR.$_GET['plugin'].DIRECTORY_SEPARATOR.'tests'.DIRECTORY_SEPARATOR.'php'.DIRECTORY_SEPARATOR.'FirePHPTest'.DIRECTORY_SEPARATOR.$_GET['test']);
+            if(!$file || !is_file($file)) {
+                echo 'Test "' . $_GET['test'] . '" for plugin "' . $_GET['plugin'] . '" not found!';
+                return;
+            }
+            require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . '_insight_.php');
+            require_once($file);
+            highlight_file($file);
+        } else {
+            $file = realpath($path.DIRECTORY_SEPARATOR.'packages'.DIRECTORY_SEPARATOR.$_GET['plugin'].DIRECTORY_SEPARATOR.'tests'.DIRECTORY_SEPARATOR.'php'.DIRECTORY_SEPARATOR.'FirePHPTest.inc.php');
+            if(!$file || !is_file($file)) {
+                echo 'Plugin "' . $_GET['plugin'] . '" not found!';
+                return;
+            }
+            require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . '_insight_.php');
+            require_once($file);
+            highlight_file($file);
+            // render additional test links
+            $html = array();
+            $html[] = '<hr>';
+            $html[] = '<ul>';
+            $path = dirname($file) . DIRECTORY_SEPARATOR . 'FirePHPTest';
+            if(is_dir($path)) {
+                foreach( scandir($path) as $dir  ) {
+                    if(is_file($path.DIRECTORY_SEPARATOR.$dir) && $dir{0}!=".") {
+                        $html[] = '<li><a target="content" href="?action=run&plugin='.$_GET['plugin'].'&test='.$dir.'">'.$dir.'</a></li>';
+                    }
+                }
+            }
+            $html[] = '</ul>';
+            echo implode("\n", $html);
         }
-        require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . '_insight_.php');
-        require_once($file);
-        highlight_file($file);
         return;
     }
 ?>

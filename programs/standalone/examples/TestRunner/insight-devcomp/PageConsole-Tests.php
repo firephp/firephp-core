@@ -17,3 +17,9 @@ for($i=0;$i<3;$i++){
    $console->label($i)->log('hello');
 }
 
+
+$console->log(array('§foo'=>'§foo')); 
+$console->log(array('¤foo'=>'¤foo')); 
+$console->log(array('£foo'=>'£foo')); 
+$console->log(array('€foo'=>'€foo')); 
+$console->log(array('§a¤b£c€'=>'§a¤b£c€')); 
