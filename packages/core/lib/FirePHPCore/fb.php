@@ -6,7 +6,7 @@
  * 
  * Software License Agreement (New BSD License)
  * 
- * Copyright (c) 2006-2010, Christoph Dorn
+ * Copyright (c) 2006-2011, Christoph Dorn
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without modification,
@@ -36,7 +36,7 @@
  * 
  * ***** END LICENSE BLOCK *****
  * 
- * @copyright   Copyright (C) 2007-2009 Christoph Dorn
+ * @copyright   Copyright (C) 2007-2011 Christoph Dorn
  * @author      Christoph Dorn <christoph@christophdorn.com>
  * @license     http://www.opensource.org/licenses/bsd-license.php
  * @package     FirePHPCore
