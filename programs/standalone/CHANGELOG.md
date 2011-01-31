@@ -16,6 +16,7 @@ TODO:
   * Enhancement: Support Firebug LITE
   * Enhancement: pear package for easy install of FirePHP 1.0 on ZendServer
   * Incorporate: http://till.klampaeckel.de/blog/archives/120-Tracking-PHP-errors.html
+  * Enhancement: Plugin library and example for http://vis.stanford.edu/protovis/
 
 // HIGH
 
@@ -24,11 +25,19 @@ TODO:
   * Enhancement: Add more quickstart examples
   * Bugfix: Recognize ../ paths as relative (not just ./)
   * Enhancement: Set color and background color of messages
+  * Enhancement: Proxy data from service calls to client
   * Enhancement: Add new ->ok()-> message priority
 
 DONE:
 
-  * Bugfix: Set second arg FALSE for class_exists() to bypass autoloaders
+  * Enhancement: Example APF-based (ajax.org) plugin (working but clunky - not usable) [6h]
+  * Enhancement: Example ExtJS-based plugin [30m]
+
+2011-01-05 - Release Version: 0.0.0master1101051613
+
+  * Bugfix: Set second arg FALSE for class_exists() to bypass autoloaders [12m]
+  * Bugfix: Insight-specific global variable cleanup during initialization [3m]
+  * Enhancement: Specify credentials.json path via INSIGHT_CONFIG_PATH by suffixing with ':<PATH>' [12m]
 
 2010-12-16 - Release Version: 0.0.0master1012161631
 
