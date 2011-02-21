@@ -763,7 +763,6 @@ class FirePHP {
         $Options = array();
       
         if (func_num_args() == 1) {
-            // banana?
         } else if (func_num_args() == 2) {
             switch (func_get_arg(1)) {
                 case self::LOG:
