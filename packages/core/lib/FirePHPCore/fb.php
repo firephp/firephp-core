@@ -42,7 +42,7 @@
  * @package     FirePHPCore
  */
 
-if(!class_exists('FirePHP', false)) {
+if (!class_exists('FirePHP', false)) {
     require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'FirePHP.class.php';
 }
 
@@ -61,7 +61,7 @@ function fb()
     $instance = FirePHP::getInstance(true);
   
     $args = func_get_args();
-    return call_user_func_array(array($instance,'fb'),$args);
+    return call_user_func_array(array($instance, 'fb'), $args);
 }
 
 
@@ -99,7 +99,7 @@ class FB
     public static function getEnabled()
     {
         return FirePHP::getInstance(true)->getEnabled();
-    }  
+    }
   
     /**
      * Specify a filter to be used when encoding an object
@@ -150,7 +150,7 @@ class FB
     public static function send()
     {
         $args = func_get_args();
-        return call_user_func_array(array(FirePHP::getInstance(true),'fb'), $args);
+        return call_user_func_array(array(FirePHP::getInstance(true), 'fb'), $args);
     }
 
     /**
@@ -192,7 +192,7 @@ class FB
     public static function log($Object, $Label=null)
     {
         return self::send($Object, $Label, FirePHP::LOG);
-    } 
+    }
 
     /**
      * Log object with label to firebug console
@@ -206,7 +206,7 @@ class FB
     public static function info($Object, $Label=null)
     {
         return self::send($Object, $Label, FirePHP::INFO);
-    } 
+    }
 
     /**
      * Log object with label to firebug console
@@ -220,7 +220,7 @@ class FB
     public static function warn($Object, $Label=null)
     {
         return self::send($Object, $Label, FirePHP::WARN);
-    } 
+    }
 
     /**
      * Log object with label to firebug console
@@ -234,7 +234,7 @@ class FB
     public static function error($Object, $Label=null)
     {
         return self::send($Object, $Label, FirePHP::ERROR);
-    } 
+    }
 
     /**
      * Dumps key and variable to firebug server panel
@@ -248,7 +248,7 @@ class FB
     public static function dump($Key, $Variable)
     {
         return self::send($Variable, $Key, FirePHP::DUMP);
-    } 
+    }
 
     /**
      * Log a trace in the firebug console
@@ -261,7 +261,7 @@ class FB
     public static function trace($Label)
     {
         return self::send($Label, FirePHP::TRACE);
-    } 
+    }
 
     /**
      * Log a table in the firebug console
@@ -275,6 +275,6 @@ class FB
     public static function table($Label, $Table)
     {
         return self::send($Table, $Label, FirePHP::TABLE);
-    } 
+    }
 
 }
