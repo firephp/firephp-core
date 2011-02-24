@@ -1,5 +1,5 @@
 <?php
-
+// - qbbr, Sokolov Innokenty <sokolov.innokenty@gmail.com>, Copyright 2011, New BSD License
 /* ***** BEGIN LICENSE BLOCK *****
  *  
  * This file is part of FirePHP (http://www.firephp.org/).

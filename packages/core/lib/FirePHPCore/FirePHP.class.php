@@ -1,4 +1,5 @@
 <?php
+// - qbbr, Sokolov Innokenty <sokolov.innokenty@gmail.com>, Copyright 2011, New BSD License
 /**
  * *** BEGIN LICENSE BLOCK *****
  *  
