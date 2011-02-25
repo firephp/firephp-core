@@ -23,3 +23,12 @@ $console->log(array('¤foo'=>'¤foo'));
 $console->log(array('£foo'=>'£foo')); 
 $console->log(array('€foo'=>'€foo')); 
 $console->log(array('§a¤b£c€'=>'§a¤b£c€')); 
+
+
+$console->log(array('foo'=>'bar'));
+$console->log(array('foo'=>'bár'));
+$console->label('fóó')->log(array('fóó'=>'bar'));
+
+
+$console->label("num tel")->log("muméro de téléphone");
+$console->label("num tel")->log(array('numéro'=>123));
