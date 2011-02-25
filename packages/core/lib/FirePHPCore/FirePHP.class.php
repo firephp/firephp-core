@@ -1,4 +1,6 @@
 <?php
+// Authors:
+// - cadorn, Christoph Dorn <christoph@christophdorn.com>, Copyright 2007, New BSD License
 // - qbbr, Sokolov Innokenty <sokolov.innokenty@gmail.com>, Copyright 2011, New BSD License
 /**
  * *** BEGIN LICENSE BLOCK *****
