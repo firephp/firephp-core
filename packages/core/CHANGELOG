@@ -7,6 +7,8 @@ TODO:
 DONE:
 
     - (Issue 163) PHP5 class_exists() throws Exception without second parameter
+    - (Issue 166) Non-utf8 array values replaced with null
+    - Cleaned up code formatting [sokolov.innokenty@gmail.com]
 
 2010-10-26 - Release Version: 0.3.2
 
