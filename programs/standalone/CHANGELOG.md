@@ -32,6 +32,8 @@ DONE:
 
   * Enhancement: Example APF-based (ajax.org) plugin (working but clunky - not usable) [6h]
   * Enhancement: Example ExtJS-based plugin [30m]
+  * Bugfix: INSIGHT_CONFIG_PATH delimiter conflicting with windows drive separator ':'
+  * Bugfix: More reliable string encoding detection (Issue 166)
 
 2011-01-05 - Release Version: 0.0.0master1101051613
 

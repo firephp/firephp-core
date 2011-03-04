@@ -1408,7 +1408,11 @@ class FirePHP {
                    && array_key_exists('GLOBALS', $val)) {
                     $val['GLOBALS'] = '** Recursion (GLOBALS) **';
                 }
-              
+
+                if (!self::is_utf8($key)) {
+                    $key = utf8_encode($key);
+                }
+
                 $return[$key] = $this->encodeObject($val, 1, $ArrayDepth + 1, $MaxDepth + 1);
             }
         } else {
@@ -1429,8 +1433,8 @@ class FirePHP {
      */
     protected static function is_utf8($str)
     {
-        if (function_exists('mb_detect_encoding')) {
-            return (mb_detect_encoding($str) == 'UTF-8');
+        if(function_exists('mb_detect_encoding')) {
+            return (mb_detect_encoding($str, 'UTF-8', true) == 'UTF-8');
         }
         $c = 0;
         $b = 0;
