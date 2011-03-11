@@ -103,7 +103,7 @@ class FirePHP_Plugin_Engine {
             $this->errorConsole->setTemporaryTraceOffset($this->traceOffset);
 
             $meta = array(
-                'encoder.depthExtend' => 5,
+                'encoder.rootDepth' => 5,
                 'encoder.exception.traceOffset' => 1
             );
 
@@ -141,7 +141,7 @@ class FirePHP_Plugin_Engine {
         }
         $this->assertionErrorConsole->setTemporaryTraceOffset($this->traceOffset);
         $this->assertionErrorConsole->meta(array(
-            'encoder.depthExtend' => 5,
+            'encoder.rootDepth' => 5,
             'encoder.exception.traceOffset' => 1
         ))->error(new ErrorException('Assertion Failed - Code[ '.$code.' ]', 0, null, $file, $line));
     }
@@ -180,7 +180,7 @@ class FirePHP_Plugin_Engine {
         try {
             $this->exceptionConsole->setTemporaryTraceOffset(-1);
             $this->exceptionConsole->meta(array(
-                'encoder.depthExtend' => 5,
+                'encoder.rootDepth' => 5,
                 'encoder.exception.traceOffset' => -1
             ))->error($exception);
         } catch(Exception $e) {
@@ -202,7 +202,7 @@ class FirePHP_Plugin_Engine {
 
         $console->setTemporaryTraceOffset(-1);
         $console->meta(array(
-            'encoder.depthExtend' => 5,
+            'encoder.rootDepth' => 5,
             'encoder.exception.traceOffset' => -1
         ))->error($exception);
     }

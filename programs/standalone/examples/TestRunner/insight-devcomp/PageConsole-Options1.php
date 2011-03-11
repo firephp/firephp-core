@@ -29,6 +29,18 @@ $console = $console->option('encoder.maxDepth', 7);
 $console->label('object 1')->log($obj);
 
 
+
+$console1 = $console->options(array(
+    'encoder.maxArrayDepth' => 2,
+    'encoder.maxObjectDepth' => 2,
+    'encoder.maxDepth' => 3
+));
+$table = array();
+$arr = array(array('ss'=>array('fgdfg'=>array('dsfdf'=>'dfgdfg'))));
+$table[] = array($obj, $arr);
+$console1->table('Trimmed Table', $table, array('Column 1', 'Column 2'));
+
+
 $console = $console->option('encoder.maxArrayDepth', 2);
 $console = $console->options(array(
     'encoder.maxObjectDepth' => 2,

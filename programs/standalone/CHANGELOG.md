@@ -25,10 +25,18 @@ TODO:
   * Enhancement: Add more quickstart examples
   * Bugfix: Recognize ../ paths as relative (not just ./)
   * Enhancement: Set color and background color of messages
+
+// TOP
+
   * Enhancement: Proxy data from service calls to client
   * Enhancement: Add new ->ok()-> message priority
 
 DONE:
+
+  * Enhancement: Better error messages when INSIGHT_DEBUG enabled [20m]
+  * Bugfix: Depth trimming [1h30m]
+
+2011-03-04 - Release Version: 0.0.0master1103041120
 
   * Enhancement: Example APF-based (ajax.org) plugin (working but clunky - not usable) [6h]
   * Enhancement: Example ExtJS-based plugin [30m]
