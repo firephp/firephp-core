@@ -25,13 +25,20 @@ TODO:
   * Enhancement: Add more quickstart examples
   * Bugfix: Recognize ../ paths as relative (not just ./)
   * Enhancement: Set color and background color of messages
+  * Enhancement: Autoloader support
+  * Enhancement: Use of namespaces internally (released in parallel to non-namespaced release (FirePHP < 5.3))
 
 // TOP
 
   * Enhancement: Proxy data from service calls to client
   * Enhancement: Add new ->ok()-> message priority
+  * Bugfix: Wrap ZF classes to avoid redeclaration (specifically needed until autoloader and external ZF issues resolved)
 
 DONE:
+
+  * Bugfix: INSIGHT_CONFIG_PATH detection and validation regression (was failing for minimal install)
+
+2011-03-11 - Release Version: 0.0.0master1103111119
 
   * Enhancement: Better error messages when INSIGHT_DEBUG enabled [20m]
   * Bugfix: Depth trimming [1h30m]
