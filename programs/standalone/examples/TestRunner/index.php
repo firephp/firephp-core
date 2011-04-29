@@ -244,6 +244,7 @@ switch($action) {
         }
     	break;
     default:
+        require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'insight-devcomp' . DIRECTORY_SEPARATOR . '_init_.php');
         renderHeader();
         renderFrameset();
         renderFooter();
