@@ -36,7 +36,11 @@ TODO:
 
 DONE:
 
-  * Bugfix: INSIGHT_CONFIG_PATH detection and validation regression (was failing for minimal install)
+  * Bugfix: Exception if FIREPHP_ACTIVATED is set and ->on() is used [15m]
+
+2011-04-30 - Release Version: 0.0.0master1104301030
+
+  * Bugfix: INSIGHT_CONFIG_PATH detection and validation regression (was failing for minimal install) [10m]
 
 2011-03-11 - Release Version: 0.0.0master1103111119
 
