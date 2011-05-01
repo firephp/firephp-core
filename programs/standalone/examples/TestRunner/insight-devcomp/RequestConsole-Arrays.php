@@ -11,7 +11,7 @@ $test = array('123',234,"567");
 $console->log($test);
 
 $test = array('123'=>234, 234, "567");
-$console->log($test);
+$console->expand()->log($test);
 
 $test = array('a123'=>234, 234, "567");
 $console->log($test);

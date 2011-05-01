@@ -19,7 +19,7 @@ $group->close();
 
 
 
-$group = $console1->group('Group2', 'Group 2 Title')->open();
+$group = $console1->expand()->group('Group2', 'Group 2 Title')->open();
 
 $console1->log('Message 1');
 $console1->log('Message 2');
