@@ -36,6 +36,10 @@ TODO:
 
 DONE:
 
+  * Change: Updated TestRunner descriptor [10m]
+
+2011-05-10 - Release Version: 0.0.0master1105101539
+
   * Bugfix: Exception if FIREPHP_ACTIVATED is set and ->on() is used [15m]
   * Change: Do not send server URL all the time [5m]
   * Enhancement: Send package info only if changed [20m]

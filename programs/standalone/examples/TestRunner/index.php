@@ -413,6 +413,9 @@ function renderFrameset() {
         });
     </script>
     <div class="ui-layout-west">
+        
+        <p>Source: <a target="_blank" href="https://github.com/cadorn/firephp-libs/tree/master/programs/standalone/examples/">github.com/cadorn/firephp-libs</a></p>
+        
         <table border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td><input type="checkbox" id="option-show-headers"/></td>
