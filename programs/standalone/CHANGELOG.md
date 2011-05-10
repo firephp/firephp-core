@@ -37,6 +37,8 @@ TODO:
 DONE:
 
   * Bugfix: Exception if FIREPHP_ACTIVATED is set and ->on() is used [15m]
+  * Change: Do not send server URL all the time [5m]
+  * Enhancement: Send package info only if changed [20m]
 
 2011-04-30 - Release Version: 0.0.0master1104301030
 
