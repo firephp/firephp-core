@@ -31,7 +31,7 @@ class FirePHP_Plugin_Engine {
     }
 
     public function handleException($exception, $console=null) {
-        trigger_error('FirePHP_Plugin_Engine::handleException() is DEPRECATED! This functionality is now available via Insight_Plugin_Error and enabled by default.', E_USER_DEPRECATED);
+        trigger_error('FirePHP_Plugin_Engine::handleException() is DEPRECATED! Use [Console API]->error() instead.', E_USER_DEPRECATED);
     }
     
     public function logException($exception) {

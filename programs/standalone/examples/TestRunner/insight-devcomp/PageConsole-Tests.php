@@ -32,3 +32,6 @@ $console->label('fóó')->log(array('fóó'=>'bar'));
 
 $console->label("num tel")->log("muméro de téléphone");
 $console->label("num tel")->log(array('numéro'=>123));
+
+
+$console->label("Special chars")->log("%ù*$=)^:!");

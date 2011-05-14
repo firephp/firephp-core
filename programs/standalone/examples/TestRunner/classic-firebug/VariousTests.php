@@ -8,3 +8,15 @@ $encoded = '[{"Type":"INFO","Label":"Beleg","File":"C:\\\\SyLinx\\\\SyOPS\\\\SyS
 $decoded = json_decode($encoded);
 
 $firephp->info($decoded);
+
+
+$firephp->log("%ù*$=)^:!");
+
+
+//$encoded = '[{"Type":"LOG","Label":"mocs","File":"W:\\\\dispatcher.php(37) :eval()\'d code","Line":1},{null:null,"k&#257;te":"k&#257;te","k&#299;\u009aaparte&#7779;ab&#257;tu ak&#257;lu ":"k&#299; \u009aaparte&#7779;ab&#257;tu ak&#257;lu ","k&#299; \u009aaparte\u009aak&#257;nu":"k&#299; \u009aaparte\u009aak&#257;nu",null:null,"SAG-DU":"SAG-DU","\u008aU--TI":"\u008aU--TI","\u009aulm&#257;nu":"\u009aulm&#257;nu"}]';
+$encoded = '[{"Type":"LOG","Label":"mocs","File":"W:\\\\dispatcher.php(37) :eval()\'d code","Line":1},{"k&#257;te":"k&#257;te","k&#299;\u009aaparte&#7779;ab&#257;tu ak&#257;lu ":"k&#299; \u009aaparte&#7779;ab&#257;tu ak&#257;lu ","k&#299; \u009aaparte\u009aak&#257;nu":"k&#299; \u009aaparte\u009aak&#257;nu","SAG-DU":"SAG-DU","\u008aU--TI":"\u008aU--TI","\u009aulm&#257;nu":"\u009aulm&#257;nu"}]';
+
+header("X-Wf-1-1-1-5: " . strlen($encoded) . "|" . $encoded . "|");
+
+header("X-Wf-1-Index: 5", true);
+
