@@ -34,7 +34,17 @@ TODO:
   * Enhancement: Add new ->ok()-> message priority
   * Bugfix: Wrap ZF classes to avoid redeclaration (specifically needed until autoloader and external ZF issues resolved)
 
+  * Docs: Deprecate FirePHP_Plugin_FirePHP::trapProblems()
+  * Docs: Deprecate FirePHP_Plugin_Engine::*
+
 DONE:
+
+  * Bugfix: Default to 'log' priority without setting meta
+  * Change: Deprecated FirePHP_Plugin_FirePHP::trapProblems()
+  * Change: Deprecated FirePHP_Plugin_Engine::*
+  * Enhancement: Send included files for every request
+
+2011-05-10 - Release Version: 0.0.0master1105101636
 
   * Change: Updated TestRunner descriptor [10m]
 

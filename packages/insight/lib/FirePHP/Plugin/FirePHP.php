@@ -1,5 +1,9 @@
 <?php
 
+if(!defined('E_USER_DEPRECATED ')) {
+    define('E_USER_DEPRECATED ', 16384);
+}
+
 require_once('FirePHP/Plugin/Engine.php');
 
 class FirePHP_Plugin_FirePHP {
@@ -41,13 +45,7 @@ class FirePHP_Plugin_FirePHP {
     }
 
     public function trapProblems($console=false) {
-        if(!$console) {
-            $console = FirePHP::to('page')->console('Problems');
-        }
-        $engine = FirePHP::plugin('engine');
-        $engine->onError($console);
-        $engine->onAssertionError($console);
-        $engine->onException($console);
+        trigger_error('FirePHP_Plugin_FirePHP::trapProblems() is DEPRECATED! All problems are always trapped by Insight_Helper now.', E_USER_DEPRECATED);
     }
 
     public function recordEnvironment($console=false) {

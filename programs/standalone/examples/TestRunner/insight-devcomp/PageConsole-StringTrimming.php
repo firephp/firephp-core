@@ -19,7 +19,7 @@ $console->options(array(
 
 $console->label('Untrimmed')->log('This is a long string that should not be trimmed when displaying in firebug console');
 
-$console->option('string.trim.enabled', true)->label('Trimmed')->log('This is a long string that should not be trimmed when displaying in firebug console');
+$console->option('string.trim.enabled', true)->label('Trimmed')->log('This is a long string that should be trimmed when displaying in firebug console');
 
 $console->label('Trimmed')->log(
     'This is a long string that should be trimmed when displaying in firebug console. ' . 
