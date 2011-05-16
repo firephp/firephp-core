@@ -35,3 +35,23 @@ $console->label("num tel")->log(array('numéro'=>123));
 
 
 $console->label("Special chars")->log("%ù*$=)^:!");
+
+
+$array = array(
+    null => null,
+    'na MŠ DU' => 'ana MŠ DU',
+    'ana MÁŠ DU' => 'ana MÁŠ DU',
+    '&#251;' => '&#251;',
+    chr(251) => chr(251)
+);
+$console->log($array);
+
+
+class testClass {}
+$obj = new testClass();
+$obj->null = null;
+
+$console->log($obj);
+
+
+trigger_error("Test Error");

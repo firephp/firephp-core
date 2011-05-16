@@ -13,10 +13,30 @@ $firephp->info($decoded);
 $firephp->log("%ù*$=)^:!");
 
 
-//$encoded = '[{"Type":"LOG","Label":"mocs","File":"W:\\\\dispatcher.php(37) :eval()\'d code","Line":1},{null:null,"k&#257;te":"k&#257;te","k&#299;\u009aaparte&#7779;ab&#257;tu ak&#257;lu ":"k&#299; \u009aaparte&#7779;ab&#257;tu ak&#257;lu ","k&#299; \u009aaparte\u009aak&#257;nu":"k&#299; \u009aaparte\u009aak&#257;nu",null:null,"SAG-DU":"SAG-DU","\u008aU--TI":"\u008aU--TI","\u009aulm&#257;nu":"\u009aulm&#257;nu"}]';
+$array = array(
+    null => null,
+    'na MŠ DU' => 'ana MŠ DU',
+    'ana MÁŠ DU' => 'ana MÁŠ DU',
+    '&#251;' => '&#251;',
+    chr(251) => chr(251)
+);
+
+$firephp->log($array);
+
+
+class testClass {}
+$obj = new testClass();
+$obj->null = null;
+
+$firephp->log($obj);
+
+
 $encoded = '[{"Type":"LOG","Label":"mocs","File":"W:\\\\dispatcher.php(37) :eval()\'d code","Line":1},{"k&#257;te":"k&#257;te","k&#299;\u009aaparte&#7779;ab&#257;tu ak&#257;lu ":"k&#299; \u009aaparte&#7779;ab&#257;tu ak&#257;lu ","k&#299; \u009aaparte\u009aak&#257;nu":"k&#299; \u009aaparte\u009aak&#257;nu","SAG-DU":"SAG-DU","\u008aU--TI":"\u008aU--TI","\u009aulm&#257;nu":"\u009aulm&#257;nu"}]';
 
-header("X-Wf-1-1-1-5: " . strlen($encoded) . "|" . $encoded . "|");
+header("X-Wf-1-1-1-7: " . strlen($encoded) . "|" . $encoded . "|");
 
-header("X-Wf-1-Index: 5", true);
+$encoded = '[{"Type":"EXCEPTION","File":"W:\\\\objects\\\\Url.php","Line":38},{"Class":"ErrorException","Message":"E_WARNING:parse_url(http://www.reseau-quetelet.cnrs.fr/spip/styles/spip_style_site.css) [<a href=function.parse-url>function.parse-url<\\/a>]: Unable to parse URL","File":"W:\\\\objects\\\\Url.php","Line":38,"Type":"trigger","Trace":[{"file":"W:\\\\objects\\\\Html.php","line":981,"function":"build_url","class":"Url","type":"::","args":["http://www.reseau-quetelet.cnrs.fr/spip/styles/spip_style_site.css"]},{"file":"Q:\\\\html_begin.php","line":25,"function":"add_link","class":"Html","type":"->","args":["http://www.reseau-quetelet.cnrs.fr/spip/styles/spip_style_site.css"]},{"file":"Q:\\\\quetelet.php","line":6,"args":["Q:\\\\html_begin.php"],"function":"require_once"}]}]';
 
+header("X-Wf-1-1-1-8: " . strlen($encoded) . "|" . $encoded . "|");
+
+header("X-Wf-1-Index: 8", true);
