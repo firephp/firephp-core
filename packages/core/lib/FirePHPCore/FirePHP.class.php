@@ -1397,7 +1397,11 @@ class FirePHP {
                 return '** Max Array Depth (' . $this->options['maxArrayDepth'] . ') **';
             }
           
-            foreach ($Object as $key => $val) {
+            foreach ($Object as $key => $val) {                
+
+                if ($key === null) {
+                    $key = "null";
+                }
 
                 // Encoding the $GLOBALS PHP array causes an infinite loop
                 // if the recursion is not reset here as it contains
