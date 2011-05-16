@@ -37,7 +37,14 @@ TODO:
   * Docs: Deprecate FirePHP_Plugin_FirePHP::trapProblems()
   * Docs: Deprecate FirePHP_Plugin_Engine::*
 
-DONE:
+2011-05-16 - Release Version: 0.0.0master1105161440
+
+  * Enhancement: Better deprecation notices
+  * Bugfix: Better filtering of get_included_files() to remove FirePHP related
+  * Bugfix: Assertion error logs two messages
+  * Bugfix: Ensure JSON keys are never NULL (due to NULL key in some arrays) for FirePHPCore
+
+2011-05-13 - Release Version: 0.0.0master1105131750
 
   * Bugfix: Default to 'log' priority without setting meta
   * Change: Deprecated FirePHP_Plugin_FirePHP::trapProblems()
