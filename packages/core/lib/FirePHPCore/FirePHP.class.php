@@ -1399,10 +1399,6 @@ class FirePHP {
           
             foreach ($Object as $key => $val) {                
 
-                if ($key === null) {
-                    $key = "null";
-                }
-
                 // Encoding the $GLOBALS PHP array causes an infinite loop
                 // if the recursion is not reset here as it contains
                 // a reference to itself. This is the only way I have come up
