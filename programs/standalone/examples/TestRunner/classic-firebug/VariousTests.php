@@ -18,7 +18,9 @@ $array = array(
     'na MŠ DU' => 'ana MŠ DU',
     'ana MÁŠ DU' => 'ana MÁŠ DU',
     '&#251;' => '&#251;',
-    chr(251) => chr(251)
+    chr(251) => chr(251),
+    'utf8_encode()' => utf8_encode('ana MÁŠ DU')
+//    'ISO-8859-1' => mb_convert_encoding('ana MÁŠ DU', 'ISO-8859-1')
 );
 
 $firephp->log($array);
