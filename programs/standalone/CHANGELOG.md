@@ -37,6 +37,12 @@ TODO:
   * Docs: Deprecate FirePHP_Plugin_FirePHP::trapProblems()
   * Docs: Deprecate FirePHP_Plugin_Engine::*
 
+DONE:
+
+  * Change: Escaping in protocol for pipes
+  * Change: More robust and hierarchical on()
+  * Bugfix: open/close for on()
+
 2011-05-16 - Release Version: 0.0.0master1105161440
 
   * Enhancement: Better deprecation notices
