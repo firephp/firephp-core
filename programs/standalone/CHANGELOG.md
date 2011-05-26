@@ -34,14 +34,26 @@ TODO:
   * Enhancement: Add new ->ok()-> message priority
   * Bugfix: Wrap ZF classes to avoid redeclaration (specifically needed until autoloader and external ZF issues resolved)
 
-  * Docs: Deprecate FirePHP_Plugin_FirePHP::trapProblems()
-  * Docs: Deprecate FirePHP_Plugin_Engine::*
+
+  * Bugfix: error_reporting has no effect on error logging (check both APIs)
+  * Bugfix: FirePHP::getInstance(true)->registerErrorHandler/registerExceptionHandler() stops errors from being sent to client
+
 
 DONE:
+
+  * Enhancement: $console->show()
+  * Docs: Removed Engine API (now part of insight by default)
+  * Docs: Made DeveloperCompanion the preferred client
+  * Docs: Documented $console->show()
+  * Docs: Updated authorizing insight workflow
+  * Docs: Removed FirePHP_Plugin_FirePHP::trapProblems()
+
+2011-05-24 - Release Version: 0.0.0master1105241153
 
   * Change: Escaping in protocol for pipes
   * Change: More robust and hierarchical on()
   * Bugfix: open/close for on()
+  * Reverse: (Bugfix) Ensure JSON keys are never NULL (due to NULL key in some arrays) for FirePHPCore
 
 2011-05-16 - Release Version: 0.0.0master1105161440
 
