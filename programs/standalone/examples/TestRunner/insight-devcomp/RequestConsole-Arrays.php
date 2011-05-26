@@ -51,5 +51,3 @@ $console->table('test 10',$test);
 
 $test = array(array(array('123' => '123','234' => '234')));
 $console->table('test 11',$test);
-
-FirePHP::to('controller')->triggerInspect();

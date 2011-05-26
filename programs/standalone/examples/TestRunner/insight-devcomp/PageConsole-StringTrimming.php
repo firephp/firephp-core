@@ -48,3 +48,5 @@ $console->notrim()->label('Untrimmed')->log(
     'This is a long string that should be trimmed when displaying in firebug console. ' . 
     'This is a long string that should be trimmed when displaying in firebug console. '
 );
+
+$console->show();

@@ -5,7 +5,7 @@ $inspector = FirePHP::to("request");
  
 $console1 = $inspector->console('Groups');
 $console2 = $inspector->console('Messages');
-
+$console2->show();
 
 $group = $console1->group('Group1')->open();
 

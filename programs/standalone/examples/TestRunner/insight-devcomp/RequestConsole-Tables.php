@@ -41,3 +41,7 @@ foreach ($data as $key=>$value) {
     $table[] = array($key, $value);
 }
 $console->table('Table Title 2', $table, array('Key', 'Value'));
+
+
+$console = $inspector->console('Tables 2');
+$console->table('Table Title 2', $table, array('Key', 'Value'));
