@@ -38,8 +38,11 @@ TODO:
   * Bugfix: error_reporting has no effect on error logging (check both APIs)
   * Bugfix: FirePHP::getInstance(true)->registerErrorHandler/registerExceptionHandler() stops errors from being sent to client
 
-
 DONE:
+
+  * Bugfix: Better UTF-8 encoding detection
+
+2011-05-26 - Release Version: 0.0.0master1105261436
 
   * Enhancement: $console->show()
   * Docs: Removed Engine API (now part of insight by default)

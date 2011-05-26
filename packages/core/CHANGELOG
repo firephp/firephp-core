@@ -10,6 +10,7 @@ DONE:
     - (Issue 166) Non-utf8 array values replaced with null
     - Cleaned up code formatting [sokolov.innokenty@gmail.com]
     - Ensure JSON keys are never NULL (due to NULL key in some arrays)
+    - Better UTF-8 encoding detection
 
 2010-10-26 - Release Version: 0.3.2
 

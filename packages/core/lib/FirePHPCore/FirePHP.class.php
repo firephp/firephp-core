@@ -1409,14 +1409,14 @@ class FirePHP {
                     $val['GLOBALS'] = '** Recursion (GLOBALS) **';
                 }
 
-                if (!self::is_utf8($key)) {
+                if (!$this->is_utf8($key)) {
                     $key = utf8_encode($key);
                 }
 
                 $return[$key] = $this->encodeObject($val, 1, $ArrayDepth + 1, $MaxDepth + 1);
             }
         } else {
-            if (self::is_utf8($Object)) {
+            if ($this->is_utf8($Object)) {
                 return $Object;
             } else {
                 return utf8_encode($Object);
@@ -1431,10 +1431,13 @@ class FirePHP {
      * @param mixed $str String to be tested
      * @return boolean
      */
-    protected static function is_utf8($str)
+    protected function is_utf8($str)
     {
         if(function_exists('mb_detect_encoding')) {
-            return (mb_detect_encoding($str, 'UTF-8', true) == 'UTF-8');
+            return (
+                mb_detect_encoding($str, 'UTF-8', true) == 'UTF-8' &&
+                ($str === null || $this->jsonEncode($str,true) !== 'null')
+            );
         }
         $c = 0;
         $b = 0;
@@ -1459,7 +1462,7 @@ class FirePHP {
                 }
             }
         }
-        return true;
+        return ($str === null || $this->jsonEncode($str,true) !== 'null');
     } 
 
     /**
