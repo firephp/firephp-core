@@ -34,10 +34,6 @@ TODO:
   * Enhancement: Add new ->ok()-> message priority
   * Bugfix: Wrap ZF classes to avoid redeclaration (specifically needed until autoloader and external ZF issues resolved)
 
-
-  * Bugfix: error_reporting has no effect on error logging (check both APIs)
-  * Bugfix: FirePHP::getInstance(true)->registerErrorHandler/registerExceptionHandler() stops errors from being sent to client
-
 DONE:
 
   * Enhancement: Conditional logging of all PHP errors
