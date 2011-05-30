@@ -40,6 +40,10 @@ TODO:
 
 DONE:
 
+  * Bugfix: Better file exclusion for own files
+
+2011-05-26 - Release Version: 0.0.0master1105261453
+
   * Bugfix: Better UTF-8 encoding detection
 
 2011-05-26 - Release Version: 0.0.0master1105261436
