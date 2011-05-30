@@ -40,7 +40,9 @@ TODO:
 
 DONE:
 
+  * Enhancement: Conditional logging of all PHP errors
   * Bugfix: Better file exclusion for own files
+  * Bugfix: Respect error_reporting() when logging errors to client
 
 2011-05-26 - Release Version: 0.0.0master1105261453
 
