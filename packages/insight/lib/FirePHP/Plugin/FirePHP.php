@@ -4,7 +4,7 @@ if(!defined('E_USER_DEPRECATED ')) {
     define('E_USER_DEPRECATED ', 16384);
 }
 
-require_once('FirePHP/Plugin/Engine.php');
+require_once('Insight/Plugin/Error.php');
 
 class FirePHP_Plugin_FirePHP {
 
@@ -122,7 +122,7 @@ class FirePHP_Plugin_FirePHP {
         }
         $console->table('Configuration Options', $table, array('Name', 'Global', 'Local', 'Access'));
 
-        $console->label('Error Reporting')->log(FirePHP_Plugin_Engine::parseErrorReportingBitmask(error_reporting()));
+        $console->label('Error Reporting')->log(Insight_Plugin_Error::parseErrorReportingBitmask(error_reporting()));
 
         $console->label('get_include_path()')->log(get_include_path());
         if(function_exists('sys_get_temp_dir')) {
