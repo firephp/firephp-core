@@ -3,9 +3,11 @@
 $inspector = FirePHP::to("request"); 
  
  
-$console1 = $inspector->console('Groups');
 $console2 = $inspector->console('Messages');
-$console2->show();
+$console2->log('Message');
+
+$console1 = $inspector->console('Groups');
+$console1->show();
 
 $group = $console1->group('Group1')->open();
 
