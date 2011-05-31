@@ -36,6 +36,11 @@ TODO:
 
 DONE:
 
+  * Bugfix: Encoder options in package.json not taking effect
+  * Bugfix: Server paths accessibility verification fails if path does not exist
+
+2011-05-30 - Release Version: 0.0.0master1105301313
+
   * Enhancement: Conditional logging of all PHP errors
   * Bugfix: Better file exclusion for own files
   * Bugfix: Respect error_reporting() when logging errors to client
