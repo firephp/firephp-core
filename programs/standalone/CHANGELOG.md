@@ -25,14 +25,12 @@ TODO:
   * Enhancement: Add more quickstart examples
   * Bugfix: Recognize ../ paths as relative (not just ./)
   * Enhancement: Set color and background color of messages
-  * Enhancement: Autoloader support
   * Enhancement: Use of namespaces internally (released in parallel to non-namespaced release (FirePHP < 5.3))
 
 // TOP
 
   * Enhancement: Proxy data from service calls to client
   * Enhancement: Add new ->ok()-> message priority
-  * Bugfix: Wrap ZF classes to avoid redeclaration (specifically needed until autoloader and external ZF issues resolved)
 
 DONE:
 
@@ -43,6 +41,7 @@ DONE:
   * Bugfix: Zend_Reflection_Docblock_Tag throws if '@name(..)' tag found
   * Bugfix: FB::error() using deprecated method under the hood
   * Refactor: Use autoloader instead of require() calls
+  * Refactor: Cleaner API instance logic
 
 2011-05-30 - Release Version: 0.0.0master1105301313
 
