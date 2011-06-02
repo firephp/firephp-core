@@ -11,4 +11,4 @@ $array = array();
 $var1 = $array['test'];
 
 
-throw new Exception('Test Exception');
+//throw new Exception('Test Exception');
