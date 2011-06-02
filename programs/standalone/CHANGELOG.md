@@ -36,8 +36,13 @@ TODO:
 
 DONE:
 
+  * Enhancement: Dynamic class patching
+  * Bugfix: Always show ->on('FirePHP: Show all PHP Errors (except:)') and force errors to show if applicable
   * Bugfix: Encoder options in package.json not taking effect
   * Bugfix: Server paths accessibility verification fails if path does not exist
+  * Bugfix: Zend_Reflection_Docblock_Tag throws if '@name(..)' tag found
+  * Bugfix: FB::error() using deprecated method under the hood
+  * Refactor: Use autoloader instead of require() calls
 
 2011-05-30 - Release Version: 0.0.0master1105301313
 
