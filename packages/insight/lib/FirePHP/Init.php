@@ -49,9 +49,17 @@ function FirePHP__main() {
             define('FIREPHP_ACTIVATED', true);
         }
 
+        // TODO: This may be removed in future?
         set_include_path(get_include_path() . PATH_SEPARATOR . dirname(dirname(__FILE__)));
 
-        require_once('FirePHP/Insight.php');
+        spl_autoload_register('FirePHP__autoload');
+
+        if (class_exists('FirePHP', false)) {
+            throw new Exception("The FirePHP class must not be loaded manually!");
+        }
+
+        // NOTE: We need to load this class here so we can get access to the FirePHP class
+        FirePHP__autoload('FirePHP_Insight');
 
         // ensure the FirePHP class included has the correct version
         $version = '0.3';    // @pinf replace '0.3' with '%%package.version%%'
@@ -111,6 +119,29 @@ function FirePHP__main() {
             }
             public static function __callStatic($name, $arguments) {
                 return self::getInstance();
+            }
+        }
+    }
+}
+
+function FirePHP__autoload($class)
+{
+    if (strpos($class, 'FirePHP') !== 0 &&
+        strpos($class, 'Insight') !== 0
+    ) {
+        return;
+    }
+
+    // find relative
+    if (file_exists($file = dirname(dirname(__FILE__)) . '/' . str_replace('_', '/', $class) . '.php')) {
+        require_once($file);
+    } else
+    // find in include path
+    {
+        foreach (explode(PATH_SEPARATOR, get_include_path()) as $basePath) {
+            if (file_exists($file = $basePath . '/' . str_replace('_', '/', $class) . '.php')) {
+                require_once($file);
+                return;
             }
         }
     }

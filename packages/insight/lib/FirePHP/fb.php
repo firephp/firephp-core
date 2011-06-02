@@ -1,4 +1,5 @@
 <?php
 
-require_once 'FirePHP/Init.php';
-require_once 'FirePHPCore/fb.php';
+require_once(dirname(__FILE__) . '/Init.php');
+
+FirePHP__autoload('FirePHPCore_fb');

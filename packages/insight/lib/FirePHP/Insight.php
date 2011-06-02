@@ -42,8 +42,6 @@
  * @package     FirePHP
  */
 
-require_once('Insight/Util.php');
-
 $GLOBALS['INSIGHT_AUTOLOAD'] = false;
 if(!isset($GLOBALS['INSIGHT_ADDITIONAL_CONFIG'])) {
     $GLOBALS['INSIGHT_ADDITIONAL_CONFIG'] = array();
@@ -66,8 +64,8 @@ $GLOBALS['INSIGHT_ADDITIONAL_CONFIG'] = Insight_Util::array_merge(
     )
 );
 
-require_once('FirePHPCore/FirePHP.class.php');
-require_once('Insight/Helper.php');
+// NOTE: We must load this class manually as the exported class is only named 'FirePHP' which will not work with the autoloader
+FirePHP__autoload('FirePHPCore_FirePHP.class');
 
 Insight_Helper::setSenderLibrary('cadorn.org/github/firephp-libs/packages/insight@' . FirePHP::VERSION);
 

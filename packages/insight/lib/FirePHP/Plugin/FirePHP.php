@@ -4,8 +4,6 @@ if(!defined('E_USER_DEPRECATED ')) {
     define('E_USER_DEPRECATED ', 16384);
 }
 
-require_once('Insight/Plugin/Error.php');
-
 class FirePHP_Plugin_FirePHP {
 
     protected $pAutoTriggerInspect = false;
@@ -23,7 +21,7 @@ class FirePHP_Plugin_FirePHP {
         $this->pConsole = $this->pConsole->options(array(
             'encoder.trace.offsetAdjustment' => 2
         ));
-        require_once('FirePHP/p.php');
+        FirePHP__autoload('FirePHP_p');
     }
 
     public function p($data, $label=null) {
