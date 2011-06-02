@@ -842,7 +842,7 @@ class FirePHP {
                 case self::TRACE:
                     return $msg->trace($Object);
                 case self::EXCEPTION:
-                    return $this->plugin('engine')->handleException($Object, $msg);
+                    return $this->plugin('error')->handleException($Object, $msg);
                 case self::TABLE:
                     if (isset($Object[0]) && !is_string($Object[0]) && $Label) {
                         $Object = array($Label, $Object);
