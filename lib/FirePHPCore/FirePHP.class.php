@@ -1065,7 +1065,7 @@ class FirePHP {
         }
         
         $parts = explode("\n", chunk_split($msg, 5000, "\n"));
-    
+
         for ($i = 0; $i < count($parts); $i++) {
             
             $part = $parts[$i];
