@@ -6,14 +6,17 @@ function __autoload__($class)
         return;
     }
 
-    $basePath = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR;
+    $basePath = dirname(dirname(__FILE__)) . '/lib';
+    if (!file_exists($basePath)) {
+        $basePath = dirname(dirname(dirname(dirname(__FILE__)))) . '/lib';
+    }
     
     if ($class == 'FirePHP') {
         $class = 'FirePHPCore/FirePHP.class';
     }
 
     // find relative
-    if (file_exists($file = $basePath . str_replace('_', '/', $class) . '.php')) {
+    if (file_exists($file = $basePath . '/' . str_replace('_', '/', $class) . '.php')) {
         require_once($file);
     }
 }
