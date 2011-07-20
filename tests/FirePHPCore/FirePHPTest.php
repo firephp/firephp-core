@@ -1,8 +1,5 @@
 <?php
 
-require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'TestHelper.php';
- 
-
 class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -123,8 +120,8 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         $firephp = new FirePHP_Test_Class();
         
         // defaults
-        $this->assertEquals(10, $firephp->getOption("maxObjectDepth"));
-        $this->assertEquals(20, $firephp->getOption("maxArrayDepth"));
+        $this->assertEquals(5, $firephp->getOption("maxObjectDepth"));
+        $this->assertEquals(5, $firephp->getOption("maxArrayDepth"));
         $this->assertEquals(true, $firephp->getOption("useNativeJsonEncode"));
         $this->assertEquals(true, $firephp->getOption("includeLineNumbers"));
         

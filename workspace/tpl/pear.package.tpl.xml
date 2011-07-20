@@ -8,8 +8,8 @@
 
     <name>FirePHPCore</name>
     <channel>pear.firephp.org</channel>
-    <summary>Core feature and communication library</summary>
-    <description>Handles all communication between the PHP code on the server and the FirePHP Firefox client extension. Also implements all core FirePHP features.</description>
+    <summary>Log variables from PHP to the browser (Firebug Console)</summary>
+    <description>Handles all communication between the PHP code on the server and the client. Also implements all core FirePHP features.</description>
 
     <lead>
         <name>Christoph Dorn</name>
@@ -18,18 +18,18 @@
         <active>yes</active>
     </lead>
     
-    <date>##Date##</date>
+    <date>%%DATE%%</date>
     <version>
-        <release>##Version####Release##</release>
-        <api>0.1</api>
+        <release>%%VERSION%%</release>
+        <api>0.3</api>
     </version>
     
     <stability>
-        <release>##Stability##</release>
+        <release>%%STABILITY%%</release>
         <api>stable</api>
     </stability>
     
-    <license>New BSD</license>
+    <license>MIT</license>
     
     <notes>No Notes</notes>
     

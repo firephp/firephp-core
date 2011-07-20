@@ -1,11 +1,24 @@
 <?php
 
-/* NOTE: You must have the FirePHPCore library in your include path */
-set_include_path(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . "lib" . PATH_SEPARATOR . get_include_path());
+function __autoload__($class)
+{
+    if (strpos($class, 'FirePHPCore') !== 0 && $class != 'FirePHP') {
+        return;
+    }
 
-require('FirePHPCore/fb.php');
+    $basePath = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR;
+    
+    if ($class == 'FirePHP') {
+        $class = 'FirePHPCore/FirePHP.class';
+    }
 
-require_once('PHPUnit/Framework.php');
+    // find relative
+    if (file_exists($file = $basePath . str_replace('_', '/', $class) . '.php')) {
+        require_once($file);
+    }
+}
+
+spl_autoload_register('__autoload__');
 
 class FirePHP_Test_Class extends FirePHP {
     
