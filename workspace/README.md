@@ -13,6 +13,7 @@ Publishing
     
     commonjs -v --script publish .
 
-    
+
 TODO: Auto-upload to PEAR channel server at http://pear.firephp.org/
+
 NOTE: For PEAR RC releases: Change release stability to "beta" and capitalize "RC" in release version in package.xml

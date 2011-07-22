@@ -4,6 +4,10 @@ TODO:
   * Fix code indenting in PHP 4 code
   * Port maxDepth option to PHP 4 code
 
+2011-06-22 - Release Version: 0.4.0rc2
+
+  * Build fixes
+
 2011-06-20 - Release Version: 0.4.0rc1
 
   * (Issue 163) PHP5 class_exists() throws Exception without second parameter
