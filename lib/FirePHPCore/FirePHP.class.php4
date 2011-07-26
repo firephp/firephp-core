@@ -621,6 +621,12 @@ class FirePHP {
     }
     
     if($this->options['includeLineNumbers']) {
+      // if the file and line numbers are set in options array
+      if (isset($options['file']) && isset($options['line']))  {
+        $meta['file'] = $options['file'];
+        $meta['line'] = $options['line'];
+      }
+
       if(!isset($meta['file']) || !isset($meta['line'])) {
 
         $trace = debug_backtrace();
