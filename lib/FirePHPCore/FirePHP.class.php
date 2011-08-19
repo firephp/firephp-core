@@ -239,6 +239,21 @@ class FirePHP {
     protected $logToInsightConsole = null;
 
     /**
+     * Ignored classes
+     *
+     * @var array
+     */
+    protected $ignoredClasses = array(__CLASS__);
+    
+    /**
+     * Ignored files
+     *
+     * @var array
+     */
+    protected $ignoredFiles   = array(__FILE__);
+
+
+    /**
      * When the object gets serialized only include specific object members.
      * 
      * @return array
@@ -362,6 +377,26 @@ class FirePHP {
     public function getOptions()
     {
         return $this->options;
+    }
+
+    /**
+    * Add Class to Ignore List
+    * @param string $className
+    * @return FirePHP
+    */
+    public function ignoreClass($className) {
+        if(!array_search($className, $this->ignoredClasses)) $this->ignoredClasses[] = $className;
+        return $this;
+    }
+
+    /**
+    * Add File to Ignore List
+    * @param string $className
+    * @return FirePHP
+    */
+    public function ignoreFile($fileName) {
+        if(!array_search($fileName, $this->ignoredFiles)) $this->ignoredFiles[] = $fileName;
+        return $this;
     }
 
     /**
@@ -791,6 +826,12 @@ class FirePHP {
             $trace = debug_backtrace();
             if (!$trace) return false;
             for ($i = 0; $i < sizeof($trace); $i++) {
+                if(isset($trace[$i]['class']) && in_array($trace[$i]['class'], $this->ignoredClasses)) {
+                    continue;
+                }
+                if(isset($trace[$i]['file']) && in_array($trace[$i]['file'], $this->ignoredFiles)) {
+                    continue;
+                }
                 if (isset($trace[$i]['class'])) {
                     if ($trace[$i]['class'] == 'FirePHP' || $trace[$i]['class'] == 'FB') {
                         continue;
@@ -935,7 +976,12 @@ class FirePHP {
             $trace = debug_backtrace();
             if (!$trace) return false;
             for ($i = 0; $i < sizeof($trace); $i++) {
-    
+                if(isset($trace[$i]['class']) && in_array($trace[$i]['class'], $this->ignoredClasses)) {
+                    continue;
+                }
+                if(isset($trace[$i]['file']) && in_array($trace[$i]['file'], $this->ignoredFiles)) {
+                    continue;
+                }
                 if (isset($trace[$i]['class'])
                    && isset($trace[$i]['file'])
                    && ($trace[$i]['class'] == 'FirePHP'
@@ -998,7 +1044,12 @@ class FirePHP {
     
                 $trace = debug_backtrace();
                 for ($i = 0; $trace && $i < sizeof($trace); $i++) {
-          
+                    if(isset($trace[$i]['class']) && in_array($trace[$i]['class'], $this->ignoredClasses)) {
+                        continue;
+                    }
+                    if(isset($trace[$i]['file']) && in_array($trace[$i]['file'], $this->ignoredFiles)) {
+                        continue;
+                    }
                     if (isset($trace[$i]['class'])
                        && isset($trace[$i]['file'])
                        && ($trace[$i]['class'] == 'FirePHP'
