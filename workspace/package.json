@@ -16,10 +16,10 @@
     },
     "mappings": {
         "nodejs": {
-            "id": "nodejs.org"
+            "id": "nodejs.org/"
         },
         "pinf": {
-            "id": "pinf.org/loader"
+            "id": "pinf.org/loader/"
         },
         "modules": {
             "id": "github.com/pinf/modules-js/"

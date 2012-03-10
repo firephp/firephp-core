@@ -53,7 +53,7 @@ function buildZipArchive(callback)
 
 	FILE.mkdirs(targetBasePath, 0775);
 
-	SYSTEM.exec("cp -Rf " + pkgPath + "/lib " + targetBasePath, function()
+	SYSTEM.exec("rsync -r --copy-links --exclude \"- .DS_Store\" --exclude \"- .git/\" --exclude \"- .tmp_*\" " + pkgPath + "/lib " + targetBasePath, function()
 	{
 		replaceVariablesInFile(targetBasePath + "/lib/FirePHPCore/FirePHP.class.php");
 		replaceVariablesInFile(targetBasePath + "/lib/FirePHPCore/FirePHP.class.php4");
@@ -97,7 +97,7 @@ function buildPEARArchive(callback)
 
 	FILE.mkdirs(targetBasePath, 0775);
 
-	SYSTEM.exec("cp -Rf " + pkgPath + "/lib/FirePHPCore/* " + targetBasePath, function()
+	SYSTEM.exec("rsync -r --copy-links --exclude \"- .DS_Store\" --exclude \"- .git/\" --exclude \"- .tmp_*\" " + pkgPath + "/lib/FirePHPCore/* " + targetBasePath, function()
 	{
 		replaceVariablesInFile(targetBasePath + "/FirePHP.class.php");
 		replaceVariablesInFile(targetBasePath + "/FirePHP.class.php4");
