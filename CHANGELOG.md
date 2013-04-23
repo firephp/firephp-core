@@ -4,6 +4,10 @@ TODO:
   * Fix code indenting in PHP 4 code
   * Port maxDepth option to PHP 4 code
 
+2013-04-23 - Release Version: 0.4.0
+
+  * No changes
+
 2011-06-22 - Release Version: 0.4.0rc3
 
   * Build fixes
