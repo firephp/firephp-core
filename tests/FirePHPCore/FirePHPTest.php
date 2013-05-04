@@ -10,9 +10,8 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         $firephp = new FirePHP_Test_Class();
 
         $firephp->dump("key", "value");
-        $headers = $firephp->_getHeaders();
+        $headers = $firephp->getHeaders();
         $this->assertEquals('15|{"key":"value"}|', $headers['X-Wf-1-2-1-1']);
-        $firephp->_clearHeaders();
 
         $caught = false;
         try {
@@ -53,7 +52,7 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
 
         $firephp->registerErrorHandler();
         trigger_error("Hello World");
-        $headers = $firephp->_getHeaders();
+        $headers = $firephp->getHeaders();
         if(!isset($headers["X-Wf-1-1-1-1"])) {
             $this->fail("Error not in headers");
         }
@@ -67,7 +66,7 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         $firephp = new FirePHP_Test_Class();
 
         $firephp->log($firephp);
-        $headers = $firephp->_getHeaders();
+        $headers = $firephp->getHeaders();
         if(!preg_match_all('/"protected:objectStack":"\\*\\* Excluded by Filter \\*\\*"/', $headers['X-Wf-1-1-1-1'], $m)) {
             $this->fail("objectStack member contains value");
         }
@@ -93,7 +92,7 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         $firephp->dump("key", "value", array("File"=>"/file/path", "Line"=>"1"));
         $firephp->table("label", array(array("header"),array("cell")), array("File"=>"/file/path", "Line"=>"1"));
 
-        $headers = $firephp->_getHeaders();
+        $headers = $firephp->getHeaders();
 
         $this->assertEquals('75|[{"File":"\/file\/path","Line":"1","Type":"LOG","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-1']);
         $this->assertEquals('76|[{"File":"\/file\/path","Line":"1","Type":"INFO","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-2']);
@@ -111,7 +110,7 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         $obj->child = $obj;
 
         $firephp->log($obj, "label", array("File"=>"/file/path", "Line"=>"1"));
-        $headers = $firephp->_getHeaders();
+        $headers = $firephp->getHeaders();
         $this->assertEquals('215|[{"File":"\/file\/path","Line":"1","Type":"LOG","Label":"label"},{"__className":"FirePHPCore_FirePHPTest__TestObject","public:var":"value","undeclared:child":"** Recursion (FirePHPCore_FirePHPTest__TestObject) **"}]|', $headers['X-Wf-1-1-1-1']);
     }
 
@@ -170,6 +169,51 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
             $this->assertEquals('The FirePHP::setRendererUrl() method is no longer supported', $e->getMessage());
         }
         if(!$caught) $this->fail('No deprecation error thrown');
+    }
+
+    public function testLimitHeaderSizeOneBigLog()
+    {
+        $firephp = new FirePHP_Test_Class();
+        $firephp->setOption('maxCombinedHeaderSize', 20);
+
+        // Log one 20k message
+        $message = str_repeat('a', 20 * 1024);
+        $firephp->log($message);
+
+        $this->assertEquals(array (
+            'X-Wf-Protocol-1' => 'http://meta.wildfirehq.org/Protocol/JsonStream/0.2',
+            'X-Wf-1-Plugin-1' => 'http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/0.3',
+            'X-Wf-1-Structure-1' => 'http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1',
+            'X-Wf-1-1-1-1' => '89|[{"Type":"WARN"},"FirePHP: log is truncated, because of combined HTTP header size limit"]|',
+            'X-Wf-1-Index' => 1,
+          ), $firephp->getHeaders(), 'One log message the size of the limit (20k) should be truncated');
+    }
+
+    public function testLimitHeaderSizeManySmallLog()
+    {
+        $firephp = new FirePHP_Test_Class();
+        $firephp->setOption('maxCombinedHeaderSize', 20);
+
+        // Log 1k message 20 times
+        $message = str_repeat('a', 1024);
+        for ($i = 0; $i < 20; $i++)
+        {
+            $firephp->log($message);
+        }
+        $headers = $firephp->getHeaders();
+
+        $this->assertCount(13, $headers, 'should not log more entries after truncated');
+        $this->assertEquals('89|[{"Type":"WARN"},"FirePHP: log is truncated, because of combined HTTP header size limit"]|', $headers['X-Wf-1-1-1-9'], 'last message should be the truncated warning');
+    }
+
+    public function testCanSetmaxCombinedHeaderSizeOptionViaHeader()
+    {
+        $firephp = new FirePHP_Test_Class();
+        $this->assertEquals(0, $firephp->getOption('maxCombinedHeaderSize'), 'default to no limit');
+
+        $_SERVER['HTTP_X-FirePHP-MaxCombinedHeaderSize'] = 250;
+        $firephp2 = new FirePHP_Test_Class();
+        $this->assertEquals(250, $firephp2->getOption('maxCombinedHeaderSize'), 'use limit specified in request header');
     }
       
 }
