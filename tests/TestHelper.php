@@ -25,23 +25,12 @@ spl_autoload_register('__autoload__');
 
 class FirePHP_Test_Class extends FirePHP {
     
-    private $_headers = array();    
-
-
-    public function _getHeaders() {
-        return $this->_headers;
-    }
-    public function _clearHeaders() {
-        $this->_headers = array();
-    }
-
-
     // ######################
     // # Subclassed Methods #
     // ######################   
 
-    protected function setHeader($Name, $Value) {
-        $this->_headers[$Name] = $Value;
+    protected function sendHeader($header) {
+        // Do nothing for testing
     }
     
     protected function headersSent(&$Filename, &$Linenum) {
