@@ -205,7 +205,8 @@ class FirePHP {
                                'maxObjectDepth' => 5,
                                'maxArrayDepth' => 5,
                                'useNativeJsonEncode' => true,
-                               'includeLineNumbers' => true);
+                               'includeLineNumbers' => true,
+                               'maxCombinedSize' => false);
 
     /**
      * Filters used to exclude object members when encoding
@@ -239,6 +240,18 @@ class FirePHP {
     protected $logToInsightConsole = null;
 
     /**
+     * Cached headers from request
+     * @var array
+     */
+    protected $cachedRequestHeaders = false;
+
+    /**
+     * Count of bytes which were truncated because of maxCombinedSize option
+     * @var type
+     */
+    protected $truncatedBytes = 0;
+
+    /**
      * When the object gets serialized only include specific object members.
      * 
      * @return array
@@ -248,6 +261,14 @@ class FirePHP {
         return array('options', 'objectFilters', 'enabled');
     }
     
+    public function __construct()
+    {
+        $maxCombinedSize = $this->getRequestHeader('X-Wf-Max-Combined-Size');
+        if ($maxCombinedSize !== false) {
+            $this->setOption('maxCombinedSize', (int)$maxCombinedSize);
+        }
+    }
+
     /**
      * Gets singleton instance of FirePHP
      *
@@ -722,7 +743,7 @@ class FirePHP {
     }
  
     /**
-     * Log varible to Firebug
+     * Log variable to Firebug
      * 
      * @see http://www.firephp.org/Wiki/Reference/Fb
      * @param mixed $object The variable to be logged
@@ -1034,17 +1055,42 @@ class FirePHP {
             unset($meta['line']);
         }
 
-        $this->setHeader('X-Wf-Protocol-1', 'http://meta.wildfirehq.org/Protocol/JsonStream/0.2');
-        $this->setHeader('X-Wf-1-Plugin-1', 'http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/' . self::VERSION);
+        $this->setResponseHeader('X-Wf-Protocol-1', 'http://meta.wildfirehq.org/Protocol/JsonStream/0.2');
+        $this->setResponseHeader('X-Wf-1-Plugin-1', 'http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/' . self::VERSION);
      
         $structureIndex = 1;
         if ($type == self::DUMP) {
             $structureIndex = 2;
-            $this->setHeader('X-Wf-1-Structure-2', 'http://meta.firephp.org/Wildfire/Structure/FirePHP/Dump/0.1');
+            $this->setResponseHeader('X-Wf-1-Structure-2', 'http://meta.firephp.org/Wildfire/Structure/FirePHP/Dump/0.1');
         } else {
-            $this->setHeader('X-Wf-1-Structure-1', 'http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1');
+            $this->setResponseHeader('X-Wf-1-Structure-1', 'http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1');
         }
       
+        $headers = $this->buildResponseHeaders($type, $object, $structureIndex, $options, $meta, $label, $skipFinalObjectEncode);
+
+        // If message size is over the limit, or we already started to truncate, do not output message and issue warning
+        $maxCombinedSize = $this->getOption('maxCombinedSize');
+        if ($maxCombinedSize && ($this->getHeadersSentSize() + $headers['size'] >= $maxCombinedSize || $this->truncatedBytes)) {
+            $this->truncatedBytes += $headers['size'];
+            $this->setResponseHeader('X-Wf-Notify-Truncated', $this->truncatedBytes);
+        } else {
+            $this->messageIndex = $headers['messageIndex'];
+            foreach ($headers['headers'] as $name => $value) {
+                $this->setResponseHeader($name, $value);
+            }
+
+            $this->setResponseHeader('X-Wf-1-Index', $this->messageIndex - 1);
+        }
+
+        return true;
+    }
+
+    /**
+     * Build an array of headers to be sent and compute their size
+     * @return array
+     */
+    protected function buildResponseHeaders($type, $object, $structureIndex, $options = array(), $meta = array(), $label = null, $skipFinalObjectEncode = false)
+    {
         if ($type == self::DUMP) {
             $msg = '{"' . $label . '":' . $this->jsonEncode($object, $skipFinalObjectEncode) . '}';
         } else {
@@ -1062,6 +1108,9 @@ class FirePHP {
             $msg = '[' . $this->jsonEncode($msgMeta) . ',' . $this->jsonEncode($object, $skipFinalObjectEncode) . ']';
         }
         
+        $size = 0;
+        $headers = array();
+        $messageIndex = $this->messageIndex;
         $parts = explode("\n", chunk_split($msg, 5000, "\n"));
 
         for ($i = 0; $i < count($parts); $i++) {
@@ -1071,26 +1120,29 @@ class FirePHP {
                 
                 if (count($parts) > 2) {
                     // Message needs to be split into multiple parts
-                    $this->setHeader('X-Wf-1-' . $structureIndex . '-' . '1-' . $this->messageIndex,
-                                     (($i == 0) ? strlen($msg) : '')
+                    $value = (($i == 0) ? strlen($msg) : '')
                                      . '|' . $part . '|'
-                                     . (($i < count($parts) - 2) ? '\\' : ''));
+                            . (($i < count($parts) - 2) ? '\\' : '');
                 } else {
-                    $this->setHeader('X-Wf-1-' . $structureIndex . '-' . '1-' . $this->messageIndex,
-                                     strlen($part) . '|' . $part . '|');
+                    $value = strlen($part) . '|' . $part . '|';
                 }
                 
-                $this->messageIndex++;
+                $name = 'X-Wf-1-' . $structureIndex . '-' . '1-' . $messageIndex;
+                $headers[$name] = $value;
+                $messageIndex++;
+                $size += strlen($name . ': ' . $value);
                 
-                if ($this->messageIndex > 99999) {
+                if ($messageIndex > 99999) {
                     throw $this->newException('Maximum number (99,999) of messages reached!');             
                 }
             }
         }
     
-        $this->setHeader('X-Wf-1-Index', $this->messageIndex - 1);
-    
-        return true;
+        return array(
+            'messageIndex' => $messageIndex,
+            'size' => $size,
+            'headers' => $headers,
+        );
     }
   
     /**
@@ -1160,9 +1212,33 @@ class FirePHP {
      * @param string $name
      * @param string $value
      */
-    protected function setHeader($name, $value)
+    protected function setResponseHeader($name, $value)
     {
         return header($name . ': ' . $value);
+    }
+
+    /**
+     * Returns an array of all header sent
+     * @return array
+     */
+    protected function getAllResponseHeaders()
+    {
+        return headers_list();
+    }
+
+    /**
+     * Returns the size in bytes of all headers sent
+     * @return integer
+     */
+    protected function getHeadersSentSize()
+    {
+        $size = 0;
+        foreach ($this->getAllResponseHeaders() as $header)
+        {
+            $size += strlen($header);
+        }
+
+        return $size;
     }
 
     /**
@@ -1181,14 +1257,13 @@ class FirePHP {
      * 
      * @return array
      */
-    public static function getAllRequestHeaders()
+    public function getAllRequestHeaders()
     {
-        static $_cachedHeaders = false;
-        if ($_cachedHeaders !== false) {
-            return $_cachedHeaders;
+        if ($this->cachedRequestHeaders !== false) {
+            return $this->cachedRequestHeaders;
         }
         $headers = array();
-        if (function_exists('getallheaders')) {
+        if (function_exists('getallheaders') && php_sapi_name() != 'cli') {
             foreach (getallheaders() as $name => $value) {
                 $headers[strtolower($name)] = $value;
             }
@@ -1199,7 +1274,8 @@ class FirePHP {
                 }
             }
         }
-        return $_cachedHeaders = $headers;
+
+        return $this->cachedRequestHeaders = $headers;
     }
 
     /**
@@ -1209,7 +1285,7 @@ class FirePHP {
      */
     protected function getRequestHeader($name)
     {
-        $headers = self::getAllRequestHeaders();
+        $headers = $this->getAllRequestHeaders();
         if (isset($headers[strtolower($name)])) {
             return $headers[strtolower($name)];
         }
