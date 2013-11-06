@@ -20,6 +20,9 @@
         "classmap": [
             "lib/FirePHPCore/FirePHP.class.php",
             "lib/FirePHPCore/fb.php"
+        ],
+        "files": [
+            "lib/FirePHPCore/fb.php"
         ]
     }
 }
