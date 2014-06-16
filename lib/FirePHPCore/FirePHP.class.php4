@@ -361,7 +361,7 @@ class FirePHP {
    */
   function group($Name, $Options=null) {
     
-    if(!$Name) {
+    if( !isset($Name) ) {
       trigger_error('You must specify a label for the group!');
     }
     
@@ -611,7 +611,7 @@ class FirePHP {
     } else
     if($Type==FirePHP_GROUP_START) {
       
-      if(!$Label) {
+      if( !isset($Label) ) {
         trigger_error('You must specify a label for the group!');
       }
     } else {
