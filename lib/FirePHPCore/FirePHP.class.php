@@ -538,7 +538,7 @@ class FirePHP {
     public function group($name, $options = null)
     {
     
-        if (!$name) {
+        if ( !isset($name) ) {
             throw $this->newException('You must specify a label for the group!');
         }
 
