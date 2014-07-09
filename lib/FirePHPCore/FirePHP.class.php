@@ -1413,7 +1413,13 @@ class FirePHP {
 
                 $return[$key] = $this->encodeObject($val, 1, $arrayDepth + 1, $maxDepth + 1);
             }
-        } else {
+		} elseif ( is_bool($object) ) {
+			return $object;
+		} elseif ( is_null($object) ) {
+			return $object;
+		} elseif ( is_numeric($object) ) {
+			return $object;
+		} else {
             if ($this->is_utf8($object)) {
                 return $object;
             } else {
