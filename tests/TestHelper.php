@@ -28,20 +28,16 @@ class FirePHP_Test_Class extends FirePHP {
     private $_headers = array();    
 
 
-    public function _getHeaders() {
+    public function getAllResponseHeaders() {
         return $this->_headers;
     }
-    public function _clearHeaders() {
-        $this->_headers = array();
+
+    public function getHeadersSentSize() {
+        return parent::getHeadersSentSize();
     }
 
-
-    // ######################
-    // # Subclassed Methods #
-    // ######################   
-
-    protected function setHeader($Name, $Value) {
-        $this->_headers[$Name] = $Value;
+    public function setResponseHeader($name, $value) {
+        $this->_headers[$name] = $name . ': ' . $value;
     }
     
     protected function headersSent(&$Filename, &$Linenum) {

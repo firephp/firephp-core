@@ -10,9 +10,8 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         $firephp = new FirePHP_Test_Class();
 
         $firephp->dump("key", "value");
-        $headers = $firephp->_getHeaders();
-        $this->assertEquals('15|{"key":"value"}|', $headers['X-Wf-1-2-1-1']);
-        $firephp->_clearHeaders();
+        $headers = $firephp->getAllResponseHeaders();
+        $this->assertEquals('X-Wf-1-2-1-1: 15|{"key":"value"}|', $headers['X-Wf-1-2-1-1']);
 
         $caught = false;
         try {
@@ -53,7 +52,7 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
 
         $firephp->registerErrorHandler();
         trigger_error("Hello World");
-        $headers = $firephp->_getHeaders();
+        $headers = $firephp->getAllResponseHeaders();
         if(!isset($headers["X-Wf-1-1-1-1"])) {
             $this->fail("Error not in headers");
         }
@@ -67,7 +66,7 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         $firephp = new FirePHP_Test_Class();
 
         $firephp->log($firephp);
-        $headers = $firephp->_getHeaders();
+        $headers = $firephp->getAllResponseHeaders();
         if(!preg_match_all('/"protected:objectStack":"\\*\\* Excluded by Filter \\*\\*"/', $headers['X-Wf-1-1-1-1'], $m)) {
             $this->fail("objectStack member contains value");
         }
@@ -93,14 +92,14 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         $firephp->dump("key", "value", array("File"=>"/file/path", "Line"=>"1"));
         $firephp->table("label", array(array("header"),array("cell")), array("File"=>"/file/path", "Line"=>"1"));
 
-        $headers = $firephp->_getHeaders();
+        $headers = $firephp->getAllResponseHeaders();
 
-        $this->assertEquals('75|[{"File":"\/file\/path","Line":"1","Type":"LOG","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-1']);
-        $this->assertEquals('76|[{"File":"\/file\/path","Line":"1","Type":"INFO","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-2']);
-        $this->assertEquals('76|[{"File":"\/file\/path","Line":"1","Type":"WARN","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-3']);
-        $this->assertEquals('77|[{"File":"\/file\/path","Line":"1","Type":"ERROR","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-4']);
-        $this->assertEquals('15|{"key":"value"}|', $headers['X-Wf-1-2-1-5']);
-        $this->assertEquals('89|[{"File":"\/file\/path","Line":"1","Type":"TABLE","Label":"label"},[["header"],["cell"]]]|', $headers['X-Wf-1-1-1-6']);
+        $this->assertEquals('X-Wf-1-1-1-1: 75|[{"File":"\/file\/path","Line":"1","Type":"LOG","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-1']);
+        $this->assertEquals('X-Wf-1-1-1-2: 76|[{"File":"\/file\/path","Line":"1","Type":"INFO","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-2']);
+        $this->assertEquals('X-Wf-1-1-1-3: 76|[{"File":"\/file\/path","Line":"1","Type":"WARN","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-3']);
+        $this->assertEquals('X-Wf-1-1-1-4: 77|[{"File":"\/file\/path","Line":"1","Type":"ERROR","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-4']);
+        $this->assertEquals('X-Wf-1-2-1-5: 15|{"key":"value"}|', $headers['X-Wf-1-2-1-5']);
+        $this->assertEquals('X-Wf-1-1-1-6: 89|[{"File":"\/file\/path","Line":"1","Type":"TABLE","Label":"label"},[["header"],["cell"]]]|', $headers['X-Wf-1-1-1-6']);
     }
     
     public function testRecursiveEncode()
@@ -111,8 +110,8 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         $obj->child = $obj;
 
         $firephp->log($obj, "label", array("File"=>"/file/path", "Line"=>"1"));
-        $headers = $firephp->_getHeaders();
-        $this->assertEquals('215|[{"File":"\/file\/path","Line":"1","Type":"LOG","Label":"label"},{"__className":"FirePHPCore_FirePHPTest__TestObject","public:var":"value","undeclared:child":"** Recursion (FirePHPCore_FirePHPTest__TestObject) **"}]|', $headers['X-Wf-1-1-1-1']);
+        $headers = $firephp->getAllResponseHeaders();
+        $this->assertEquals('X-Wf-1-1-1-1: 215|[{"File":"\/file\/path","Line":"1","Type":"LOG","Label":"label"},{"__className":"FirePHPCore_FirePHPTest__TestObject","public:var":"value","undeclared:child":"** Recursion (FirePHPCore_FirePHPTest__TestObject) **"}]|', $headers['X-Wf-1-1-1-1']);
     }
 
     public function testOptions()
@@ -172,6 +171,79 @@ class FirePHPCore_FirePHPTest extends PHPUnit_Framework_TestCase
         if(!$caught) $this->fail('No deprecation error thrown');
     }
       
+    public function testLimitHeaderSizeOneBigLog()
+    {
+        $firephp = new FirePHP_Test_Class();
+        $firephp->setOption('maxCombinedSize', 20);
+
+        // Log one 20k message
+        $message = str_repeat('a', 20 * 1024);
+        $firephp->log($message, "label", array("File"=>"/file/path", "Line"=>"1"));
+
+        $this->assertEquals(array (
+            'X-Wf-Protocol-1' => 'X-Wf-Protocol-1: http://meta.wildfirehq.org/Protocol/JsonStream/0.2',
+            'X-Wf-1-Plugin-1' => 'X-Wf-1-Plugin-1: http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/0.3',
+            'X-Wf-1-Structure-1' => 'X-Wf-1-Structure-1: http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1',
+            'X-Wf-Notify-Truncated' => 'X-Wf-Notify-Truncated: 20637',
+          ), $firephp->getAllResponseHeaders(), 'One log message the size of the limit (20k) should be truncated');
+
+
+        $firephp->log('small message', "label", array("File"=>"/file/path", "Line"=>"1"));
+        $this->assertEquals(array(
+            'X-Wf-Protocol-1' => 'X-Wf-Protocol-1: http://meta.wildfirehq.org/Protocol/JsonStream/0.2',
+            'X-Wf-1-Plugin-1' => 'X-Wf-1-Plugin-1: http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/0.3',
+            'X-Wf-1-Structure-1' => 'X-Wf-1-Structure-1: http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1',
+            'X-Wf-Notify-Truncated' => 'X-Wf-Notify-Truncated: 20736',
+          ), $firephp->getAllResponseHeaders(), 'should not log small message after truncation');
+    }
+
+    public function testLimitHeaderSizeManySmallLog()
+    {
+        $firephp = new FirePHP_Test_Class();
+        $firephp->setOption('maxCombinedSize', 20 * 1024);
+
+        // Log 1k message 20 times
+        $message = str_repeat('a', 1024);
+        for ($i = 0; $i < 20; $i++)
+        {
+            $firephp->log($message, "label", array("File"=>"/file/path", "Line"=>"1"));
+        }
+        $headers = $firephp->getAllResponseHeaders();
+
+        $this->assertEquals(20312, $firephp->getHeadersSentSize(), 'should not log more entries after truncated');
+        $this->assertCount(23, $headers, 'should not log more entries after truncated');
+        $this->assertEquals('X-Wf-Notify-Truncated: 2226', end($headers), 'last message should be the truncated warning');
+    }
+
+    public function testCanSetMaxCombinedSizeOptionViaHeader()
+    {
+        $firephp = new FirePHP_Test_Class();
+        $this->assertEquals(0, $firephp->getOption('maxCombinedSize'), 'default to no limit');
+
+        $_SERVER['HTTP_X-Wf-Max-Combined-Size'] = 250 * 1024;
+        $firephp2 = new FirePHP_Test_Class();
+        $this->assertEquals(250 * 1024, $firephp2->getOption('maxCombinedSize'), 'use limit specified in request header');
+    }
+
+    public function testExistingHeaders()
+    {
+        $firephp = new FirePHP_Test_Class();
+        $firephp->setOption('maxCombinedSize', 400);
+
+        $firephp->setResponseHeader('Content-Type', 'text/html; charset=UTF-8');
+        $firephp->setResponseHeader('Content-Encoding', 'gzip');
+
+        $firephp->log('foo');
+
+        $this->assertEquals(array (
+            'Content-Type' => 'Content-Type: text/html; charset=UTF-8',
+            'Content-Encoding' => 'Content-Encoding: gzip',
+            'X-Wf-Protocol-1' => 'X-Wf-Protocol-1: http://meta.wildfirehq.org/Protocol/JsonStream/0.2',
+            'X-Wf-1-Plugin-1' => 'X-Wf-1-Plugin-1: http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/0.3',
+            'X-Wf-1-Structure-1' => 'X-Wf-1-Structure-1: http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1',
+            'X-Wf-Notify-Truncated' => 'X-Wf-Notify-Truncated: 129',
+         ), $firephp->getAllResponseHeaders(), 'should take into account non-FirePHP headers');
+    }
 }
 
 
