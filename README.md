@@ -10,7 +10,7 @@ Install
 
     composer require firephp/firephp-core
 
-  * [https://packagist.org/packages/firephp/firephp-core](packagist.org/packages/firephp/firephp-core)
+  * [packagist.org: firephp/firephp-core](https://packagist.org/packages/firephp/firephp-core)
   * [Release history & known issues](https://github.com/firephp/firephp-core/wiki)
 
 API
@@ -25,7 +25,7 @@ Provenance
 Original Source Logic under [MIT License](https://opensource.org/licenses/mit-license) by [Christoph Dorn](http://christophdorn.com) since 2007.
 
 ```
-Copyright (c) 2007+ [Christoph Dorn](http://www.christophdorn.com/)
+Copyright (c) 2007+ Christoph Dorn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
