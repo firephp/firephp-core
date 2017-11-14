@@ -1,6 +1,6 @@
 {
     "name": "firephp/firephp-core",
-    "description": "Traditional FirePHPCore library for sending PHP variables to the browser.",
+    "description": "Minimal library for sending PHP variables to browsers.",
     "type": "library",
     "homepage": "https://github.com/firephp/firephp-core",
     "license": "MIT",
@@ -12,7 +12,6 @@
         }
     ],
     "support": {
-        "forum": "http://groups.google.com/group/firephp-dev",
         "issues": "https://github.com/firephp/firephp-core/issues",
         "source": "https://github.com/firephp/firephp-core"
     },
