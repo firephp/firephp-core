@@ -569,7 +569,7 @@ class FirePHP {
      * Log object with label to firebug console
      *
      * @see FirePHP::LOG
-     * @param mixes $object
+     * @param mixed $object
      * @param string $label
      * @return true
      * @throws Exception
@@ -577,13 +577,13 @@ class FirePHP {
     public function log($object, $label = null, $options = array())
     {
         return $this->fb($object, $label, FirePHP::LOG, $options);
-    } 
+    }
 
     /**
      * Log object with label to firebug console
      *
      * @see FirePHP::INFO
-     * @param mixes $object
+     * @param mixed $object
      * @param string $label
      * @return true
      * @throws Exception
@@ -597,7 +597,7 @@ class FirePHP {
      * Log object with label to firebug console
      *
      * @see FirePHP::WARN
-     * @param mixes $object
+     * @param mixed $object
      * @param string $label
      * @return true
      * @throws Exception
@@ -611,7 +611,7 @@ class FirePHP {
      * Log object with label to firebug console
      *
      * @see FirePHP::ERROR
-     * @param mixes $object
+     * @param mixed $object
      * @param string $label
      * @return true
      * @throws Exception
