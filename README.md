@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/firephp/firephp-core.svg?style=svg)](https://circleci.com/gh/firephp/firephp-core)
+
 FirePHPCore
 ===========
 
