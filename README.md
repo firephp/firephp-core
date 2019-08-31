@@ -10,12 +10,13 @@ The FirePHP server library for PHP reference implementation compatible with the 
 Install
 -------
 
+[Release history & known issues](https://github.com/firephp/firephp-core/wiki)
+
 ### Published
 
-    composer require firephp/firephp-core
+[packagist.org: firephp/firephp-core](https://packagist.org/packages/firephp/firephp-core)
 
-  * [packagist.org: firephp/firephp-core](https://packagist.org/packages/firephp/firephp-core)
-  * [Release history & known issues](https://github.com/firephp/firephp-core/wiki)
+    composer require firephp/firephp-core
 
 ### Source
 
