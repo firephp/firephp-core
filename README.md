@@ -30,7 +30,6 @@ Run tests:
   
     composer test
 
-
 API
 ---
 
