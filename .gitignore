@@ -1,1 +1,4 @@
-build/
+/composer.lock
+/vendor/
+/tests/.phpunit.result.cache
+.~*

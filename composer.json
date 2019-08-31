@@ -18,11 +18,17 @@
     "autoload": {
         "classmap": [
             "lib/FirePHPCore/FirePHP.class.php",
+            "lib/FirePHPCore/FirePHP_TestWrapper.class.php",
             "lib/FirePHPCore/fb.php"
         ],
         "files": [
             "lib/FirePHPCore/fb.php"
         ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    },
+    "scripts": {
+        "test": "phpunit --testdox --configuration tests/phpunit.xml"
     }
 }
-
