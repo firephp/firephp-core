@@ -335,7 +335,37 @@ class FirePHP {
     {
         $this->objectFilters[strtolower($class)] = $filter;
     }
-  
+
+    /**
+     * Check if the property of an object of a specific class
+     * should be ignored by looking up the class and all
+     * parent classes in the object filter.
+     * 
+     * @param string $class The class to check
+     * @param string $name The property name to check
+     * @return boolean
+     */
+    protected function _isClassPropertyInObjectFilter($class, $name)
+    {
+        $classes = class_parents($class);
+        array_unshift($classes, $class);
+        $hidden = false;
+        foreach ($classes as $class) {
+            if ($hidden) {
+                break;
+            }
+            $classLower = strtolower($class);
+            if (
+                isset($this->objectFilters[$classLower]) &&
+                is_array($this->objectFilters[$classLower]) &&
+                in_array($name, $this->objectFilters[$classLower])
+            ) {
+                $hidden = true;
+            }
+        }
+        return $hidden;
+    }
+
     /**
      * Set some options for the library
      * 
@@ -1313,7 +1343,6 @@ class FirePHP {
             array_push($this->objectStack, $object);
                     
             $return['__className'] = $class = get_class($object);
-            $classLower = strtolower($class);
 
             $reflectionClass = new ReflectionClass($class);
             $properties = array();
@@ -1338,11 +1367,8 @@ class FirePHP {
                     $name = 'protected:' . $name;
                     $rawName = "\0" . '*' . "\0" . $rawName;
                 }
-    
-                if (!(isset($this->objectFilters[$classLower])
-                     && is_array($this->objectFilters[$classLower])
-                     && in_array($plainName, $this->objectFilters[$classLower]))) {
-    
+
+                if (!$this->_isClassPropertyInObjectFilter($class, $plainName)) {
                     if (array_key_exists($rawName, $members) && !$property->isStatic()) {
                         $return[$name] = $this->encodeObject($members[$rawName], $objectDepth + 1, 1, $maxDepth + 1);
                     } else {
@@ -1377,10 +1403,7 @@ class FirePHP {
                 if (!isset($properties[$name])) {
                     $name = 'undeclared:' . $name;
     
-                    if (!(isset($this->objectFilters[$classLower])
-                         && is_array($this->objectFilters[$classLower])
-                         && in_array($plainName, $this->objectFilters[$classLower]))) {
-    
+                    if (!$this->_isClassPropertyInObjectFilter($class, $plainName)) {    
                         $return[$name] = $this->encodeObject($value, $objectDepth + 1, 1, $maxDepth + 1);
                     } else {
                         $return[$name] = '** Excluded by Filter **';
