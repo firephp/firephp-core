@@ -7,6 +7,7 @@ The FirePHP server library for PHP reference implementation compatible with the 
 
 > FirePHP is a logging system that can display PHP variables in a browser as an application is navigated. All communication happens via HTTP headers which means the logging data will not interfere with the normal functioning of the application.
 
+
 Install
 -------
 
@@ -24,14 +25,21 @@ Requirements:
 
   * [php](https://www.php.net/)
   * [composer](https://getcomposer.org/)
+  * [npm](https://www.npmjs.com/get-npm)
 
 Install dependencies:
 
     composer install
 
 Run tests:
-  
+
     composer test
+
+Test driven development:
+
+    # npm install -g nodemon
+    nodemon
+
 
 API
 ---
@@ -42,7 +50,7 @@ API
 Provenance
 ==========
 
-Original Source Logic under [MIT License](https://opensource.org/licenses/mit-license) by [Christoph Dorn](http://christophdorn.com) since 2007.
+Licensed under the [MIT License](https://opensource.org/licenses/mit-license) by [Christoph Dorn](http://christophdorn.com) since 2007.
 
 ```
 Copyright (c) 2007+ Christoph Dorn

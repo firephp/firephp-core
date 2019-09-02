@@ -36,4 +36,16 @@ class Features_Options extends TestCase
         }
         if(!$caught) $this->fail('No exception thrown');
     }
+
+    public function testSetFileLine()
+    {
+        $firephp = new FirePHP_TestWrapper();
+
+        $firephp->log('Hello World', 'Label', array("File"=>"/file/path", "Line"=>"1"));
+
+        $this->assertEquals(
+            $firephp->_getHeader(4),
+            '79|[{"File":"\/file\/path","Line":"1","Type":"LOG","Label":"Label"},"Hello World"]|'
+        );
+    }
 }

@@ -1,15 +1,25 @@
-<phpunit bootstrap="../vendor/autoload.php" beStrictAboutTestsThatDoNotTestAnything="false">
-
+<phpunit
+  bootstrap="../vendor/autoload.php"
+  beStrictAboutTestsThatDoNotTestAnything="false"
+>
   <testsuites>
+
     <testsuite name="Issues">
       <file>Issues.php</file>
     </testsuite>
     <testsuite name="Deprecation">
       <file>Deprecation.php</file>
     </testsuite>
+
     <testsuite name="Features">
-      <directory>Features</directory>
+      <file>Features/01-Logging.php</file>
+      <file>Features/02-Dumping.php</file>
+      <file>Features/03-Labels.php</file>
+      <file>Features/04-Options.php</file>
+      <file>Features/05-RecursiveEncoding.php</file>
+      <file>Features/06-Newlines.php</file>
     </testsuite>
+
   </testsuites>
 
 </phpunit>
