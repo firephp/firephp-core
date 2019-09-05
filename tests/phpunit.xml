@@ -20,6 +20,7 @@
       <file>Features/06-Newlines.php</file>
       <file>Features/07-EncoderOptions.php</file>
       <file>Features/08-Primitives.php</file>
+      <file>Features/09-Wrappers.php</file>
     </testsuite>
 
   </testsuites>

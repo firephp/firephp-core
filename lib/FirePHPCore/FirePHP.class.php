@@ -205,7 +205,8 @@ class FirePHP {
                                'maxObjectDepth' => 5,
                                'maxArrayDepth' => 5,
                                'useNativeJsonEncode' => true,
-                               'includeLineNumbers' => true);
+                               'includeLineNumbers' => true,
+                               'lineNumberOffset' => 0);
 
     /**
      * Filters used to exclude object members when encoding
@@ -1073,10 +1074,10 @@ class FirePHP {
         
         if ($this->options['includeLineNumbers']) {
             if (!isset($meta['file']) || !isset($meta['line'])) {
-    
+
                 $trace = debug_backtrace();
+                $encounteredCount = 0;
                 for ($i = 0; $trace && $i < sizeof($trace); $i++) {
-          
                     if (isset($trace[$i]['class'])
                        && isset($trace[$i]['file'])
                        && ($trace[$i]['class'] == 'FirePHP'
@@ -1095,6 +1096,19 @@ class FirePHP {
                        && substr($this->_standardizePath($trace[$i]['file']), -1*$fbLength, $fbLength) == $parentFolder.'/fb.php') {
                         /* Skip FB::fb() */
                     } else {
+                        if (
+                            (
+                                isset($options['lineNumberOffset']) &&
+                                $encounteredCount < $options['lineNumberOffset']
+                            ) ||
+                            (
+                                !isset($options['lineNumberOffset']) &&
+                                $encounteredCount < $this->options['lineNumberOffset']
+                            )
+                        ) {
+                            $encounteredCount += 1;
+                            continue;
+                        }
                         $meta['file'] = isset($trace[$i]['file']) ? $this->_escapeTraceFile($trace[$i]['file']) : '';
                         $meta['line'] = isset($trace[$i]['line']) ? $trace[$i]['line'] : '';
                         break;
@@ -1121,6 +1135,9 @@ class FirePHP {
             $msg = '{"' . $label . '":' . $this->jsonEncode($object, $skipFinalObjectEncode) . '}';
         } else {
             $msgMeta = $options;
+            foreach($this->options as $key => $val) {
+                unset($msgMeta[$key]);
+            }
             $msgMeta['Type'] = $type;
             if ($label !== null) {
                 $msgMeta['Label'] = $label;
