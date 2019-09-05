@@ -13,8 +13,11 @@ class Features_RecursiveEncoding extends TestCase
         $obj->child = $obj;
 
         $firephp->log($obj, "label", array("File"=>"/file/path", "Line"=>"1"));
-        $headers = $firephp->_getHeaders();
-        $this->assertEquals('165|[{"File":"\/file\/path","Line":"1","Type":"LOG","Label":"label"},{"__className":"TestObject","public:var":"value","undeclared:child":"** Recursion (TestObject) **"}]|', $headers['X-Wf-1-1-1-1']);
+        
+        $this->assertEquals(
+            $firephp->_getHeader(4),
+            '165|[{"File":"\/file\/path","Line":"1","Type":"LOG","Label":"label"},{"__className":"TestObject","public:var":"value","undeclared:child":"** Recursion (TestObject) **"}]|'
+        );
     }
 }
 

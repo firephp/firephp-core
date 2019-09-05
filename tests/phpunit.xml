@@ -18,6 +18,8 @@
       <file>Features/04-Options.php</file>
       <file>Features/05-RecursiveEncoding.php</file>
       <file>Features/06-Newlines.php</file>
+      <file>Features/07-EncoderOptions.php</file>
+      <file>Features/08-Primitives.php</file>
     </testsuite>
 
   </testsuites>

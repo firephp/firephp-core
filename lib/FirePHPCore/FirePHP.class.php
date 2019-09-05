@@ -953,7 +953,14 @@ class FirePHP {
                                 'File' => $this->_escapeTraceFile($object->getFile()),
                                 'Line' => $object->getLine(),
                                 'Type' => 'trigger',
-                                'Trace' => $this->_escapeTrace(array_splice($trace, 2)));
+                                'Trace' => $this->_escapeTrace(array_splice($trace, 2), array(
+                                    'maxDepth' => 2,
+                                    'includeMaxDepthProperties' => false,
+                                    'includeStaticProperties' => false,
+                                    'includePrivateProperties' => false,
+                                    'includeProtectedProperties' => false,
+                                    'includeUndeclaredProperties' => false
+                                )));
                 $skipFinalObjectEncode = true;
             } else {
                 $object = array('Class' => get_class($object),
@@ -961,7 +968,14 @@ class FirePHP {
                                 'File' => $this->_escapeTraceFile($object->getFile()),
                                 'Line' => $object->getLine(),
                                 'Type' => 'throw',
-                                'Trace' => $this->_escapeTrace($trace));
+                                'Trace' => $this->_escapeTrace($trace, array(
+                                    'maxDepth' => 2,
+                                    'includeMaxDepthProperties' => false,
+                                    'includeStaticProperties' => false,
+                                    'includePrivateProperties' => false,
+                                    'includeProtectedProperties' => false,
+                                    'includeUndeclaredProperties' => false
+                                )));
                 $skipFinalObjectEncode = true;
             }
             $type = self::EXCEPTION;
@@ -996,25 +1010,53 @@ class FirePHP {
                                     'Message' => $trace[$i]['args'][0],
                                     'File' => isset($trace[$i]['file']) ? $this->_escapeTraceFile($trace[$i]['file']) : '',
                                     'Line' => isset($trace[$i]['line']) ? $trace[$i]['line'] : '',
-                                    'Args' => isset($trace[$i]['args']) ? $this->encodeObject($trace[$i]['args']) : '',
-                                    'Trace' => $this->_escapeTrace(array_splice($trace, $i + 1)));
-        
+                                    'Args' => isset($trace[$i]['args']) ? $this->encodeObject($trace[$i]['args'], 1, 1, 1, array(
+                                        'maxDepth' => 2,
+                                        'includeMaxDepthProperties' => false,
+                                        'includeStaticProperties' => false,
+                                        'includePrivateProperties' => false,
+                                        'includeProtectedProperties' => false,
+                                        'includeUndeclaredProperties' => false
+                                    )) : '',
+                                    'Trace' => $this->_escapeTrace(array_splice($trace, $i + 1), array(
+                                        'maxDepth' => 2,
+                                        'includeMaxDepthProperties' => false,
+                                        'includeStaticProperties' => false,
+                                        'includePrivateProperties' => false,
+                                        'includeProtectedProperties' => false,
+                                        'includeUndeclaredProperties' => false
+                                    )));
+
                     $skipFinalObjectEncode = true;
                     $meta['file'] = isset($trace[$i]['file']) ? $this->_escapeTraceFile($trace[$i]['file']) : '';
                     $meta['line'] = isset($trace[$i]['line']) ? $trace[$i]['line'] : '';
                     break;
                 }
             }
-    
+
         } else
         if ($type == self::TABLE) {
-          
+
             if (isset($object[0]) && is_string($object[0])) {
-                $object[1] = $this->encodeTable($object[1]);
+                $object[1] = $this->encodeTable($object[1], array(
+                    'maxDepth' => 2,
+                    'includeMaxDepthProperties' => false,
+                    'includeStaticProperties' => false,
+                    'includePrivateProperties' => false,
+                    'includeProtectedProperties' => false,
+                    'includeUndeclaredProperties' => false
+                ));
             } else {
-                $object = $this->encodeTable($object);
+                $object = $this->encodeTable($object, array(
+                    'maxDepth' => 2,
+                    'includeMaxDepthProperties' => false,
+                    'includeStaticProperties' => false,
+                    'includePrivateProperties' => false,
+                    'includeProtectedProperties' => false,
+                    'includeUndeclaredProperties' => false
+                ));
             }
-    
+
             $skipFinalObjectEncode = true;
           
         } else if ($type == self::GROUP_START) {
@@ -1140,7 +1182,7 @@ class FirePHP {
      * @param array $trace
      * @return array
      */
-    protected function _escapeTrace($trace)
+    protected function _escapeTrace($trace, $options = array())
     {
         if (!$trace) return $trace;
         for ($i = 0; $i < sizeof($trace); $i++) {
@@ -1148,7 +1190,7 @@ class FirePHP {
                 $trace[$i]['file'] = $this->_escapeTraceFile($trace[$i]['file']);
             }
             if (isset($trace[$i]['args'])) {
-                $trace[$i]['args'] = $this->encodeObject($trace[$i]['args']);
+                $trace[$i]['args'] = $this->encodeObject($trace[$i]['args'], 1, 1, 1, $options);
             }
         }
         return $trace;    
@@ -1287,7 +1329,7 @@ class FirePHP {
      * @param array $table The table to be encoded
      * @return array
      */  
-    protected function encodeTable($table)
+    protected function encodeTable($table, $options = array())
     {
         if (!$table) return $table;
         
@@ -1298,7 +1340,7 @@ class FirePHP {
                 $newRow = array();
 
                 foreach ($row as $item) {
-                    $newRow[] = $this->encodeObject($item);
+                    $newRow[] = $this->encodeObject($item, 1, 1, 1, $options);
                 }
 
                 $newTable[] = $newRow;
@@ -1313,13 +1355,22 @@ class FirePHP {
      * protected and private visibility
      * 
      * @param object $object The object to be encoded
-     * @param integer $Depth The current traversal depth
+     * @param integer $objectDepth The current object traversal depth
+     * @param integer $arrayDepth The current array traversal depth
+     * @param integer $maxDepth The current max object or array traversal depth
+     * @param array $options Encoding options
      * @return array All members of the object
      */
-    protected function encodeObject($object, $objectDepth = 1, $arrayDepth = 1, $maxDepth = 1)
+    protected function encodeObject($object, $objectDepth = 1, $arrayDepth = 1, $maxDepth = 1, $options = array())
     {
-        if ($maxDepth > $this->options['maxDepth']) {
-            return '** Max Depth (' . $this->options['maxDepth'] . ') **';
+        if (
+            $maxDepth > $this->options['maxDepth'] ||
+            (
+                isset($options['maxDepth']) &&
+                $maxDepth > $options['maxDepth']
+            )
+        ) {
+            return '** Max Depth (' . $maxDepth . ') **';
         }
 
         $return = array();
@@ -1356,34 +1407,52 @@ class FirePHP {
     
                 $name = $rawName = $plainName;
                 if ($property->isStatic()) {
+                    if (isset($options['includeStaticProperties']) && $options['includeStaticProperties'] === false) {
+                        continue;
+                    }
                     $name = 'static:' . $name;
                 }
                 if ($property->isPublic()) {
                     $name = 'public:' . $name;
                 } else if ($property->isPrivate()) {
+                    if (isset($options['includePrivateProperties']) && $options['includePrivateProperties'] === false) {
+                        continue;
+                    }
                     $name = 'private:' . $name;
                     $rawName = "\0" . $class . "\0" . $rawName;
                 } else if ($property->isProtected()) {
+                    if (isset($options['includeProtectedProperties']) && $options['includeProtectedProperties'] === false) {
+                        continue;
+                    }
                     $name = 'protected:' . $name;
                     $rawName = "\0" . '*' . "\0" . $rawName;
                 }
 
                 if (!$this->_isClassPropertyInObjectFilter($class, $plainName)) {
                     if (array_key_exists($rawName, $members) && !$property->isStatic()) {
-                        $return[$name] = $this->encodeObject($members[$rawName], $objectDepth + 1, 1, $maxDepth + 1);
+                        $return[$name] = $this->encodeObject($members[$rawName], $objectDepth + 1, 1, $maxDepth + 1, $options);
                     } else {
                         if (method_exists($property, 'setAccessible')) {
                             $property->setAccessible(true);
-                            $return[$name] = $this->encodeObject($property->getValue($object), $objectDepth + 1, 1, $maxDepth + 1);
+                            $return[$name] = $this->encodeObject($property->getValue($object), $objectDepth + 1, 1, $maxDepth + 1, $options);
                         } else
                         if ($property->isPublic()) {
-                            $return[$name] = $this->encodeObject($property->getValue($object), $objectDepth + 1, 1, $maxDepth + 1);
+                            $return[$name] = $this->encodeObject($property->getValue($object), $objectDepth + 1, 1, $maxDepth + 1, $options);
                         } else {
                             $return[$name] = '** Need PHP 5.3 to get value **';
                         }
                     }
                 } else {
                     $return[$name] = '** Excluded by Filter **';
+                }
+
+                if (
+                    isset($options['includeMaxDepthProperties']) && 
+                    $options['includeMaxDepthProperties'] === false &&
+                    is_string($return[$name]) &&
+                    substr($return[$name], 0, 14) === '** Max Depth ('
+                ) {
+                    unset($return[$name]);
                 }
             }
             
@@ -1401,13 +1470,25 @@ class FirePHP {
                 $plainName = $name;
     
                 if (!isset($properties[$name])) {
+                    if (isset($options['includeUndeclaredProperties']) && $options['includeUndeclaredProperties'] === false) {
+                        continue;
+                    }                        
                     $name = 'undeclared:' . $name;
     
                     if (!$this->_isClassPropertyInObjectFilter($class, $plainName)) {    
-                        $return[$name] = $this->encodeObject($value, $objectDepth + 1, 1, $maxDepth + 1);
+                        $return[$name] = $this->encodeObject($value, $objectDepth + 1, 1, $maxDepth + 1, $options);
                     } else {
                         $return[$name] = '** Excluded by Filter **';
                     }
+
+                    if (
+                        isset($options['includeMaxDepthProperties']) && 
+                        $options['includeMaxDepthProperties'] === false &&
+                        is_string($return[$name]) &&
+                        substr($return[$name], 0, 14) === '** Max Depth ('
+                    ) {
+                        unset($return[$name]);
+                    }    
                 }
             }
             
@@ -1435,9 +1516,28 @@ class FirePHP {
                     $key = utf8_encode($key);
                 }
 
-                $return[$key] = $this->encodeObject($val, 1, $arrayDepth + 1, $maxDepth + 1);
+                $return[$key] = $this->encodeObject($val, 1, $arrayDepth + 1, $maxDepth + 1, $options);
+
+                if (
+                    isset($options['includeMaxDepthProperties']) && 
+                    $options['includeMaxDepthProperties'] === false &&
+                    is_string($return[$key]) &&
+                    substr($return[$key], 0, 14) === '** Max Depth ('
+                ) {
+                    unset($return[$key]);
+                }    
             }
-		} elseif ( is_bool($object) ) {
+
+            if (
+                isset($options['includeMaxDepthProperties']) && 
+                $options['includeMaxDepthProperties'] === false &&
+                count($object) > 0 &&
+                count($return) == 0
+            ) {
+                return '** Max Depth (' . $maxDepth . ') **';
+            }    
+
+        } elseif ( is_bool($object) ) {
 			return $object;
 		} elseif ( is_null($object) ) {
 			return $object;

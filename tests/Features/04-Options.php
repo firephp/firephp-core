@@ -48,4 +48,48 @@ class Features_Options extends TestCase
             '79|[{"File":"\/file\/path","Line":"1","Type":"LOG","Label":"Label"},"Hello World"]|'
         );
     }
+
+    public function testDoNotIncludeFileLine()
+    {
+        $firephp = new FirePHP_TestWrapper();
+
+        $firephp->log('Hello World');
+
+        $this->assertEquals(
+            $firephp->_getHeader(4),
+            '135|[{"Type":"LOG","File":"...\/tests\/Features\/04-Options.php","Line":' . (__LINE__-4) . '},"Hello World"]|'
+        );
+
+        $firephp->setOption('includeLineNumbers', false);
+
+        $firephp->log('Hello World');
+
+        $this->assertEquals(
+            $firephp->_getHeader(6),
+            '30|[{"Type":"LOG"},"Hello World"]|'
+        );
+    }
+
+    public function testNativeEncode()
+    {
+        $firephp = new FirePHP_TestWrapper();
+
+        $firephp->setOption('useNativeJsonEncode', false);
+
+        $firephp->log('Hello World');
+
+        $this->assertEquals(
+            $firephp->_getHeader(4),
+            '135|[{"Type":"LOG","File":"...\/tests\/Features\/04-Options.php","Line":' . (__LINE__-4) . '},"Hello World"]|'
+        );
+
+        $firephp->setOption('useNativeJsonEncode', true);
+
+        $firephp->log('Hello World');
+
+        $this->assertEquals(
+            $firephp->_getHeader(6),
+            '135|[{"Type":"LOG","File":"...\/tests\/Features\/04-Options.php","Line":' . (__LINE__-4) . '},"Hello World"]|'
+        );
+    }
 }
