@@ -48,6 +48,24 @@ class Features_IgnoreInTraces extends TestCase
         );
     }
 
+    public function testWrapperIgnoreClassWithOffset()
+    {
+        $firephp = new MyFirePHPWrapper2();
+
+        $firephp->ignoreClassInTraces('PHPUnit\\Framework\\TestCase');
+        $firephp->ignoreClassInTraces('PHPUnit\\Framework\\TestSuite');
+        $firephp->ignoreClassInTraces('PHPUnit\TextUI');
+
+        $firephp->setOption('lineNumberOffset', 1);
+
+        $firephp->mytrace('Trace from here');
+
+        $this->assertEquals(
+            $firephp->_getHeader(4),
+            '875|[{"Type":"TRACE","Label":"Trace from here","File":"...\/tests\/Features\/10-IgnoreInTraces.php","Line":' . (__LINE__-4) . '},{"Class":"MyFirePHPWrapper2","Type":"->","Function":"mytrace","Message":"Trace from here","File":"...\/tests\/Features\/10-IgnoreInTraces.php","Line":61,"Args":["Trace from here"],"Trace":[{"file":"...\/tests\/Features\/10-IgnoreInTraces.php","line":61,"function":"mytrace","class":"MyFirePHPWrapper2","object":{},"type":"->","args":["Trace from here"]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":1327,"function":"testWrapperIgnoreClassWithOffset","class":"Features_IgnoreInTraces","object":{},"type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":679,"function":"run","class":"PHPUnit\\\\Framework\\\\TestResult","object":{},"type":"->","args":[{"__className":"Features_IgnoreInTraces"}]}]}]|'
+        );
+    }
+    
     public function testWrapperIgnoreFile()
     {
         $firephp = new MyFirePHPWrapper2();

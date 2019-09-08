@@ -1099,8 +1099,28 @@ class FirePHP {
             if (!isset($options['trace'])) {
                 throw new Exception("No 'trace' option found for trace log!");
             }
-            
-            $callingFrame = array_shift($options['trace']);
+
+            $encounteredCount = 0;
+            for ($i = 0; $i < sizeof($options['trace']); $i++) {
+                if (
+                    (
+                        isset($options['lineNumberOffset']) &&
+                        $encounteredCount < $options['lineNumberOffset']
+                    ) ||
+                    (
+                        !isset($options['lineNumberOffset']) &&
+                        $encounteredCount < $this->options['lineNumberOffset']
+                    )
+                ) {
+                    $encounteredCount += 1;
+                    continue;
+                }
+                $callingFrame = $options['trace'][$i];
+                array_splice($options['trace'], 0, $i);
+                break;
+            }            
+
+//            $callingFrame = array_shift($options['trace']);
 
             $trace = $this->filterDebugBacktrace($options['trace']);
 
