@@ -13,14 +13,14 @@ class Features_Newlines extends TestCase
 
       $this->assertEquals(
          $firephp->_getHeader(4),
-         '138|[{"Type":"LOG","File":"...\/tests\/Features\/06-Newlines.php","Line":' . (__LINE__-4) . '},"Hello\\\\nWorld"]|'
+         '89|[{"Type":"LOG","File":"...\/tests\/Features\/06-Newlines.php","Line":' . (__LINE__-4) . '},"Hello\\\\nWorld"]|'
       );
 
       $firephp->log(array('Hello\nWorld'));
 
       $this->assertEquals(
          $firephp->_getHeader(6),
-         '140|[{"Type":"LOG","File":"...\/tests\/Features\/06-Newlines.php","Line":' . (__LINE__-4) . '},["Hello\\\\nWorld"]]|'
+         '91|[{"Type":"LOG","File":"...\/tests\/Features\/06-Newlines.php","Line":' . (__LINE__-4) . '},["Hello\\\\nWorld"]]|'
       );
 
       $firephp->table('Table cell with newline', array(
@@ -30,7 +30,7 @@ class Features_Newlines extends TestCase
 
       $this->assertEquals(
          $firephp->_getHeader(7),
-         '202|[{"Type":"TABLE","Label":"Table cell with newline","File":"...\/tests\/Features\/06-Newlines.php","Line":' . (__LINE__-6) . '},[["Header\\\\nSubheading"],["Hello\\\\nWorld"]]]|'
+         '153|[{"Type":"TABLE","Label":"Table cell with newline","File":"...\/tests\/Features\/06-Newlines.php","Line":' . (__LINE__-6) . '},[["Header\\\\nSubheading"],["Hello\\\\nWorld"]]]|'
       );
    }
 }

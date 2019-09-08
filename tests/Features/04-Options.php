@@ -57,7 +57,7 @@ class Features_Options extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '135|[{"Type":"LOG","File":"...\/tests\/Features\/04-Options.php","Line":' . (__LINE__-4) . '},"Hello World"]|'
+            '86|[{"Type":"LOG","File":"...\/tests\/Features\/04-Options.php","Line":' . (__LINE__-4) . '},"Hello World"]|'
         );
 
         $firephp->setOption('includeLineNumbers', false);
@@ -80,7 +80,7 @@ class Features_Options extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '135|[{"Type":"LOG","File":"...\/tests\/Features\/04-Options.php","Line":' . (__LINE__-4) . '},"Hello World"]|'
+            '86|[{"Type":"LOG","File":"...\/tests\/Features\/04-Options.php","Line":' . (__LINE__-4) . '},"Hello World"]|'
         );
 
         $firephp->setOption('useNativeJsonEncode', true);
@@ -89,7 +89,7 @@ class Features_Options extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(6),
-            '135|[{"Type":"LOG","File":"...\/tests\/Features\/04-Options.php","Line":' . (__LINE__-4) . '},"Hello World"]|'
+            '86|[{"Type":"LOG","File":"...\/tests\/Features\/04-Options.php","Line":' . (__LINE__-4) . '},"Hello World"]|'
         );
     }
 }

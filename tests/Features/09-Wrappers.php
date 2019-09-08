@@ -13,7 +13,7 @@ class Features_Wrappers extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '131|[{"Type":"LOG","File":"...\/tests\/Features\/09-Wrappers.php","Line":' . (__LINE__-4) .  '},"String"]|'
+            '82|[{"Type":"LOG","File":"...\/tests\/Features\/09-Wrappers.php","Line":' . (__LINE__-4) .  '},"String"]|'
         );
     }
 
@@ -27,7 +27,7 @@ class Features_Wrappers extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '131|[{"Type":"LOG","File":"...\/tests\/Features\/09-Wrappers.php","Line":' . (__LINE__-4) .  '},"String"]|'
+            '82|[{"Type":"LOG","File":"...\/tests\/Features\/09-Wrappers.php","Line":' . (__LINE__-4) .  '},"String"]|'
         );
     }
 
@@ -39,7 +39,7 @@ class Features_Wrappers extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '131|[{"Type":"LOG","File":"...\/tests\/Features\/09-Wrappers.php","Line":' . (__LINE__-4) .  '},"String"]|'
+            '82|[{"Type":"LOG","File":"...\/tests\/Features\/09-Wrappers.php","Line":' . (__LINE__-4) .  '},"String"]|'
         );
     }
 }

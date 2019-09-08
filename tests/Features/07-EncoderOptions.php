@@ -39,7 +39,7 @@ class Features_EncoderOptions extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '406|[{"Type":"LOG","File":"...\/tests\/Features\/07-EncoderOptions.php","Line":' . (__LINE__-4) .  '},{"__className":"Test1","undeclared:sub1":{"key1":{"__className":"Test2","undeclared:sub2":{"key2":{"key3":{"key4":{"__className":"Test3","undeclared:sub3":{"__className":"Test4","undeclared:sub4":{"__className":"Test5","undeclared:sub5":{"key5":"** Max Depth (11) **"}}}}}}}}}}]|'
+            '357|[{"Type":"LOG","File":"...\/tests\/Features\/07-EncoderOptions.php","Line":' . (__LINE__-4) .  '},{"__className":"Test1","undeclared:sub1":{"key1":{"__className":"Test2","undeclared:sub2":{"key2":{"key3":{"key4":{"__className":"Test3","undeclared:sub3":{"__className":"Test4","undeclared:sub4":{"__className":"Test5","undeclared:sub5":{"key5":"** Max Depth (11) **"}}}}}}}}}}]|'
         );
     }
 
@@ -53,7 +53,7 @@ class Features_EncoderOptions extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '267|[{"Type":"LOG","File":"...\/tests\/Features\/07-EncoderOptions.php","Line":' . (__LINE__-4) .  '},{"__className":"Test1","undeclared:sub1":{"key1":{"__className":"Test2","undeclared:sub2":{"key2":{"key3":"** Max Array Depth (2) **"}}}}}]|'
+            '218|[{"Type":"LOG","File":"...\/tests\/Features\/07-EncoderOptions.php","Line":' . (__LINE__-4) .  '},{"__className":"Test1","undeclared:sub1":{"key1":{"__className":"Test2","undeclared:sub2":{"key2":{"key3":"** Max Array Depth (2) **"}}}}}]|'
         );
     }
 
@@ -67,7 +67,7 @@ class Features_EncoderOptions extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '361|[{"Type":"LOG","File":"...\/tests\/Features\/07-EncoderOptions.php","Line":' . (__LINE__-4) .  '},{"__className":"Test1","undeclared:sub1":{"key1":{"__className":"Test2","undeclared:sub2":{"key2":{"key3":{"key4":{"__className":"Test3","undeclared:sub3":{"__className":"Test4","undeclared:sub4":"** Max Object Depth (2) **"}}}}}}}}]|'
+            '312|[{"Type":"LOG","File":"...\/tests\/Features\/07-EncoderOptions.php","Line":' . (__LINE__-4) .  '},{"__className":"Test1","undeclared:sub1":{"key1":{"__className":"Test2","undeclared:sub2":{"key2":{"key3":{"key4":{"__className":"Test3","undeclared:sub3":{"__className":"Test4","undeclared:sub4":"** Max Object Depth (2) **"}}}}}}}}]|'
         );
     }
 
@@ -81,7 +81,7 @@ class Features_EncoderOptions extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '201|[{"Type":"LOG","File":"...\/tests\/Features\/07-EncoderOptions.php","Line":' . (__LINE__-4) .  '},{"__className":"Test1","undeclared:sub1":{"key1":"** Max Depth (3) **"}}]|'
+            '152|[{"Type":"LOG","File":"...\/tests\/Features\/07-EncoderOptions.php","Line":' . (__LINE__-4) .  '},{"__className":"Test1","undeclared:sub1":{"key1":"** Max Depth (3) **"}}]|'
         );
     }
 }

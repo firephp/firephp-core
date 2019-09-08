@@ -13,7 +13,7 @@ class Features_Labels extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '150|[{"Type":"LOG","Label":"Label","File":"...\/tests\/Features\/03-Labels.php","Line":' . (__LINE__-4) . '},"Hello World"]|'
+            '101|[{"Type":"LOG","Label":"Label","File":"...\/tests\/Features\/03-Labels.php","Line":' . (__LINE__-4) . '},"Hello World"]|'
         );
     }
 }

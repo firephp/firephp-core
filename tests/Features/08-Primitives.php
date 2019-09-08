@@ -13,7 +13,7 @@ class Features_Primitives extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '133|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},"String"]|'
+            '84|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},"String"]|'
         );
     }
 
@@ -25,7 +25,7 @@ class Features_Primitives extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '158|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},"\u0427\u0442\u043e-\u0442\u043e"]|'
+            '109|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},"\u0427\u0442\u043e-\u0442\u043e"]|'
         );
     }
 
@@ -37,7 +37,7 @@ class Features_Primitives extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '142|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},["item1","item2"]]|'
+            '93|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},["item1","item2"]]|'
         );
     }
 
@@ -52,7 +52,7 @@ class Features_Primitives extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '154|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-6) .  '},{"key1":"val1","key2":"val2"}]|'
+            '105|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-6) .  '},{"key1":"val1","key2":"val2"}]|'
         );
     }
 
@@ -64,7 +64,7 @@ class Features_Primitives extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '154|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},{"__className":"ArrayObject"}]|'
+            '105|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},{"__className":"ArrayObject"}]|'
         );
     }
 
@@ -76,7 +76,7 @@ class Features_Primitives extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '126|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},1]|'
+            '77|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},1]|'
         );
     }
 
@@ -88,7 +88,7 @@ class Features_Primitives extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '129|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},true]|'
+            '80|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},true]|'
         );
     }    
 
@@ -100,7 +100,7 @@ class Features_Primitives extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '129|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},null]|'
+            '80|[{"Type":"LOG","File":"...\/tests\/Features\/08-Primitives.php","Line":' . (__LINE__-4) .  '},null]|'
         );
     }
 }

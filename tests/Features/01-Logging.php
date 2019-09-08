@@ -13,7 +13,7 @@ class Features_Logging extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '135|[{"Type":"LOG","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-4) .  '},"Hello World"]|'
+            '86|[{"Type":"LOG","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-4) .  '},"Hello World"]|'
         );
     }
 
@@ -25,7 +25,7 @@ class Features_Logging extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '135|[{"Type":"LOG","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-4) .  '},"Log Message"]|'
+            '86|[{"Type":"LOG","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-4) .  '},"Log Message"]|'
         );
     }
 
@@ -37,7 +37,7 @@ class Features_Logging extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '137|[{"Type":"INFO","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-4) .  '},"Info Message"]|'
+            '88|[{"Type":"INFO","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-4) .  '},"Info Message"]|'
         );
     }
 
@@ -49,7 +49,7 @@ class Features_Logging extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '140|[{"Type":"WARN","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-4) .  '},"Warning Message"]|'
+            '91|[{"Type":"WARN","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-4) .  '},"Warning Message"]|'
         );
     }
 
@@ -61,7 +61,7 @@ class Features_Logging extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '139|[{"Type":"ERROR","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-4) .  '},"Error Message"]|'
+            '90|[{"Type":"ERROR","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-4) .  '},"Error Message"]|'
         );
     }
 
@@ -73,7 +73,7 @@ class Features_Logging extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '3033|[{"Type":"TRACE","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-4) . '},{"Class":"FirePHP","Type":"->","Function":"trace","Message":"Trace from here","File":"...\/tests\/Features\/01-Logging.php","Line":72,"Args":["Trace from here"],"Trace":[{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":1327,"function":"testTrace","class":"Features_Logging","object":{},"type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":947,"function":"runTest","class":"PHPUnit\\\\Framework\\\\TestCase","object":{},"type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestResult.php","line":691,"function":"runBare","class":"PHPUnit\\\\Framework\\\\TestCase","object":{},"type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":679,"function":"run","class":"PHPUnit\\\\Framework\\\\TestResult","object":{},"type":"->","args":[{"__className":"Features_Logging"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestSuite.php","line":568,"function":"run","class":"PHPUnit\\\\Framework\\\\TestCase","object":{},"type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestSuite.php","line":568,"function":"run","class":"PHPUnit\\\\Framework\\\\TestSuite","object":{},"type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestSuite.php","line":568,"function":"run","class":"PHPUnit\\\\Framework\\\\TestSuite","object":{},"type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/TextUI\/TestRunner.php","line":616,"function":"run","class":"PHPUnit\\\\Framework\\\\TestSuite","object":{},"type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/TextUI\/Command.php","line":201,"function":"doRun","class":"PHPUnit\\\\TextUI\\\\TestRunner","object":{},"type":"->","args":{"0":{"__className":"PHPUnit\\\\Framework\\\\TestSuite"},"2":true}},{"file":"...\/vendor\/phpunit\/phpunit\/src\/TextUI\/Command.php","line":160,"function":"run","class":"PHPUnit\\\\TextUI\\\\Command","object":{},"type":"->","args":{"1":true}},{"file":"...\/vendor\/phpunit\/phpunit\/phpunit","line":61,"function":"main","class":"PHPUnit\\\\TextUI\\\\Command","type":"::","args":[]}]}]|'
+            '2396|[{"Type":"TRACE","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-4) . '},{"Class":"FirePHP","Type":"->","Function":"trace","Message":"Trace from here","File":"...\/tests\/Features\/01-Logging.php","Line":72,"Args":["Trace from here"],"Trace":[{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":1327,"function":"testTrace","class":"Features_Logging","object":{},"type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":947,"function":"runTest","class":"PHPUnit\\\\Framework\\\\TestCase","object":{},"type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestResult.php","line":691,"function":"runBare","class":"PHPUnit\\\\Framework\\\\TestCase","object":{},"type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":679,"function":"run","class":"PHPUnit\\\\Framework\\\\TestResult","object":{},"type":"->","args":[{"__className":"Features_Logging"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestSuite.php","line":568,"function":"run","class":"PHPUnit\\\\Framework\\\\TestCase","object":{},"type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestSuite.php","line":568,"function":"run","class":"PHPUnit\\\\Framework\\\\TestSuite","object":{},"type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestSuite.php","line":568,"function":"run","class":"PHPUnit\\\\Framework\\\\TestSuite","object":{},"type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/TextUI\/TestRunner.php","line":616,"function":"run","class":"PHPUnit\\\\Framework\\\\TestSuite","object":{},"type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/TextUI\/Command.php","line":201,"function":"doRun","class":"PHPUnit\\\\TextUI\\\\TestRunner","object":{},"type":"->","args":{"0":{"__className":"PHPUnit\\\\Framework\\\\TestSuite"},"2":true}},{"file":"...\/vendor\/phpunit\/phpunit\/src\/TextUI\/Command.php","line":160,"function":"run","class":"PHPUnit\\\\TextUI\\\\Command","object":{},"type":"->","args":{"1":true}},{"file":"...\/vendor\/phpunit\/phpunit\/phpunit","line":61,"function":"main","class":"PHPUnit\\\\TextUI\\\\Command","type":"::","args":[]}]}]|'
         );
     }
 
@@ -92,7 +92,7 @@ class Features_Logging extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '3033|[{"Type":"EXCEPTION","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-10) . '},{"Class":"Exception","Message":"Test Exception","File":"...\/tests\/Features\/01-Logging.php","Line":85,"Type":"throw","Trace":[{"file":"...\/tests\/Features\/01-Logging.php","line":88,"function":"test","args":"** Max Depth (1) **"},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":1327,"function":"testException","class":"Features_Logging","type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":947,"function":"runTest","class":"PHPUnit\\\\Framework\\\\TestCase","type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestResult.php","line":691,"function":"runBare","class":"PHPUnit\\\\Framework\\\\TestCase","type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":679,"function":"run","class":"PHPUnit\\\\Framework\\\\TestResult","type":"->","args":[{"__className":"Features_Logging"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestSuite.php","line":568,"function":"run","class":"PHPUnit\\\\Framework\\\\TestCase","type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestSuite.php","line":568,"function":"run","class":"PHPUnit\\\\Framework\\\\TestSuite","type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestSuite.php","line":568,"function":"run","class":"PHPUnit\\\\Framework\\\\TestSuite","type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/TextUI\/TestRunner.php","line":616,"function":"run","class":"PHPUnit\\\\Framework\\\\TestSuite","type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/TextUI\/Command.php","line":201,"function":"doRun","class":"PHPUnit\\\\TextUI\\\\TestRunner","type":"->","args":{"0":{"__className":"PHPUnit\\\\Framework\\\\TestSuite"},"2":true}},{"file":"...\/vendor\/phpunit\/phpunit\/src\/TextUI\/Command.php","line":160,"function":"run","class":"PHPUnit\\\\TextUI\\\\Command","type":"->","args":{"1":true}},{"file":"...\/vendor\/phpunit\/phpunit\/phpunit","line":61,"function":"main","class":"PHPUnit\\\\TextUI\\\\Command","type":"::","args":[]}]}]|'
+            '2347|[{"Type":"EXCEPTION","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-10) . '},{"Class":"Exception","Message":"Test Exception","File":"...\/tests\/Features\/01-Logging.php","Line":85,"Type":"throw","Trace":[{"file":"...\/tests\/Features\/01-Logging.php","line":88,"function":"test","args":"** Max Depth (1) **"},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":1327,"function":"testException","class":"Features_Logging","type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":947,"function":"runTest","class":"PHPUnit\\\\Framework\\\\TestCase","type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestResult.php","line":691,"function":"runBare","class":"PHPUnit\\\\Framework\\\\TestCase","type":"->","args":[]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestCase.php","line":679,"function":"run","class":"PHPUnit\\\\Framework\\\\TestResult","type":"->","args":[{"__className":"Features_Logging"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestSuite.php","line":568,"function":"run","class":"PHPUnit\\\\Framework\\\\TestCase","type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestSuite.php","line":568,"function":"run","class":"PHPUnit\\\\Framework\\\\TestSuite","type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/Framework\/TestSuite.php","line":568,"function":"run","class":"PHPUnit\\\\Framework\\\\TestSuite","type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/TextUI\/TestRunner.php","line":616,"function":"run","class":"PHPUnit\\\\Framework\\\\TestSuite","type":"->","args":[{"__className":"PHPUnit\\\\Framework\\\\TestResult"}]},{"file":"...\/vendor\/phpunit\/phpunit\/src\/TextUI\/Command.php","line":201,"function":"doRun","class":"PHPUnit\\\\TextUI\\\\TestRunner","type":"->","args":{"0":{"__className":"PHPUnit\\\\Framework\\\\TestSuite"},"2":true}},{"file":"...\/vendor\/phpunit\/phpunit\/src\/TextUI\/Command.php","line":160,"function":"run","class":"PHPUnit\\\\TextUI\\\\Command","type":"->","args":{"1":true}},{"file":"...\/vendor\/phpunit\/phpunit\/phpunit","line":61,"function":"main","class":"PHPUnit\\\\TextUI\\\\Command","type":"::","args":[]}]}]|'
         );
     }
 
@@ -111,7 +111,7 @@ class Features_Logging extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '267|[{"Type":"TABLE","Label":"Sample table","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-10) . '},[["Name","Value"],["String","Sample String"],["Array",["Sample","Array"]],["Integer",1],["Boolean",true],["Null",null]]]|'
+            '218|[{"Type":"TABLE","Label":"Sample table","File":"...\/tests\/Features\/01-Logging.php","Line":' . (__LINE__-10) . '},[["Name","Value"],["String","Sample String"],["Array",["Sample","Array"]],["Integer",1],["Boolean",true],["Null",null]]]|'
         );
     }
 
