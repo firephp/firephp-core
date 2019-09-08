@@ -1,7 +1,7 @@
 {
     "uid": "https://github.com/firephp/firephp-core/",
     "name": "firephp-core",
-    "version": "0.5.0-pre.0",
+    "version": "0.5.0-pre.1",
     "description": "Minimal library for sending PHP variables to browsers.",
     "repositories": [
         {
@@ -39,5 +39,13 @@
                 "github": "qbbr"
             }
         }
-    ]
+    ],
+    "nodemonConfig": {
+        "verbose": true,
+        "ignore": [
+            ".git"
+        ],
+        "exec": "composer test",
+        "ext": "php,xml,json"
+    }
 }
