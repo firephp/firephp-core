@@ -986,7 +986,7 @@ class FirePHP {
                     return $msg->log($label);
                 case self::GROUP_END:
                     if (count($insightGroupStack) == 0) {
-                        throw new Error('Too many groupEnd() as opposed to group() calls!');
+                        throw new ErrorException('Too many groupEnd() as opposed to group() calls!');
                     }
                     $group = array_pop($insightGroupStack);
                     return $group->close();
