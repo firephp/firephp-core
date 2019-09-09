@@ -22,6 +22,8 @@
       <file>Features/08-Primitives.php</file>
       <file>Features/09-Wrappers.php</file>
       <file>Features/10-IgnoreInTraces.php</file>
+      <file>Features/11-Groups.php</file>
+      <file>Features/12-FB.php</file>
     </testsuite>
 
   </testsuites>
