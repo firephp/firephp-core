@@ -350,10 +350,10 @@ class FirePHP {
      * Filters are used to exclude object members.
      * 
      * @param string $class The class name of the object
-     * @param array $filter An array of members to exclude
+     * @param mixed $filter An array of members to exclude or 'true' (default) to exclude whole class
      * @return void
      */
-    public function setObjectFilter($class, $filter)
+    public function setObjectFilter($class, $filter = true)
     {
         $this->objectFilters[strtolower($class)] = $filter;
     }
@@ -399,8 +399,16 @@ class FirePHP {
             $classLower = strtolower($class);
             if (
                 isset($this->objectFilters[$classLower]) &&
-                is_array($this->objectFilters[$classLower]) &&
-                in_array($name, $this->objectFilters[$classLower])
+                (
+                    (
+                        is_bool($this->objectFilters[$classLower]) &&
+                        $this->objectFilters[$classLower] == true
+                    ) ||
+                    (
+                        is_array($this->objectFilters[$classLower]) &&
+                        in_array($name, $this->objectFilters[$classLower])
+                    )
+                )
             ) {
                 $hidden = true;
             }
@@ -1515,6 +1523,15 @@ class FirePHP {
             array_push($this->objectStack, $object);
 
             $return['__className'] = $class = get_class($object);
+            $classLower = strtolower($class);
+
+            if (
+                isset($this->objectFilters[$classLower]) &&
+                is_bool($this->objectFilters[$classLower]) &&
+                $this->objectFilters[$classLower] == true
+            ) {
+                return '** Excluded by Filter (' . $class . ') **';
+            }
 
             $reflectionClass = new ReflectionClass($class);
             $properties = array();

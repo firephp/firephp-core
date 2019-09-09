@@ -84,6 +84,29 @@ class Features_EncoderOptions extends TestCase
             '152|[{"Type":"LOG","File":"...\/tests\/Features\/07-EncoderOptions.php","Line":' . (__LINE__-4) .  '},{"__className":"Test1","undeclared:sub1":{"key1":"** Max Depth (3) **"}}]|'
         );
     }
+
+    public function testSetObjectFilter()
+    {
+        $firephp = new FirePHP_TestWrapper();
+
+        $firephp->setObjectFilter('Test3', array('sub3'));
+
+        $firephp->log($this->_makeObjectChain());
+
+        $this->assertEquals(
+            $firephp->_getHeader(4),
+            '268|[{"Type":"LOG","File":"...\/tests\/Features\/07-EncoderOptions.php","Line":' . (__LINE__-4) .  '},{"__className":"Test1","undeclared:sub1":{"key1":{"__className":"Test2","undeclared:sub2":{"key2":{"key3":{"key4":{"__className":"Test3","undeclared:sub3":"** Excluded by Filter **"}}}}}}}]|'
+        );
+
+        $firephp->setObjectFilter('Test3', true);
+
+        $firephp->log($this->_makeObjectChain());
+
+        $this->assertEquals(
+            $firephp->_getHeader(6),
+            '235|[{"Type":"LOG","File":"...\/tests\/Features\/07-EncoderOptions.php","Line":' . (__LINE__-4) . '},{"__className":"Test1","undeclared:sub1":{"key1":{"__className":"Test2","undeclared:sub2":{"key2":{"key3":{"key4":"** Excluded by Filter (Test3) **"}}}}}}]|'
+        );
+    }
 }
 
 class Test1 {
