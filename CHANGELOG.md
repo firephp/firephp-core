@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2019-09-08 - Release Version: 0.5.2
+
+  * Fixed `fb('Trace from here', FirePHP::TRACE)` and removed `Label` meta from trace logs
+
 2019-09-08 - Release Version: 0.5.1
 
   * Tests for logging groups
