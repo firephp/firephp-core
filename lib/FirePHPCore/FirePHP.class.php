@@ -609,8 +609,10 @@ class FirePHP {
      */
     public function group($name, $options = null)
     {
-    
-        if ( !isset($name) ) {
+        if (
+            is_null($name) ||
+            !isset($name)
+        ) {
             throw $this->newException('You must specify a label for the group!');
         }
 
@@ -1180,7 +1182,10 @@ class FirePHP {
           
         } else if ($type == self::GROUP_START) {
           
-            if (!$label) {
+            if (
+                is_null($label) ||
+                !isset($label)
+            ) {
                 throw $this->newException('You must specify a label for the group!');
             }
           

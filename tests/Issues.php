@@ -105,5 +105,40 @@ class Issues extends TestCase
         $this->assertEquals('77|[{"File":"\/file\/path","Line":"1","Type":"ERROR","Label":"label"},"message"]|', $headers['X-Wf-1-1-1-4']);
         $this->assertEquals('15|{"key":"value"}|', $headers['X-Wf-1-2-1-5']);
         $this->assertEquals('89|[{"File":"\/file\/path","Line":"1","Type":"TABLE","Label":"label"},[["header"],["cell"]]]|', $headers['X-Wf-1-1-1-6']);
-    }      
+    }
+
+    /**
+     * @issue https://github.com/firephp/firephp-core/issues/18
+     */
+    public function testGroupZeroLabel()
+    {
+        $firephp = new FirePHP_TestWrapper();
+
+        $firephp->group(0);
+        $firephp->group("0");
+        $firephp->group(false);
+
+        $this->assertEquals(
+            $firephp->_getHeader(4),
+            '82|[{"Type":"GROUP_START","Label":0,"File":"...\/tests\/Issues.php","Line":' . (__LINE__-6) . '},null]|'
+        );
+        $this->assertEquals(
+            $firephp->_getHeader(6),
+            '84|[{"Type":"GROUP_START","Label":"0","File":"...\/tests\/Issues.php","Line":' . (__LINE__-9) . '},null]|'
+        );
+        $this->assertEquals(
+            $firephp->_getHeader(7),
+            '86|[{"Type":"GROUP_START","Label":false,"File":"...\/tests\/Issues.php","Line":' . (__LINE__-12) . '},null]|'
+        );
+
+        try {
+            $firephp->group(null);
+            $this->fail('This should never be reached!');
+        } catch (Exception $e) {
+            $this->assertEquals(
+                $e->getMessage(),
+                'You must specify a label for the group!'
+            );
+        }
+    }
 }
