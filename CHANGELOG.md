@@ -1,22 +1,16 @@
 Changelog
 =========
 
-2019-09-08 - WIP Version: 0.5.0-pre.2
+2019-09-08 - Release Version: 0.5.1
 
   * Tests for logging groups
   * Tests for `fb()` & `FB` class
   * Group title fix for `0` & `false`
   * Ignore encoding whole classes via `setObjectFilter('<class>')`
-
-2019-09-08 - WIP Version: 0.5.0-pre.1
-
   * Tests for all features
   * New `lineNumberOffset` option to change default line offset
   * Better encoder defaults for trace, exception & table
   * Added `ignoreClassInTraces` & `ignorePathInTraces` methods
-
-2019-08-30 - WIP Version: 0.5.0-pre.0
-
   * Improved tests directory structure
   * Updated composer descriptor
   * Initial `phpunit` tests working
