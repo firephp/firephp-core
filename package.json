@@ -1,7 +1,7 @@
 {
     "uid": "https://github.com/firephp/firephp-core/",
     "name": "firephp-core",
-    "version": "0.5.0-pre.2",
+    "version": "0.5.0pre.2",
     "description": "Minimal library for sending PHP variables to browsers.",
     "repositories": [
         {
