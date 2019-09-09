@@ -736,7 +736,7 @@ class FirePHP {
      */
     public function trace($label)
     {
-        return $this->fb($label, $label, FirePHP::TRACE, array(
+        return $this->fb($label, null, FirePHP::TRACE, array(
             'trace' => debug_backtrace()
         ));
     }
@@ -1107,7 +1107,7 @@ class FirePHP {
         } else if ($type == self::TRACE) {
 
             if (!isset($options['trace'])) {
-                throw new Exception("No 'trace' option found for trace log!");
+                $options['trace'] = debug_backtrace();
             }
 
             $encounteredCount = 0;
