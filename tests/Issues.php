@@ -155,7 +155,7 @@ class Issues extends TestCase
 
         $this->assertEquals(
             $firephp->_getHeader(4),
-            '86|[{"Type":"GROUP_START","Label":false,"File":"...\/tests\/Issues.php","Line":' . (__LINE__-12) . '},null]|'
+            '69|[{"Type":"LOG","File":"...\/tests\/Issues.php","Line":' . (__LINE__-5) . '},{"1":[1]}]|'
         );
     }
 }
