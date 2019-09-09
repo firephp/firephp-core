@@ -44,7 +44,7 @@ Test driven development:
 API
 ---
 
-**For API see `tests/` for now.**
+*For API see `tests/` for now.*
 
 
 Provenance
