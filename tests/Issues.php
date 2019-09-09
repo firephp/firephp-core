@@ -141,4 +141,21 @@ class Issues extends TestCase
             );
         }
     }
+
+    /**
+     * @issue https://github.com/firephp/firephp-core/issues/5
+     */
+    public function testIncorrectArrayDisplay()
+    {
+        $firephp = new FirePHP_TestWrapper();
+
+        $firephp->log(array(
+            '1' => array(1)
+        )); 
+
+        $this->assertEquals(
+            $firephp->_getHeader(4),
+            '86|[{"Type":"GROUP_START","Label":false,"File":"...\/tests\/Issues.php","Line":' . (__LINE__-12) . '},null]|'
+        );
+    }
 }
