@@ -40,6 +40,11 @@ Test driven development:
     # npm install -g nodemon
     nodemon
 
+Release:
+
+  1. Update `CHANGELOG.md`
+  2. Git tag repository & push
+
 
 API
 ---

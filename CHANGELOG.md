@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2020-01-17 - Release Version: 0.5.3
+
+  * Fixed php 7.4 deprecated code - https://github.com/firephp/firephp-core/pull/62
+
 2019-09-08 - Release Version: 0.5.2
 
   * Fixed `fb('Trace from here', FirePHP::TRACE)` and removed `Label` meta from trace logs
