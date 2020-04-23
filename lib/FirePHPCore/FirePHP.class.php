@@ -818,7 +818,7 @@ class FirePHP {
                 count($this->ignoredInTraces['classes']) &&
                 isset($trace[$i]['class']) &&
                 (
-                    isset($ignoredInTraces['classes'][$trace[$i]['class']]) ||
+                    isset($this->ignoredInTraces['classes'][$trace[$i]['class']]) ||
                     array_reduce(
                         array_keys($this->ignoredInTraces['classes']),
                         function ($carry, $class) use ($trace, $i)
@@ -839,7 +839,7 @@ class FirePHP {
                 count($this->ignoredInTraces['paths']) &&
                 isset($trace[$i]['file']) &&
                 (
-                    isset($ignoredInTraces['paths'][$trace[$i]['file']]) ||
+                    isset($this->ignoredInTraces['paths'][$trace[$i]['file']]) ||
                     array_reduce(
                         array_keys($this->ignoredInTraces['paths']),
                         function ($carry, $path) use ($trace, $i)
