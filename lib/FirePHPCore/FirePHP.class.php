@@ -482,7 +482,7 @@ class FirePHP {
      *
      * @return mixed Returns a string containing the previously defined error handler (if any)
      */
-    public function registerErrorHandler($throwErrorExceptions = false)
+    public function registerErrorHandler($throwErrorExceptions = false, $use_error_reporting = false)
     {
         //NOTE: The following errors will not be caught by this error handler:
         //      E_ERROR, E_PARSE, E_CORE_ERROR,
@@ -491,7 +491,7 @@ class FirePHP {
 
         $this->throwErrorExceptions = $throwErrorExceptions;
 
-        return set_error_handler(array($this, 'errorHandler'));
+        return $use_error_reporting?set_error_handler(array($this,'errorHandler'),error_reporting()):set_error_handler(array($this,'errorHandler'));
     }
 
     /**
